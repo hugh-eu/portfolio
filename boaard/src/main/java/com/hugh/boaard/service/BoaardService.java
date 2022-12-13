@@ -57,7 +57,7 @@ public class BoaardService {
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSSSSSS");
 		String formatedNow = now.format(formatter);
-		String localPath = request.getSession().getServletContext().getRealPath("/").concat("resources") + File.separator + "note" + File.separator;
+		String localPath = request.getSession().getServletContext().getRealPath("/").concat("resources") + File.separator + "static" + File.separator;
 		String remotePath = "/boaard/notes";
 		String name_note = formatedNow + "_u_no_" + Integer.toString(u_no) + ".png";
 		
