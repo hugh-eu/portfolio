@@ -1,0 +1,170 @@
+.canvasList{
+  	width: 602px;
+  	height: 602px;
+  	position: relative;
+  	margin: 0 auto;
+  	overflow: hidden;
+  	display: none;
+}
+
+.slide {
+	position: absolute;
+	left: 0;
+	top: 0;
+	transition: left 0.5s ease-out;
+}
+
+.slide li{
+	float: left;
+	width: 602px;
+	height: 602px;
+}
+
+.slide li:last-child{
+	width: 600px;
+	height: 600px;
+	border: 1px solid rgb(156, 156, 156);
+	border-radius: 10px;
+}
+
+.slide li img {
+	border: 1px solid rgb(156, 156, 156);
+	border-radius: 10px;
+	display: block;
+	cursor: pointer;
+}
+
+.slide li:last-child img {
+	width: 100px;
+	height: 100px;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	margin: 0 auto;
+	margin-top: 251px;
+}
+
+.slide li:last-child img:hover {
+	width: 104px;
+	height: 104px;
+	margin-top: 249px;
+	opacity: 0.7;
+	transition-duration: .5s;
+}
+
+.controlSlide span {
+	padding: 0px 20px;
+	position: absolute;
+	line-height: 100px;
+	top: 251px;
+	color: rgb(156, 156, 156);
+	background-color: transparent;
+	font-size: 1.5em;
+	cursor: pointer;
+}
+
+.controlSlide span:hover {
+	color: #e0e0e0;
+	transition-duration: .5s;
+}
+
+.prev {
+	left: 10px;
+}
+
+.prev:hover{
+  	transform: translateX(-10px);
+  	transition-duration: .5s;
+}
+
+.next{
+  	right: 10px;
+}
+
+.next:hover{
+  	transform: translateX(10px);
+  	transition-duration: .5s;
+}
+
+
+.conversion {
+	display: none;
+}
+
+.conversionTxt {
+	padding: 0px 10px;
+	width: 602px;
+	height: 602px;
+	border: 1px solid rgb(156, 156, 156);
+	border-radius: 10px;
+	resize: none;
+	text-align: left;
+}
+
+
+.addNote {
+	display: none;
+}
+
+.noteCanvas {
+	border: 1px solid rgb(156, 156, 156);
+	border-radius: 10px;
+    cursor: crosshair;
+}
+
+.myPage {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	
+	
+}
+
+.wrap_myPage {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	width: 300px;
+	height: 270px;
+	margin: 0 auto;
+	background-color: rgb(255, 255, 255);
+	border: 1px solid rgb(156, 156, 156);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	
+}
+
+.myPage.show {
+	display: block;
+	
+}
+
+.cancelMyPage {
+	text-align: right;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+#btncancelMyPage {
+	color: rgb(156, 156, 156);
+	font-size: 1.5em;
+	font-weight: bolder;
+}
+
+#btncancelMyPage:hover {
+	color: #e0e0e0;
+	transition-duration: .5s;
+	cursor: pointer;
+
+}
+
+.myPage input[type=text], input[type=password], input[type=email], input[type=button] {
+	margin-bottom: 10px;
+	
+}
