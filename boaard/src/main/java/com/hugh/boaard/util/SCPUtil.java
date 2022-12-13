@@ -1,4 +1,4 @@
-/* referenced */
+/* referenced, https://junhokims.tistory.com/23 */
 
 package com.hugh.boaard.util;
 
