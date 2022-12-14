@@ -14,7 +14,7 @@
 
   <br><br><br><br>
   
-  [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=hugh-eu)](https://github-readme-stats.vercel.app/api/top-langs/?username=hugh-eu)
+  ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=hugh-eu)
 
   <br><br><br><br>
 
