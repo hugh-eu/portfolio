@@ -13,10 +13,6 @@
   <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white"/>
 
   <br><br><br><br>
-  
-  [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=hugh-eu&layout=compact)](https://github.com/hugh-eu/github-readme-stats)
-
-  <br><br><br><br>
 
   ![footer](https://capsule-render.vercel.app/api?type=slice&color=0:ffffff,100:A9E2F3&height=150&section=footer&text=:>&fontSize=30&animation=fadeIn&fontAlign=5&fontColor=ffffff)
   
