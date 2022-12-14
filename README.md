@@ -18,6 +18,6 @@
 
   <br><br><br><br>
 
-  ![footer](https://capsule-render.vercel.app/api?      type=slice&color=0:ffffff,100:A9E2F3&height=150&section=footer&text=:>&fontSize=30&animation=fadeIn&fontAlign=5&fontColor=ffffff)
+  ![footer](https://capsule-render.vercel.app/api?type=slice&color=0:ffffff,100:A9E2F3&height=150&section=footer&text=:>&fontSize=30&animation=fadeIn&fontAlign=5&fontColor=ffffff)
   
 </div>
