@@ -1,13 +1,16 @@
-import React from "react";
-import * as ReactDOM from "react-dom/client";
-import App from "./components/App";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { legacy_createStore as createStore } from 'redux';
+import { Provider } from 'react-redux';
+import App from './components/App';
 import counterApp from './reducers';
 
-const appElement = ReactDOM.createRoot(document.getElementById('app'));
+const store = createStore(counterApp);
+const appElement = document.getElementById('app');
 
-appElement.render(
-  <React.StrictMode>
-      <App />
-  </React.StrictMode>
+ReactDOM.render(
+    <Provider store = {store}>
+        <App />
+    </Provider>,
+    appElement
 );
-counterApp();
