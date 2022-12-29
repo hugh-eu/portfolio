@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hugh.tripist.dao.ITripistDao">
+
+	<select id="confirmSignUp" parameterType="String" resultType="com.hugh.tripist.vo.TripistVo">
+		select * from tbl_user where u_id = #{tripistVo.u_id}
+	</select>
+
+	<insert id="addUser" parameterType="String">
+		insert into tbl_user(u_id, u_pw, u_email, u_reg_date, u_mod_date) value (#{tripistVo.u_id}, #{tripistVo.u_pw}, #{tripistVo.u_email}, now(), now())
+	</insert>
+
+	<select id="confirmSignIn" parameterType="String" resultType="com.hugh.tripist.vo.TripistVo">
+		select * from tbl_user where u_id = #{tripistVo.u_id} and u_pw = #{tripistVo.u_pw}
+	</select>
+	
+	<select id="getMarkerList" parameterType="int" resultType="com.hugh.tripist.vo.TripistVo">
+		select * from tbl_marker where u_no = #{tripistVo.u_no}
+	</select>
+
+</mapper>

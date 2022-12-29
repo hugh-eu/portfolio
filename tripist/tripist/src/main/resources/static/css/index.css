@@ -1,0 +1,299 @@
+* {
+	margin: 0 0 10px;
+	padding: 0;
+	
+	text-align: center;
+	
+	color: white;
+	
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	
+}
+
+input, textarea {
+	padding: 3px 6px;
+	
+	border: none;
+	border-radius: 3px;
+	
+	background-color: rgba(150, 150, 150, 1);
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, .2);
+	
+}
+
+input[type=button] {
+	font-size: .7em;
+	
+}
+
+input[type=button]:hover {
+	opacity: .7;
+	
+}
+
+header {
+	width: 100%;
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	
+}
+
+#alert {
+	padding: 10px 20px;
+	
+	border-radius: 3px;
+	
+	position: fixed;
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	
+	background-color: rgba(150, 150, 150, 1);
+	
+	display: none;
+	
+}
+
+#alertText {
+	font-size: 1.2em;
+	font-weight: bolder;
+	
+}
+
+#backSign {
+	width: 100%;
+	height: 100vh;
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	
+	background-color: rgba(0, 0, 0, .3);
+	
+	display: none;	
+	
+}
+
+#backSign.show {
+	display: block;
+	
+}
+
+#signIn, #signUp {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	
+	display: none;
+	
+}
+
+#signIn.show, #signUp.show {
+	display: block;
+	
+}
+
+nav {
+	width: calc(30% + 30px);
+	height: 100vh;
+	
+	position: fixed;
+	top: 0;
+	left: calc(100% - 30px);
+	
+	display: none;
+	
+}
+
+nav.show {
+	display: block;
+	
+}
+
+#navBtn {
+	width: 30px;
+	height: 100vh;
+	
+	background-color: rgba(150, 150, 150, .3);
+	
+}
+
+#navBtn span {
+	position: absolute;
+	top: 50%;
+	left: 15px;
+	transform: translate(-50%, -50%);
+	
+	font-size: 2em;
+	font-weight: bolder;
+	
+}
+
+#openNav {
+	display: block;
+	
+}
+
+#openNav:hover {
+	transform: translate(calc(-50% - 3px), -50%);
+	
+	cursor: pointer;
+	
+}
+
+#foldNav {
+	display: none;
+	
+}
+
+#foldNav:hover {
+	transform: translate(calc(-50% + 3px), -50%);
+	
+	cursor: pointer;
+	
+}
+
+#navPage {
+	width: calc(100% - 30px);
+	height: 100vh;
+	
+	position: absolute;
+	top: 0;
+	left: 30px;
+	
+	background-color: rgba(150, 150, 150, .7);
+
+}
+
+#showId {
+	font-size: .9em;
+	font-weight: bolder;
+	
+	cursor: pointer;
+	
+}
+
+#showId:hover {
+	opacity: .7;
+
+}
+
+#myPage, #tripList {
+	width: 100%;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#myPage {
+	display: none;
+	
+}
+
+#tripList {
+	width: 100%;
+
+}
+
+#listTable {
+	width: 100%;
+
+}
+
+.listElement {
+	width: 80%;
+
+	padding: 5px 0;
+	
+	border: none;
+	border-radius: 3px;
+	
+	background-color: rgba(150, 150, 150, 1);
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, .2);
+	
+}
+
+.listElement:hover {
+	opacity: .7;
+}
+
+article {
+	width: 100%;
+	height: 100vh;
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	
+}
+
+#addMarkerContents, #markerInfoContents {
+	width: 50vw;
+	height: 40vh;
+	
+}
+
+#map {
+	width: 100%;
+	height: 100vh;
+	
+}
+
+#backMarker {
+	width: 100%;
+	height: 100vh;
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	
+	background-color: rgba(0, 0, 0, .3);
+	
+	display: none;
+	
+}
+
+#backMarker.show {
+	display: block;
+	
+}
+
+#addMarkerForm, #markerInfo {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	
+	display: none;
+	
+}
+
+#addMarkerForm.show, #addMarkerForm.show {
+	display: block;
+	
+}
+
+footer {
+	width: 100%;
+	
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	
+}
+
+#copyRight {
+	margin: 0 auto;
+	
+	font-size: .8em;
+	
+}

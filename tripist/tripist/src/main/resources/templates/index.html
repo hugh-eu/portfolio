@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Tripist</title>
+	<script th:replace="~{include/index_js}"></script>
+	<link th:href="@{/css/index.css}" rel="stylesheet">
+	<link th:href="@{/img/favicon.ico}" rel="shortcut icon">
+</head>
+<body>
+
+	<article>
+		<div class="articleWrap">
+		
+			<div id="map">
+			</div>
+			
+			<div id="backMarker">
+			
+				<div id="addMarkerForm">
+					<span id="addMarkerFormText">Add Marker</span><br>
+					<input type="text" class="input" id="addMarkerLocation" placeholder="Location"><br>
+					<input type="text" class="input" id="addMarkerPeriod" placeholder="Period, yymmdd-yymmdd"><br>
+					<input type="text" class="input" id="addMarkerCost" placeholder="Total Cost"><br>
+					<textarea class="input" id="addMarkerContents" placeholder="Contents"></textarea><br>
+					이미지<br>
+					<input type="button" id="addMarkerSubmitBtn" value="SUBMIT">
+					<input type="button" id="addMarkerCancelBtn" value="CANCEL">
+				</div>
+				
+				<div id="markerInfo">
+					<span id="markerInfoText">Marker Info</span><br>
+					<input type="text" class="input" id="markerInfoLocation" value="Location"><br>
+					<input type="text" class="input" id="markerInfoPeriod" value="yymmdd-yymmdd"><br>
+					<input type="text" class="input" id="markerInfoCost" value="Total Cost"><br>
+					<textarea class="input" id="markerInfoContents" value="Contents"></textarea><br>
+					이미지<br>
+					<input type="button" id="markerInfoModifyBtn" value="MODIFY">
+					<input type="button" id="markerInfoCancelBtn" value="CANCEL">
+				</div>
+				
+			</div>
+			
+		</div>
+	</article>
+
+	<header th:replace="~{include/fragments::header}"></header>
+	
+	<nav th:replace="~{include/fragments::nav}"></nav>
+	
+	<footer th:replace="~{include/fragments::footer}"></footer>
+	
+</body>
+</html>

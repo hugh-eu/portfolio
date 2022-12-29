@@ -1,0 +1,356 @@
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdQQ7jh9I8G_43XbSrnDWFbfB5-ZxCiL4"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+<script type="text/javascript" th:inline="javascript">
+
+var map;
+
+function alertPopup(str) {
+	$("#alertText").text(str);
+	$("#alert").fadeIn(1300);
+	$("#alert").fadeOut(200);
+
+}
+
+function confirmSession(){
+	let tripistVo = [[${session.tripistVo}]];
+	
+	if (tripistVo == null) {
+		alertPopup("Please log in.");
+		
+		$(location).attr("href", "");
+		
+	}
+	
+}
+
+function addMarker() {
+	$(".listElement").mouseover(function() {
+		let latlng = {
+			lat: $(this).data("lat"),
+			lng: $(this).data("lng")
+
+		}
+
+		map.panTo(latlng);
+
+	});
+}
+
+function getMarkerList() {
+	confirmSession();
+	
+	$.ajax({
+		url : "/getMarkerList",
+		type : "POST",
+		data : JSON.stringify({
+			"tripistVo": [[${session.tripistVo}]]
+
+		}),
+		contentType : "application/json",
+		success : function(result) {
+			let latlng;
+			let htmlStr = "";
+			for (let i = 0; i < result.length; i++) {
+				latlng = {
+					lat: parseFloat(result[i].m_lat),
+					lng: parseFloat(result[i].m_lng)
+					
+				}
+
+				let marker = new google.maps.Marker({
+					map: map,
+					position: new google.maps.LatLng(latlng),
+					title: result[i].m_location,
+					snippet: result[i].m_period
+
+				});
+
+				marker.addListener("click", () => {
+					map.setZoom(15);
+					map.panTo(marker.getPosition());
+
+				});
+
+				htmlStr += "<tr>";
+				htmlStr += "<td>";
+				htmlStr += "<button class='listElement' data-lat='" + result[i].m_lat + "' data-lng='" + result[i].m_lng + "'>";
+				htmlStr +=	result[i].m_location + "&nbsp;&nbsp;" + result[i].m_period;
+				htmlStr += "</button>";
+				htmlStr += "</td>"
+				htmlStr += "</tr>"
+				
+			}
+
+			$("#listTable").html(htmlStr)
+			
+			addMarker();
+
+		},
+		error : function(request, status, error){
+			alertPopup("Connection error.");
+			
+			console.log("code : " + request.status);
+	        console.log("message : " + request.responseText);
+	        console.log("error : " + error);
+
+		}
+	});
+
+}
+
+function loadMap() {
+	map = new google.maps.Map(
+		document.getElementById("map"), {
+			center: new google.maps.LatLng(37.4601908, 126.4406957),
+			zoom: 12
+		}
+		
+	);
+	
+	map.addListener("click", (e) => {
+		let latlng = {
+			lat: e.latLng.lat(),
+			lng: e.latLng.lng()
+
+		}
+		
+		if (map.getZoom() >= 15) {
+			$("nav").toggleClass("show");
+			$("#backMarker").toggleClass("show");
+			$("#addMarkerForm").toggleClass("show");
+			$("body").css("overflow", "hidden");
+			
+
+		} else {
+			map.setZoom(15);
+			map.panTo(latlng);
+			
+		}
+		
+	});
+	
+}
+
+function addHeader() {
+	$("#signInBtn").click(function() {
+		let u_id = $("#signInId").val();
+		let u_pw = $("#signInPw").val();
+		
+		if (u_id == "") {
+			alertPopup("Please enter new ID.");
+			
+			$("#signInId").focus();
+			
+		} else if (u_pw == "") {
+			alertPopup("Please enter new Password.");
+			
+			$("#signInPw").focus();
+			
+		} else {
+			$.ajax({
+				url : "/confirmSignIn",
+				type : "POST",
+				data : JSON.stringify({
+					"u_id": u_id,
+					"u_pw": u_pw
+					
+				}),
+				contentType : "application/json",
+				success : function(result) {
+					if (result == 1) {
+						alertPopup("Sign In Succeed.");
+						
+						$(location).attr("href", "");
+						
+					} else {
+						alertPopup("Please check your ID and password.");
+						
+					}
+					
+				},
+				error : function(request, status, error){
+					alertPopup("Connection error.");
+					
+					console.log("code : " + request.status);
+			        console.log("message : " + request.responseText);
+			        console.log("error : " + error);
+	
+				}
+			});
+		}
+	});
+	
+	$("#signUpBtn").click(function() {
+		$("#signIn").toggleClass("show");
+		$(".input").val("");
+		$("#signUp").toggleClass("show");
+		
+	});
+	
+	$("#signUpSubmitBtn").click(function() {
+		let u_id = $("#signUpId").val();
+		let u_pw = $("#signUpPw").val();
+		let u_confirm_pw = $("#signUpConfirmPw").val();
+		let u_email = $("#signUpEmail").val();
+		
+		if (u_id == "") {
+			alertPopup("Please enter new ID.");
+			
+			$("#signUpId").focus();
+			
+		} else if (u_pw == "") {
+			alertPopup("Please enter new Password.");
+			
+			$("#signUpPw").focus();
+			
+		} else if (u_confirm_pw == "") {
+			alertPopup("Please enter Password again to confirm.");
+			
+			$("#signUpConfirmPw").focus();
+			
+		} else if (u_pw != u_confirm_pw) {
+			alertPopup("Please check password.");
+			
+			$("#signUpPw").val("");
+			$("#signUpConfirmPw").val("");
+			$("#signUpPw").focus();
+			
+		} else if (u_email == "") {
+			alertPopup("Please enter your Email");
+			
+			$("#signUpEmail").focus();
+		} else {
+			$.ajax({
+				url : "/confirmSignUp",
+				type : "POST",
+				data : JSON.stringify({
+					"u_id": u_id,
+					"u_pw": u_pw,
+					"u_email": u_email
+					
+				}),
+				contentType : "application/json",
+				success : function(result) {
+					if (result == 1) {
+						alertPopup("Sign Up Succeed.");
+						$("#signUp").toggleClass("show");
+						$("#signIn").toggleClass("show");
+						
+					} else if (result == 0) {
+						alertPopup("Sign Up Failed.");
+						
+					} else {
+						alertPopup("This is a duplicate ID.");
+						
+					}
+					
+				},
+				error : function(request, status, error){
+					alertPopup("Connection error.");
+					
+					console.log("code : " + request.status);
+			        console.log("message : " + request.responseText);
+			        console.log("error : " + error);
+	
+				}
+			});
+		}
+	});
+	
+	$("#signUpCancelBtn").click(function() {
+		$("#signUp").toggleClass("show");
+		$(".input").val("");
+		$("#signIn").toggleClass("show");
+		
+	});
+	
+}
+
+function addNav() {
+	$("#openNav").click(function() {
+		confirmSession();
+		
+		$("nav").css({"transition": ".5s", "transform": "translateX(calc(-100% + 30px))"});
+		$("#openNav").hide();
+		$("#foldNav").fadeIn(500);
+		
+	});
+	
+	$("#foldNav").click(function() {
+		confirmSession();
+		
+		$("nav").css({"transition": ".5s", "transform": "translateX(0)"});
+		$("#foldNav").hide();
+		$("#openNav").fadeIn(500);
+		
+	});
+	
+	$("#showId").click(function() {
+		$("#tripList").hide();
+		$("#myPageId").val([[${session.tripistVo.u_id}]] "ID");
+		$("#myPageEmail").val([[${session.tripistVo.u_email}]] "Email");
+		
+		
+		$("#myPage").fadeIn(500);
+		
+	});
+	
+	$("#myPageCancelBtn").click(function() {
+		$("#myPage").hide();
+		$(".input").val("")
+		$("#tripList").fadeIn(500);
+		
+	});
+	
+	$("#signOutBtn").click(function() {
+		confirmSession();
+		
+		if (confirm("Are you sure you want to sign out?")) {
+			$(location).attr("href", "/signOut");
+			
+		}
+	});
+	
+}
+
+function addArticle() {
+	$("#addMarkerCancelBtn").click(function() {
+		confirmSession();
+		
+		$("#addMarkerForm").toggleClass("show");
+		$("#backMarker").toggleClass("show");
+		$(".input").val("");
+		$("body").css("overflow", "auto");
+		$("nav").toggleClass("show");
+		
+	});
+}
+
+
+$(function() {
+	let tripistVo = [[${session.tripistVo}]];
+	
+	if (tripistVo == null) {
+		$("body").css("overflow", "hidden");
+		$("#backSign").toggleClass("show");
+		$("#signIn").toggleClass("show");
+		
+		loadMap();
+		addHeader();
+		
+	} else {
+		loadMap();
+		addHeader();
+		addNav();
+		addArticle();
+		getMarkerList();
+		
+		$("nav").toggleClass("show");
+		
+	}
+
+})
+
+</script>
