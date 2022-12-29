@@ -1,7 +1,6 @@
 package com.hugh.tripist.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class TripistController {
-	
+
 	@Autowired
 	private TripistService tripistService;
 	
@@ -52,11 +51,11 @@ public class TripistController {
 			session.setAttribute("tripistVo", resultVo);
 			session.setMaxInactiveInterval(30 * 60);
 			
-			return 1;
+			return TripistService.SIGNIN_SUCCESS;
 			
 		} else {
 			
-			return 0;
+			return TripistService.SIGNIN_FAIL;
 		
 		}
 		
@@ -65,16 +64,46 @@ public class TripistController {
 
 	@PostMapping(value = "/getMarkerList")
 	@ResponseBody
-	public List<TripistVo> getMarkerList(@RequestBody Map<String, Object> map) {
+	public List<TripistVo> getMarkerList(@RequestBody TripistVo tripistVo) {
 		System.out.println("[TripistController] getMarkerList() called.");
 		
-		System.out.println(map);
-		
-		return tripistService.getMarkerList(map.get("tripistVo"));
+		return tripistService.getMarkerList(tripistVo);
 		
 	}
 	
-	
+	@PostMapping(value = "/modifyMyInfo")
+	@ResponseBody
+	public int modifyMyInfo(@RequestBody TripistVo tripistVo, HttpSession session) {
+		System.out.println("[TripistController] modifyMyInfo() called.");
+
+		int result = tripistService.confirmPwToModify(tripistVo);
+
+		if (result == TripistService.MODIFY_SUCCESS) {
+			session.setAttribute("tripistVo", tripistService.getTripistVoForSession(tripistVo.getU_no()));
+			session.setMaxInactiveInterval(30 * 60);
+
+		}
+
+		return result;
+
+	}
+
+	@PostMapping(value = "/deleteAccount")
+	@ResponseBody
+	public int deleteAccount(@RequestBody TripistVo tripistVo, HttpSession session) {
+		System.out.println("[TripistController] deleteAccount() called.");
+
+		int result = tripistService.deleteAccount(tripistVo);
+		
+		if (result == TripistService.WITHDRAWAL_SUCCESS) {
+			session.invalidate();
+
+		}
+
+		return result;
+
+	}
+
 	@GetMapping(value = "/signOut")
 	public String signOut(HttpSession session) {
 		System.out.println("[TripistController] signOut() called.");

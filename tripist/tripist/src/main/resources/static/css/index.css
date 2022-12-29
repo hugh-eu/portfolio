@@ -25,14 +25,21 @@ input, textarea {
 	
 }
 
-input[type=button] {
-	font-size: .7em;
-	
+button, input[type=button] {
+	cursor: pointer;
+
 }
 
 input[type=button]:hover {
 	opacity: .7;
 	
+}
+
+.subTitle {
+	display: block;
+
+	font-size: 1.2rem;
+	font-weight: bolder;
 }
 
 header {
@@ -41,28 +48,6 @@ header {
 	position: fixed;
 	top: 0;
 	left: 0;
-	
-}
-
-#alert {
-	padding: 10px 20px;
-	
-	border-radius: 3px;
-	
-	position: fixed;
-	top: 10px;
-	left: 50%;
-	transform: translateX(-50%);
-	
-	background-color: rgba(150, 150, 150, 1);
-	
-	display: none;
-	
-}
-
-#alertText {
-	font-size: 1.2em;
-	font-weight: bolder;
 	
 }
 
@@ -101,12 +86,12 @@ header {
 }
 
 nav {
-	width: calc(30% + 30px);
+	width: 40vw;
 	height: 100vh;
 	
 	position: fixed;
 	top: 0;
-	left: calc(100% - 30px);
+	left: 95vw;
 	
 	display: none;
 	
@@ -118,7 +103,7 @@ nav.show {
 }
 
 #navBtn {
-	width: 30px;
+	width: 5vw;
 	height: 100vh;
 	
 	background-color: rgba(150, 150, 150, .3);
@@ -126,54 +111,69 @@ nav.show {
 }
 
 #navBtn span {
+	width: 5vh;
+	height: 100vh;
+	line-height: 100vh;
+
 	position: absolute;
-	top: 50%;
-	left: 15px;
-	transform: translate(-50%, -50%);
+	top: 0;
+	left: 0;
 	
-	font-size: 2em;
+	font-size: 2rem;
 	font-weight: bolder;
 	
 }
 
 #openNav {
 	display: block;
-	
+
+}
+
+#foldNav {
+	display: none;
+
 }
 
 #openNav:hover {
-	transform: translate(calc(-50% - 3px), -50%);
+	transform: translateX(-3px);
 	
 	cursor: pointer;
 	
 }
 
-#foldNav {
-	display: none;
-	
-}
-
 #foldNav:hover {
-	transform: translate(calc(-50% + 3px), -50%);
+	transform: translateX(3px);
 	
 	cursor: pointer;
 	
 }
 
 #navPage {
-	width: calc(100% - 30px);
+	width: 35vw;
 	height: 100vh;
 	
 	position: absolute;
 	top: 0;
-	left: 30px;
+	left: 5vw;
 	
 	background-color: rgba(150, 150, 150, .7);
 
 }
 
+#navCtl {
+	height: 10%;
+
+}
+
+#navCtlContents {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+}
+
 #showId {
-	font-size: .9em;
 	font-weight: bolder;
 	
 	cursor: pointer;
@@ -187,11 +187,12 @@ nav.show {
 
 #myPage, #tripList {
 	width: 100%;
+	height: 80%;
 
 	position: absolute;
-	top: 50%;
+	top: 10%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, 0);
 }
 
 #myPage {
@@ -237,9 +238,9 @@ article {
 }
 
 #addMarkerContents, #markerInfoContents {
-	width: 50vw;
-	height: 40vh;
-	
+	width: 30vw;
+	height: 30vh;
+
 }
 
 #map {
@@ -291,9 +292,31 @@ footer {
 	
 }
 
+#alert {
+	padding: 10px 20px;
+	
+	border-radius: 3px;
+	
+	position: fixed;
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	
+	background-color: rgba(150, 150, 150, 1);
+	
+	display: none;
+	
+}
+
+#alertText {
+	font-size: 1.2rem;
+	font-weight: bolder;
+	
+}
+
 #copyRight {
 	margin: 0 auto;
 	
-	font-size: .8em;
+	font-size: .9rem;
 	
 }

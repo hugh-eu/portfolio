@@ -8,6 +8,7 @@ public class TripistVo {
 	private int u_no;
     private String u_id;
     private String u_pw;
+    private String u_new_pw;
     private String u_email;
     private String u_reg_date;
     private String u_mod_date;

@@ -22,4 +22,24 @@
 		select * from tbl_marker where u_no = #{tripistVo.u_no}
 	</select>
 
+	<select id="confirmPwToModify" parameterType="String" resultType="com.hugh.tripist.vo.TripistVo">
+		select * from tbl_user where u_id = #{tripistVo.u_id} and u_pw = #{tripistVo.u_pw}
+	</select>
+
+	<update id="modifyMyInfo" parameterType="Map">
+		update tbl_user set u_pw = #{map.u_pw}, u_email = #{map.u_email}, u_mod_date = now() where u_no = #{map.u_no}
+	</update>
+
+	<select id="getTripistVoForSession" parameterType="int" resultType="com.hugh.tripist.vo.TripistVo">
+		select * from tbl_user where u_no = #{u_no}
+	</select>
+
+	<select id="confirmPwToDelete" parameterType="String" resultType="com.hugh.tripist.vo.TripistVo">
+		select * from tbl_user where u_id = #{tripistVo.u_id} and u_pw = #{tripistVo.u_pw}
+	</select>
+
+	<delete id="deleteAccount" parameterType="int">
+		delete from tbl_user where u_no = #{u_no}
+	</delete>
+
 </mapper>

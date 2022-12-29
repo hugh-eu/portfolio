@@ -8,8 +8,8 @@ var map;
 
 function alertPopup(str) {
 	$("#alertText").text(str);
-	$("#alert").fadeIn(1300);
-	$("#alert").fadeOut(200);
+	$("#alert").show();
+	$("#alert").fadeOut(2000);
 
 }
 
@@ -40,12 +40,14 @@ function addMarker() {
 
 function getMarkerList() {
 	confirmSession();
-	
+
+	let tripistVo = [[${session.tripistVo}]];
+
 	$.ajax({
 		url : "/getMarkerList",
 		type : "POST",
 		data : JSON.stringify({
-			"tripistVo": [[${session.tripistVo}]]
+			"u_no": tripistVo.u_no
 
 		}),
 		contentType : "application/json",
@@ -62,8 +64,7 @@ function getMarkerList() {
 				let marker = new google.maps.Marker({
 					map: map,
 					position: new google.maps.LatLng(latlng),
-					title: result[i].m_location,
-					snippet: result[i].m_period
+					title: result[i].m_location
 
 				});
 
@@ -110,6 +111,8 @@ function loadMap() {
 	);
 	
 	map.addListener("click", (e) => {
+		confirmSession();
+
 		let latlng = {
 			lat: e.latLng.lat(),
 			lng: e.latLng.lng()
@@ -117,15 +120,17 @@ function loadMap() {
 		}
 		
 		if (map.getZoom() >= 15) {
+			map.panTo(latlng);
 			$("nav").toggleClass("show");
 			$("#backMarker").toggleClass("show");
 			$("#addMarkerForm").toggleClass("show");
+			$("#addMarkerForm").data("lat", e.latLng.lat());
+			$("#addMarkerForm").data("lng", e.latLng.lng());
 			$("body").css("overflow", "hidden");
-			
 
 		} else {
-			map.setZoom(15);
 			map.panTo(latlng);
+			map.setZoom(15);
 			
 		}
 		
@@ -137,7 +142,7 @@ function addHeader() {
 	$("#signInBtn").click(function() {
 		let u_id = $("#signInId").val();
 		let u_pw = $("#signInPw").val();
-		
+
 		if (u_id == "") {
 			alertPopup("Please enter new ID.");
 			
@@ -160,8 +165,8 @@ function addHeader() {
 				contentType : "application/json",
 				success : function(result) {
 					if (result == 1) {
-						alertPopup("Sign In Succeed.");
-						
+						alertPopup("Sign in succeed.");
+
 						$(location).attr("href", "");
 						
 					} else {
@@ -194,7 +199,7 @@ function addHeader() {
 		let u_pw = $("#signUpPw").val();
 		let u_confirm_pw = $("#signUpConfirmPw").val();
 		let u_email = $("#signUpEmail").val();
-		
+
 		if (u_id == "") {
 			alertPopup("Please enter new ID.");
 			
@@ -221,6 +226,7 @@ function addHeader() {
 			alertPopup("Please enter your Email");
 			
 			$("#signUpEmail").focus();
+
 		} else {
 			$.ajax({
 				url : "/confirmSignUp",
@@ -234,12 +240,12 @@ function addHeader() {
 				contentType : "application/json",
 				success : function(result) {
 					if (result == 1) {
-						alertPopup("Sign Up Succeed.");
+						alertPopup("Sign up succeed.");
 						$("#signUp").toggleClass("show");
 						$("#signIn").toggleClass("show");
 						
 					} else if (result == 0) {
-						alertPopup("Sign Up Failed.");
+						alertPopup("Sign up failed.");
 						
 					} else {
 						alertPopup("This is a duplicate ID.");
@@ -272,7 +278,7 @@ function addNav() {
 	$("#openNav").click(function() {
 		confirmSession();
 		
-		$("nav").css({"transition": ".5s", "transform": "translateX(calc(-100% + 30px))"});
+		$("nav").css({"transition": ".5s", "transform": "translateX(-35vw)"});
 		$("#openNav").hide();
 		$("#foldNav").fadeIn(500);
 		
@@ -288,16 +294,148 @@ function addNav() {
 	});
 	
 	$("#showId").click(function() {
+		confirmSession();
+
+		let tripistVo = [[${session.tripistVo}]];
+
 		$("#tripList").hide();
-		$("#myPageId").val([[${session.tripistVo.u_id}]] "ID");
-		$("#myPageEmail").val([[${session.tripistVo.u_email}]] "Email");
+		$("#myPageId").val(tripistVo.u_id);
+		$("#myPageEmail").val(tripistVo.u_email);
 		
 		
 		$("#myPage").fadeIn(500);
 		
 	});
 	
+	$("#myPageModifyBtn").click(function() {
+		confirmSession();
+
+		let tripistVo = [[${session.tripistVo}]]
+		let u_no = tripistVo.u_no;
+		let u_id = $("#myPageId").val();
+		let u_pw = $("#myPagePw").val();
+		let u_new_pw = $("#myPageNewPw").val();
+		let u_confirm_new_pw = $("#myPageNewConfirmPw").val();
+		let u_email = $("#myPageEmail").val();
+
+		if (u_pw == "") {
+			alertPopup("Please enter your Password.");
+			
+			$("#myPagePw").focus();
+			
+		} else if (u_new_pw != u_confirm_new_pw) {
+			alertPopup("Please check new password.");
+			
+			$("#myPageNewPw").val("");
+			$("#myPageNewConfirmPw").val("");
+			$("#myPageNewPw").focus();
+
+		} else if (u_email == "") {
+			alertPopup("Please enter your Email");
+			
+			$("#myPageEmail").focus();
+
+		} else {
+			$.ajax({
+				url : "/modifyMyInfo",
+				type : "POST",
+				data : JSON.stringify({
+					"u_no": u_no,
+					"u_id": u_id,
+					"u_pw": u_pw,
+					"u_new_pw": u_new_pw,
+					"u_email": u_email
+					
+				}),
+				contentType : "application/json",
+				success : function(result) {
+					if (result == 1) {
+						alertPopup("Modify succeed.");
+
+						$(location).attr("href", "");
+
+					} else if (result == 0) {
+						alertPopup("Modify failed.");
+						
+						$(location).attr("href", "");
+
+					} else {
+						alertPopup("Please enter the correct password.");
+
+					}
+
+				},
+				error : function(request, status, error){
+					alertPopup("Connection error.");
+					
+					console.log("code : " + request.status);
+			        console.log("message : " + request.responseText);
+			        console.log("error : " + error);
+	
+				}
+			});
+		}
+
+	});
+
+	$("#myPageWithdrawalBtn").click(function() {
+		confirmSession();
+
+		let tripistVo = [[${session.tripistVo}]];
+		let u_no = tripistVo.u_no;
+		let u_id = $("#myPageId").val();
+		let u_pw = $("#myPagePw").val();
+
+		if (u_pw == "") {
+			alertPopup("Please enter your Password.");
+			
+			$("#myPagePw").focus();
+			
+		} else {
+			if (confirm("Are you sure you want to withdraw?")) {
+				$.ajax({
+					url : "/deleteAccount",
+					type : "POST",
+					data : JSON.stringify({
+						"u_no": u_no,
+						"u_id": u_id,
+						"u_pw": u_pw
+						
+					}),
+					contentType : "application/json",
+					success : function(result) {
+						if (result == 1) {
+							alertPopup("Withdrawal succeed.");
+
+							$(location).attr("href", "");
+
+						} else if (result == 0) {
+							alertPopup("Withdrawal failed.");
+							
+							$(location).attr("href", "");
+
+						} else {
+							alertPopup("Please enter the correct password.");
+
+						}
+
+					},
+					error : function(request, status, error){
+						alertPopup("Connection error.");
+						
+						console.log("code : " + request.status);
+						console.log("message : " + request.responseText);
+						console.log("error : " + error);
+
+					}
+				});
+			}
+		}
+	});
+
 	$("#myPageCancelBtn").click(function() {
+		confirmSession();
+
 		$("#myPage").hide();
 		$(".input").val("")
 		$("#tripList").fadeIn(500);
@@ -316,6 +454,21 @@ function addNav() {
 }
 
 function addArticle() {
+	$().click(function() {
+		confirmSession();
+
+		let tripistVo = [[${session.tripistVo}]]
+		let u_no = tripistVo.u_no;
+		let m_lat = map.getPosition;
+		let m_lng ="";
+		let m_location = $("#addMarkerLocation").val();
+		let m_period = $("#addMarkerPeriod").val();
+		let m_cost = $("#addMarkerCost").val();
+		let m_contents = $("#addMarkerContents").val();
+		let m_img_name = "temp.jpg";
+
+	});
+
 	$("#addMarkerCancelBtn").click(function() {
 		confirmSession();
 		

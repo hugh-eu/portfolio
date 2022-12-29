@@ -36,16 +36,19 @@
 		
 		<div id="navPage">
 			
-			<div id="signOut">
-				<span id="showId" th:if="${session.tripistVo != null}">&#64;[[${session.tripistVo.u_id}]]</span>&nbsp;&nbsp;
-				<input type="button" id="signOutBtn" value="SIGN OUT">
+			<div id="navCtl">
+				<div id="navCtlContents">
+					<span id="showId" th:if="${session.tripistVo != null}">&#64;[[${session.tripistVo.u_id}]]</span>&nbsp;&nbsp;
+					<input type="button" id="signOutBtn" value="SIGN OUT">
+				</div>
 			</div>
 			
 			<div id="myPage">
-				<span id="myPageText">My Page</span><br>
+				<span class="subTitle" id="myPageText">My Page</span>
 				<input type="text" class="input" id="myPageId" readonly><br>
 				<input type="password" class="input" id="myPagePw" placeholder="Password"><br>
-				<input type="password" class="input" id="myPageConfirmPw" placeholder="Confirm Password"><br>
+				<input type="password" class="input" id="myPageNewPw" placeholder="New Password"><br>
+				<input type="password" class="input" id="myPageNewConfirmPw" placeholder="Confirm New Password"><br>
 				<input type="text" class="input" id="myPageEmail"><br>
 				<input type="button" id="myPageModifyBtn" value="MODIFY">
 				<input type="button" id="myPageCancelBtn" value="CANCEL"><br>
@@ -53,7 +56,7 @@
 			</div>
 			
 			<div id="tripList">
-				<span id="tripListText">Trip List</span>
+				<span class="subTitle" id="tripListText">Trip List</span>
 				<table id="listTable">
 				</table>
 			</div>
