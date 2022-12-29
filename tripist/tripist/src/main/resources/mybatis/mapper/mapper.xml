@@ -42,4 +42,42 @@
 		delete from tbl_user where u_no = #{u_no}
 	</delete>
 
+	<insert id="insertMarkerInfo" parameterType="Map">
+		insert into tbl_marker(
+			u_no, 
+			m_lat, 
+			m_lng, 
+			m_location, 
+			m_period, 
+			m_cost, 
+			m_contents, 
+			m_img_name, 
+			m_reg_date, 
+			m_mod_date
+			) value (
+				#{map.u_no}, 
+				#{map.m_lat}, 
+				#{map.m_lng}, 
+				#{map.m_location}, 
+				#{map.m_period}, 
+				#{map.m_cost}, 
+				#{map.m_contents}, 
+				#{map.m_img_name}, 
+				now(), 
+				now()
+				)
+	</insert>
+
+	<select id="getMarkerInfo" parameterType="int" resultType="com.hugh.tripist.vo.TripistVo">
+		select * from tbl_marker where m_no = #{tripistVo.m_no}
+	</select>
+
+	<update id="modifyMarkerInfo" parameterType="Map">
+		update tbl_marker set m_location = #{map.m_location}, m_period = #{map.m_period}, m_cost = #{map.m_cost}, m_contents = #{map.m_contents}, m_img_name = #{map.m_img_name}, m_mod_date = now() where m_no = #{map.m_no}
+	</update>
+
+	<delete id="deleteMarkerInfo" parameterType="int">
+		delete from tbl_marker where m_no = #{tripistVo.m_no}
+	</delete>
+
 </mapper>

@@ -18,6 +18,7 @@ public class TripistVo {
     private String m_lng;
     private String m_location;
     private String m_period;
+    private String m_cost;
     private String m_contents;
     private String m_img_name;
     private String m_reg_date;

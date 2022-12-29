@@ -112,6 +112,42 @@ public class TripistController {
 
 	}
 
+	@PostMapping(value = "/insertMarkerInfo")
+	@ResponseBody
+	public int insertMarkerInfo(@RequestBody TripistVo tripistVo) {
+		System.out.println("[TripistController] insertMarkerInfo() called.");
+
+		return tripistService.insertMarkerInfo(tripistVo);
+
+	}
+
+	@PostMapping(value = "/getMarkerInfo")
+	@ResponseBody
+	public TripistVo getMarkerInfo(@RequestBody TripistVo tripistVo) {
+		System.out.println("[TripistController] getMarkerInfo() called.");
+
+		return tripistService.getMarkerInfo(tripistVo);
+
+	}
+
+	@PostMapping(value = "/modifyMarkerInfo")
+	@ResponseBody
+	public int modifyMarkerInfo(@RequestBody TripistVo tripistVo) {
+		System.out.println("[TripistController] modifyMarkerInfo() called.");
+
+		return tripistService.modifyMarkerInfo(tripistVo);
+
+	}
+
+	@PostMapping(value = "/deleteMarkerInfo")
+	@ResponseBody
+	public int deleteMarkerInfo(@RequestBody TripistVo tripistVo) {
+		System.out.println("[TripistController] deleteMarkerInfo() called.");
+
+		return tripistService.deleteMarkerInfo(tripistVo);
+
+	}
+
 	@GetMapping(value = "/signOut")
 	public String signOut(HttpSession session) {
 		System.out.println("[TripistController] signOut() called.");

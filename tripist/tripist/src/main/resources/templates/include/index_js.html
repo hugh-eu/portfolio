@@ -36,6 +36,48 @@ function addMarker() {
 		map.panTo(latlng);
 
 	});
+
+	$(".listElement").click(function() {
+		map.setZoom(15);
+
+		let m_no = $(this).data("m_no")
+
+		$.ajax({
+			url : "/getMarkerInfo",
+			type : "POST",
+			data : JSON.stringify({
+				"m_no": m_no
+				
+			}),
+			contentType : "application/json",
+			success : function(result) {
+				if (result != "") {
+					$("#markerInfoMno").val(result.m_no);
+					$("#markerInfoLocation").val(result.m_location);
+					$("#markerInfoPeriod").val(result.m_period);
+					$("#markerInfoCost").val(result.m_cost);
+					$("#markerInfoContents").val(result.m_contents);
+
+					$("#markerInfo").fadeIn(500);
+					
+				} else {
+					alertPopup("Connection error.");
+					
+				}
+				
+			},
+			error : function(request, status, error){
+				alertPopup("Connection error.");
+				
+				console.log("code : " + request.status);
+				console.log("message : " + request.responseText);
+				console.log("error : " + error);
+
+			}
+		});
+
+	});
+
 }
 
 function getMarkerList() {
@@ -69,14 +111,50 @@ function getMarkerList() {
 				});
 
 				marker.addListener("click", () => {
-					map.setZoom(15);
 					map.panTo(marker.getPosition());
+					map.setZoom(15);
+
+					let m_no = result[i].m_no;
+
+					$.ajax({
+						url : "/getMarkerInfo",
+						type : "POST",
+						data : JSON.stringify({
+							"m_no": m_no
+							
+						}),
+						contentType : "application/json",
+						success : function(result) {
+							if (result != "") {
+								$("#markerInfoMno").val(result.m_no);
+								$("#markerInfoLocation").val(result.m_location);
+								$("#markerInfoPeriod").val(result.m_period);
+								$("#markerInfoCost").val(result.m_cost);
+								$("#markerInfoContents").val(result.m_contents);
+
+								$("#markerInfo").fadeIn(500);
+								
+							} else {
+								alertPopup("Connection error.");
+								
+							}
+							
+						},
+						error : function(request, status, error){
+							alertPopup("Connection error.");
+							
+							console.log("code : " + request.status);
+							console.log("message : " + request.responseText);
+							console.log("error : " + error);
+
+						}
+					});
 
 				});
 
 				htmlStr += "<tr>";
 				htmlStr += "<td>";
-				htmlStr += "<button class='listElement' data-lat='" + result[i].m_lat + "' data-lng='" + result[i].m_lng + "'>";
+				htmlStr += "<button class='listElement' data-m_no='" + result[i].m_no + "' data-lat='" + result[i].m_lat + "' data-lng='" + result[i].m_lng + "'>";
 				htmlStr +=	result[i].m_location + "&nbsp;&nbsp;" + result[i].m_period;
 				htmlStr += "</button>";
 				htmlStr += "</td>"
@@ -93,8 +171,8 @@ function getMarkerList() {
 			alertPopup("Connection error.");
 			
 			console.log("code : " + request.status);
-	        console.log("message : " + request.responseText);
-	        console.log("error : " + error);
+			console.log("message : " + request.responseText);
+			console.log("error : " + error);
 
 		}
 	});
@@ -110,6 +188,12 @@ function loadMap() {
 		
 	);
 	
+	map.addListener("center_changed", () => {
+		$("#markerInfo").fadeOut(500);
+		$(".input").val("");
+		
+	});
+
 	map.addListener("click", (e) => {
 		confirmSession();
 
@@ -121,11 +205,9 @@ function loadMap() {
 		
 		if (map.getZoom() >= 15) {
 			map.panTo(latlng);
-			$("nav").toggleClass("show");
-			$("#backMarker").toggleClass("show");
-			$("#addMarkerForm").toggleClass("show");
-			$("#addMarkerForm").data("lat", e.latLng.lat());
-			$("#addMarkerForm").data("lng", e.latLng.lng());
+			$("nav").fadeOut(500);
+			$("#backMarker").fadeIn(500);
+			$("#addMarkerForm").fadeIn(500);
 			$("body").css("overflow", "hidden");
 
 		} else {
@@ -179,8 +261,8 @@ function addHeader() {
 					alertPopup("Connection error.");
 					
 					console.log("code : " + request.status);
-			        console.log("message : " + request.responseText);
-			        console.log("error : " + error);
+					console.log("message : " + request.responseText);
+					console.log("error : " + error);
 	
 				}
 			});
@@ -188,9 +270,9 @@ function addHeader() {
 	});
 	
 	$("#signUpBtn").click(function() {
-		$("#signIn").toggleClass("show");
+		$("#signIn").fadeOut(500);
 		$(".input").val("");
-		$("#signUp").toggleClass("show");
+		$("#signUp").fadeIn(500);
 		
 	});
 	
@@ -241,8 +323,9 @@ function addHeader() {
 				success : function(result) {
 					if (result == 1) {
 						alertPopup("Sign up succeed.");
-						$("#signUp").toggleClass("show");
-						$("#signIn").toggleClass("show");
+
+						$("#signUp").fadeOut(500);
+						$("#signIn").fadeIn(500);
 						
 					} else if (result == 0) {
 						alertPopup("Sign up failed.");
@@ -257,8 +340,8 @@ function addHeader() {
 					alertPopup("Connection error.");
 					
 					console.log("code : " + request.status);
-			        console.log("message : " + request.responseText);
-			        console.log("error : " + error);
+					console.log("message : " + request.responseText);
+					console.log("error : " + error);
 	
 				}
 			});
@@ -266,9 +349,9 @@ function addHeader() {
 	});
 	
 	$("#signUpCancelBtn").click(function() {
-		$("#signUp").toggleClass("show");
+		$("#signUp").fadeOut(500);
 		$(".input").val("");
-		$("#signIn").toggleClass("show");
+		$("#signIn").fadeIn(500);
 		
 	});
 	
@@ -279,7 +362,7 @@ function addNav() {
 		confirmSession();
 		
 		$("nav").css({"transition": ".5s", "transform": "translateX(-35vw)"});
-		$("#openNav").hide();
+		$("#openNav").fadeOut(500);
 		$("#foldNav").fadeIn(500);
 		
 	});
@@ -288,7 +371,7 @@ function addNav() {
 		confirmSession();
 		
 		$("nav").css({"transition": ".5s", "transform": "translateX(0)"});
-		$("#foldNav").hide();
+		$("#foldNav").fadeOut(500);
 		$("#openNav").fadeIn(500);
 		
 	});
@@ -298,7 +381,7 @@ function addNav() {
 
 		let tripistVo = [[${session.tripistVo}]];
 
-		$("#tripList").hide();
+		$("#tripList").fadeOut(500);
 		$("#myPageId").val(tripistVo.u_id);
 		$("#myPageEmail").val(tripistVo.u_email);
 		
@@ -369,8 +452,8 @@ function addNav() {
 					alertPopup("Connection error.");
 					
 					console.log("code : " + request.status);
-			        console.log("message : " + request.responseText);
-			        console.log("error : " + error);
+					console.log("message : " + request.responseText);
+					console.log("error : " + error);
 	
 				}
 			});
@@ -436,7 +519,7 @@ function addNav() {
 	$("#myPageCancelBtn").click(function() {
 		confirmSession();
 
-		$("#myPage").hide();
+		$("#myPage").fadeOut(500);
 		$(".input").val("")
 		$("#tripList").fadeIn(500);
 		
@@ -445,7 +528,7 @@ function addNav() {
 	$("#signOutBtn").click(function() {
 		confirmSession();
 		
-		if (confirm("Are you sure you want to sign out?")) {
+		if (confirm("Are you sure you want to signout?")) {
 			$(location).attr("href", "/signOut");
 			
 		}
@@ -459,26 +542,162 @@ function addArticle() {
 
 		let tripistVo = [[${session.tripistVo}]]
 		let u_no = tripistVo.u_no;
-		let m_lat = map.getPosition;
-		let m_lng ="";
+		let m_lat = map.getCenter().lat();
+		let m_lng = map.getCenter().lng();
 		let m_location = $("#addMarkerLocation").val();
 		let m_period = $("#addMarkerPeriod").val();
 		let m_cost = $("#addMarkerCost").val();
 		let m_contents = $("#addMarkerContents").val();
 		let m_img_name = "temp.jpg";
 
+		$.ajax({
+			url : "/insertMarkerInfo",
+			type : "POST",
+			data : JSON.stringify({
+				"u_no": u_no,
+				"m_lat": m_lat,
+				"m_lng": m_lng,
+				"m_location": m_location,
+				"m_period": m_period,
+				"m_cost": m_cost,
+				"m_contents": m_contents,
+				"m_img_name": m_img_name
+				
+			}),
+			contentType : "application/json",
+			success : function(result) {
+				if (result == 1) {
+					alertPopup("Add succeed.");
+
+					$(location).attr("href", "");
+					
+				} else {
+					alertPopup("Add failed.");
+					
+				}
+				
+			},
+			error : function(request, status, error){
+				alertPopup("Connection error.");
+				
+				console.log("code : " + request.status);
+				console.log("message : " + request.responseText);
+				console.log("error : " + error);
+
+			}
+		});
+
 	});
 
 	$("#addMarkerCancelBtn").click(function() {
 		confirmSession();
 		
-		$("#addMarkerForm").toggleClass("show");
-		$("#backMarker").toggleClass("show");
+		$("#addMarkerForm").fadeOut(500);
+		$("#backMarker").fadeOut(500);
 		$(".input").val("");
 		$("body").css("overflow", "auto");
-		$("nav").toggleClass("show");
+		$("nav").fadeIn(500);
 		
 	});
+
+	$("#markerInfoModifyBtn").click(function() {
+		confirmSession();
+
+		if (confirm("Are you sure you want to modify?")) {
+			let m_no = $("#markerInfoMno").val();
+			let m_location = $("#markerInfoLocation").val();
+			let m_period = $("#markerInfoPeriod").val();
+			let m_cost = $("#markerInfoCost").val();
+			let m_contents = $("#markerInfoContents").val();
+			let m_img_name = $("#markerInfoImg").val();
+
+			$.ajax({
+				url : "/modifyMarkerInfo",
+				type : "POST",
+				data : JSON.stringify({
+					"m_no": m_no,
+					"m_location": m_location,
+					"m_period": m_period,
+					"m_cost": m_cost,
+					"m_contents": m_contents,
+					"m_img_name": m_img_name
+					
+				}),
+				contentType : "application/json",
+				success : function(result) {
+					if (result == 1) {
+						alertPopup("Modify succeed.");
+
+						$(location).attr("href", "");
+						
+					} else {
+						alertPopup("Modify failed.");
+						
+					}
+					
+				},
+				error : function(request, status, error){
+					alertPopup("Connection error.");
+					
+					console.log("code : " + request.status);
+					console.log("message : " + request.responseText);
+					console.log("error : " + error);
+
+				}
+			});
+
+		}
+
+	});
+
+	$("#markerInfoDeleteBtn").click(function() {
+		confirmSession();
+
+		if (confirm("Are you sure you want to delete?")) {
+			let m_no = $("#markerInfoMno").val();
+
+			$.ajax({
+				url : "/deleteMarkerInfo",
+				type : "POST",
+				data : JSON.stringify({
+					"m_no": m_no
+					
+				}),
+				contentType : "application/json",
+				success : function(result) {
+					if (result == 1) {
+						alertPopup("Delete succeed.");
+
+						$(location).attr("href", "");
+						
+					} else {
+						alertPopup("Delete failed.");
+						
+					}
+					
+				},
+				error : function(request, status, error){
+					alertPopup("Connection error.");
+					
+					console.log("code : " + request.status);
+					console.log("message : " + request.responseText);
+					console.log("error : " + error);
+
+				}
+			});
+
+		}
+
+	});
+
+	$("#markerInfoCancelBtn").click(function() {
+		confirmSession();
+		
+		$("#markerInfo").fadeOut(500);
+		$(".input").val("");
+		
+	});
+
 }
 
 
@@ -487,8 +706,8 @@ $(function() {
 	
 	if (tripistVo == null) {
 		$("body").css("overflow", "hidden");
-		$("#backSign").toggleClass("show");
-		$("#signIn").toggleClass("show");
+		$("#backSign").fadeIn(500);
+		$("#signIn").fadeIn(500);
 		
 		loadMap();
 		addHeader();
@@ -500,7 +719,7 @@ $(function() {
 		addArticle();
 		getMarkerList();
 		
-		$("nav").toggleClass("show");
+		$("nav").fadeIn(500);
 		
 	}
 

@@ -18,27 +18,29 @@
 			<div id="backMarker">
 			
 				<div id="addMarkerForm">
+					<span class="cancel" id="addMarkerCancelBtn">&#215;&nbsp;</span>
 					<span class="subTitle" id="addMarkerFormText">Add Marker</span>
 					<input type="text" class="input" id="addMarkerLocation" placeholder="Location"><br>
-					<input type="text" class="input" id="addMarkerPeriod" placeholder="Period, yymmdd-yymmdd"><br>
+					<input type="text" class="input" id="addMarkerPeriod" placeholder="yymmdd-yymmdd"><br>
 					<input type="text" class="input" id="addMarkerCost" placeholder="Total Cost"><br>
 					<textarea class="input" id="addMarkerContents" placeholder="Contents"></textarea><br>
-					이미지<br>
+					<input type="text" id="addMarkerImg" value="imgimgimgimg"><br>
 					<input type="button" id="addMarkerSubmitBtn" value="SUBMIT">
-					<input type="button" id="addMarkerCancelBtn" value="CANCEL">
 				</div>
 				
-				<div id="markerInfo">
-					<span class="subTitle" id="markerInfoText">Marker Info</span>
-					<input type="text" class="input" id="markerInfoLocation" value="Location"><br>
-					<input type="text" class="input" id="markerInfoPeriod" value="yymmdd-yymmdd"><br>
-					<input type="text" class="input" id="markerInfoCost" value="Total Cost"><br>
-					<textarea class="input" id="markerInfoContents" value="Contents"></textarea><br>
-					이미지<br>
-					<input type="button" id="markerInfoModifyBtn" value="MODIFY">
-					<input type="button" id="markerInfoCancelBtn" value="CANCEL">
-				</div>
+			</div>
 				
+			<div id="markerInfo">
+				<input type="hidden" id="markerInfoMno">
+				<span class="cancel" id="markerInfoCancelBtn">&#215;&nbsp;</span>
+				<span class="subTitle" id="markerInfoText">Marker Info</span>
+				<input type="text" class="input" id="markerInfoLocation" placeholder="Location"><br>
+				<input type="text" class="input" id="markerInfoPeriod" placeholder="yymmdd-yymmdd"><br>
+				<input type="text" class="input" id="markerInfoCost" placeholder="Total Cost"><br>
+				<textarea class="input" id="markerInfoContents" placeholder="Contents"></textarea><br>
+				<input type="text" id="markerInfoImg" value="imgimgimgimg"><br>
+				<input type="button" id="markerInfoModifyBtn" value="MODIFY">
+				<input type="button" id="markerInfoDeleteBtn" value="DELETE">
 			</div>
 			
 		</div>

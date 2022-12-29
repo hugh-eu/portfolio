@@ -35,11 +35,39 @@ input[type=button]:hover {
 	
 }
 
-.subTitle {
+.title {
+	font-size: 3rem;
+	font-weight: bolder;
+
 	display: block;
 
+}
+
+.subTitle {
 	font-size: 1.2rem;
 	font-weight: bolder;
+	
+	display: block;
+
+}
+
+.cancel {
+	margin: 0;
+
+	font-size: 1.5rem;
+	font-weight: bolder;
+	
+	text-align: right;
+	
+	cursor: pointer;
+
+	display: block;
+
+}
+
+.cancel:hover {
+	opacity: .7;
+
 }
 
 header {
@@ -59,14 +87,9 @@ header {
 	top: 0;
 	left: 0;
 	
-	background-color: rgba(0, 0, 0, .3);
+	background-color: rgba(150, 150, 150, .7);
 	
 	display: none;	
-	
-}
-
-#backSign.show {
-	display: block;
 	
 }
 
@@ -80,9 +103,9 @@ header {
 	
 }
 
-#signIn.show, #signUp.show {
-	display: block;
-	
+#signInPw, #signUpEmail, #myPageEmail, #addMarkerImg, #markerInfoImg {
+	margin-bottom: 20px;
+
 }
 
 nav {
@@ -97,11 +120,6 @@ nav {
 	
 }
 
-nav.show {
-	display: block;
-	
-}
-
 #navBtn {
 	width: 5vw;
 	height: 100vh;
@@ -111,7 +129,7 @@ nav.show {
 }
 
 #navBtn span {
-	width: 5vh;
+	width: 5vw;
 	height: 100vh;
 	line-height: 100vh;
 
@@ -125,26 +143,30 @@ nav.show {
 }
 
 #openNav {
+	cursor: pointer;
+
 	display: block;
 
 }
 
 #foldNav {
+	cursor: pointer;
+
 	display: none;
 
 }
 
 #openNav:hover {
 	transform: translateX(-3px);
-	
-	cursor: pointer;
+
+	opacity: .7;
 	
 }
 
 #foldNav:hover {
 	transform: translateX(3px);
-	
-	cursor: pointer;
+
+	opacity: .7;
 	
 }
 
@@ -237,12 +259,6 @@ article {
 	
 }
 
-#addMarkerContents, #markerInfoContents {
-	width: 30vw;
-	height: 30vh;
-
-}
-
 #map {
 	width: 100%;
 	height: 100vh;
@@ -257,18 +273,13 @@ article {
 	top: 0;
 	left: 0;
 	
-	background-color: rgba(0, 0, 0, .3);
+	background-color: rgba(150, 150, 150, .7);
 	
 	display: none;
 	
 }
 
-#backMarker.show {
-	display: block;
-	
-}
-
-#addMarkerForm, #markerInfo {
+#addMarkerForm {
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -278,9 +289,24 @@ article {
 	
 }
 
-#addMarkerForm.show, #addMarkerForm.show {
-	display: block;
+#markerInfo {
+	padding: 2vh;
+
+	position: fixed;
+	top: 50%;
+	left: 25vw;
+	transform: translate(-50%, -50%);
 	
+	background-color: rgba(150, 150, 150, .7);
+
+	display: none;
+	
+}
+
+#addMarkerContents, #markerInfoContents {
+	width: 30vw;
+	height: 20vh;
+
 }
 
 footer {

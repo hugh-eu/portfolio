@@ -29,4 +29,12 @@ public interface ITripistDao {
 
 	public int deleteAccount(@Param("u_no") int u_no);
 
+    public int insertMarkerInfo(@Param("map") Map<String, Object> map);
+
+	public TripistVo getMarkerInfo(@Param("tripistVo") TripistVo tripistVo);
+
+	public int modifyMarkerInfo(@Param("map") Map<String, Object> map);
+
+    public int deleteMarkerInfo(@Param("tripistVo") TripistVo tripistVo);
+
 }

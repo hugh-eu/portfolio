@@ -113,6 +113,52 @@ public class TripistService {
 
 
 	}
+
+	public int insertMarkerInfo(TripistVo tripistVo) {
+		System.out.println("[TripistService] insertMarkerInfo() called.");
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("u_no", tripistVo.getU_no());
+		map.put("m_lat", tripistVo.getM_lat());
+		map.put("m_lng", tripistVo.getM_lng());
+		map.put("m_location", tripistVo.getM_location());
+		map.put("m_period", tripistVo.getM_period());
+		map.put("m_cost", tripistVo.getM_cost());
+		map.put("m_contents", tripistVo.getM_contents());
+		map.put("m_img_name", tripistVo.getM_img_name());
+
+		return tripistDao.insertMarkerInfo(map);
+
+	}
+
+	public TripistVo getMarkerInfo(TripistVo tripistVo) {
+		System.out.println("[TripistService] getMarkerInfo() called.");
+
+		return tripistDao.getMarkerInfo(tripistVo);
+
+	}
+
+	public int modifyMarkerInfo(TripistVo tripistVo) {
+		System.out.println("[TripistService] modifyMarkerInfo() called.");
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("m_no", tripistVo.getM_no());
+		map.put("m_location", tripistVo.getM_location());
+		map.put("m_period", tripistVo.getM_period());
+		map.put("m_cost", tripistVo.getM_cost());
+		map.put("m_contents", tripistVo.getM_contents());
+		map.put("m_img_name", tripistVo.getM_img_name());
+
+		return tripistDao.modifyMarkerInfo(map);
+
+	}
+
+    public int deleteMarkerInfo(TripistVo tripistVo) {
+        System.out.println("[TripistService] deleteMarkerInfo() called.");
+
+		return tripistDao.deleteMarkerInfo(tripistVo);
+
+    }
 	
 
 }
