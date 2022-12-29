@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import com.hugh.tripist.dao.ITripistDao;
 import com.hugh.tripist.vo.TripistVo;
 
-import jakarta.servlet.http.HttpSession;
-
 @Service
 public class TripistService {
 	public static final int DUPLICATE_ID = -1;

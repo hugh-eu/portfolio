@@ -1,9 +1,13 @@
 package com.hugh.tripist.controller;
 
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hugh.tripist.service.TripistService;
 import com.hugh.tripist.vo.TripistVo;
 
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession; 
 
 @Controller
 public class TripistController {
@@ -22,10 +26,14 @@ public class TripistController {
 	
 	
 	@GetMapping(value = {"", "/"})
-	public String index() {
+	public String index(Model model) throws IOException {
 		System.out.println("[TripistController] index() called.");
 		
 		String nextPage = "index";
+
+		String mapApiKey = Files.readString(Paths.get("E:\\Drive\\_dev\\_project\\_private\\tripist\\mapApiKey.txt"));
+
+		model.addAttribute("mapAddress", "https://maps.googleapis.com/maps/api/js?key=" + mapApiKey);
 		
 		return nextPage;
 		

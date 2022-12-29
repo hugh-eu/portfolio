@@ -1,8 +1,8 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdQQ7jh9I8G_43XbSrnDWFbfB5-ZxCiL4"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script th:src="${mapAddress}"></script>
 
-<script type="text/javascript" th:inline="javascript">
+<script th:inline="javascript">
 
 var map;
 
@@ -454,7 +454,7 @@ function addNav() {
 }
 
 function addArticle() {
-	$().click(function() {
+	$("#addMarkerSubmitBtn").click(function() {
 		confirmSession();
 
 		let tripistVo = [[${session.tripistVo}]]
