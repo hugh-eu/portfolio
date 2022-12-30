@@ -1,13 +1,18 @@
 package com.hugh.tripist.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hugh.tripist.dao.ITripistDao;
+import com.hugh.tripist.util.SCPUtil;
 import com.hugh.tripist.vo.TripistVo;
 
 @Service
@@ -114,8 +119,38 @@ public class TripistService {
 
 	}
 
-	public int insertMarkerInfo(TripistVo tripistVo) {
+	public int insertMarkerInfo(TripistVo tripistVo, List<MultipartFile> fileList) throws IllegalStateException, IOException {
 		System.out.println("[TripistService] insertMarkerInfo() called.");
+		
+		String localImgPath = "E:/img/";
+		String remoteImgPath = "/img/";
+		String imgName, m_img_name = "";
+
+		if (fileList != null) {
+			SCPUtil scpUtil = null;
+			
+			for (int i = 0; i < fileList.size(); i++) {
+				imgName = UUID.randomUUID().toString() + fileList.get(i).getOriginalFilename();
+				
+				File dest = new File(localImgPath + imgName);
+				fileList.get(i).transferTo(dest);
+				
+				scpUtil = new SCPUtil();
+				scpUtil.init("192.168.0.132", "hugh", "1234");
+				scpUtil.upload(remoteImgPath, dest);
+				scpUtil.disconnection();
+				scpUtil = null;
+				
+				dest.delete();
+				
+				m_img_name += imgName;
+				if (i < fileList.size() - 1) {
+					m_img_name += "\t";
+
+				}
+			}
+		}
+
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("u_no", tripistVo.getU_no());
@@ -125,7 +160,7 @@ public class TripistService {
 		map.put("m_period", tripistVo.getM_period());
 		map.put("m_cost", tripistVo.getM_cost());
 		map.put("m_contents", tripistVo.getM_contents());
-		map.put("m_img_name", tripistVo.getM_img_name());
+		map.put("m_img_name", m_img_name);
 
 		return tripistDao.insertMarkerInfo(map);
 

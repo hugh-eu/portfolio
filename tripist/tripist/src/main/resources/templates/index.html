@@ -24,7 +24,8 @@
 					<input type="text" class="input" id="addMarkerPeriod" placeholder="yymmdd-yymmdd"><br>
 					<input type="text" class="input" id="addMarkerCost" placeholder="Total Cost"><br>
 					<textarea class="input" id="addMarkerContents" placeholder="Contents"></textarea><br>
-					<input type="text" id="addMarkerImg" value="imgimgimgimg"><br>
+					<input type="file" class="input" id="addMarkerImg" multiple="multiple">
+					<label id="addMarkerImgBtn" for="addMarkerImg">UPLOAD IMG</label><br>
 					<input type="button" id="addMarkerSubmitBtn" value="SUBMIT">
 				</div>
 				
@@ -34,11 +35,11 @@
 				<input type="hidden" id="markerInfoMno">
 				<span class="cancel" id="markerInfoCancelBtn">&#215;&nbsp;</span>
 				<span class="subTitle" id="markerInfoText">Marker Info</span>
+				<div id="imgSlide"><ul id="markerInfoImgs"></ul></div>
 				<input type="text" class="input" id="markerInfoLocation" placeholder="Location"><br>
 				<input type="text" class="input" id="markerInfoPeriod" placeholder="yymmdd-yymmdd"><br>
 				<input type="text" class="input" id="markerInfoCost" placeholder="Total Cost"><br>
 				<textarea class="input" id="markerInfoContents" placeholder="Contents"></textarea><br>
-				<input type="text" id="markerInfoImg" value="imgimgimgimg"><br>
 				<input type="button" id="markerInfoModifyBtn" value="MODIFY">
 				<input type="button" id="markerInfoDeleteBtn" value="DELETE">
 			</div>

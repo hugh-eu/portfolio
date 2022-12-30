@@ -44,27 +44,39 @@
 
 	<insert id="insertMarkerInfo" parameterType="Map">
 		insert into tbl_marker(
-			u_no, 
-			m_lat, 
-			m_lng, 
-			m_location, 
-			m_period, 
-			m_cost, 
-			m_contents, 
-			m_img_name, 
-			m_reg_date, 
-			m_mod_date
+				u_no, 
+				m_lat, 
+				m_lng, 
+				m_location, 
+				m_period, 
+				<if test="map.m_cost != ''">
+				m_cost, 
+				</if>
+				<if test="map.m_contents != ''">
+				m_contents, 
+				</if>
+				<if test="map.m_img_name != ''">
+				m_img_name, 
+				</if>
+				m_reg_date, 
+				m_mod_date
 			) value (
-				#{map.u_no}, 
-				#{map.m_lat}, 
-				#{map.m_lng}, 
-				#{map.m_location}, 
-				#{map.m_period}, 
-				#{map.m_cost}, 
-				#{map.m_contents}, 
-				#{map.m_img_name}, 
-				now(), 
-				now()
+					#{map.u_no}, 
+					#{map.m_lat}, 
+					#{map.m_lng}, 
+					#{map.m_location}, 
+					#{map.m_period}, 
+					<if test="map.m_cost != ''">
+					#{map.m_cost}, 
+					</if>
+					<if test="map.m_contents != ''">
+					#{map.m_contents}, 
+					</if>
+					<if test="map.m_img_name != ''">
+					#{map.m_img_name}, 
+					</if>
+					now(), 
+					now()
 				)
 	</insert>
 
@@ -73,7 +85,7 @@
 	</select>
 
 	<update id="modifyMarkerInfo" parameterType="Map">
-		update tbl_marker set m_location = #{map.m_location}, m_period = #{map.m_period}, m_cost = #{map.m_cost}, m_contents = #{map.m_contents}, m_img_name = #{map.m_img_name}, m_mod_date = now() where m_no = #{map.m_no}
+		update tbl_marker set m_location = #{map.m_location}, m_period = #{map.m_period}, m_cost = #{map.m_cost}, m_contents = #{map.m_contents}, m_mod_date = now() where m_no = #{map.m_no}
 	</update>
 
 	<delete id="deleteMarkerInfo" parameterType="int">

@@ -5,6 +5,13 @@
 <script th:inline="javascript">
 
 var map;
+var slide
+
+function sleep(ms) {
+	
+	return new Promise((r) => setTimeout(r, ms));
+	
+}
 
 function alertPopup(str) {
 	$("#alertText").text(str);
@@ -19,14 +26,83 @@ function confirmSession(){
 	if (tripistVo == null) {
 		alertPopup("Please log in.");
 		
-		$(location).attr("href", "");
+		sleep(2000)
+			.then(() => $(location).attr("href", ""));
 		
 	}
 	
 }
 
+function getMarkerInfo(m_no) {
+	$.ajax({
+		url : "/getMarkerInfo",
+		type : "POST",
+		data : JSON.stringify({
+			"m_no": m_no
+
+		}),
+		contentType : "application/json",
+		success : function(result) {
+			if (result != "") {
+				let imgNames = result.m_img_name;
+
+				$("#markerInfoImgs").empty();
+				
+				for (let i = 0; i < imgNames.split("\t").length; i++) {
+					$("#markerInfoImgs").append(
+						"<li id='markerInfoImg'><img src='http://192.168.0.132/img/" + imgNames.split("\t")[i] + "'></li>"
+
+					);
+				}
+
+				$("#markerInfoImgs").css("width", "calc(25vw * ".concat(imgNames.split("\t").length).concat(")"));
+				$("#markerInfoImgs").css("transform", "translateX(0)");
+
+				let i = 0;
+				slide = setInterval(function() {
+					$("#markerInfoImgs").css("transition", "0.5s");
+					$("#markerInfoImgs").css("transform", "translateX(-" + (25 * (i + 1)) + "vw)");
+
+					i++;
+
+					if (i == imgNames.split("\t").length) {
+						$("#markerInfoImgs").css("transition", "0s");
+						$("#markerInfoImgs").css("transform", "translateX(0)");
+
+						i = 0;
+
+					}
+				}, 3000);
+
+				$("#markerInfoMno").val(result.m_no);
+				$("#markerInfoLocation").val(result.m_location);
+				$("#markerInfoPeriod").val(result.m_period);
+				$("#markerInfoCost").val(result.m_cost);
+				$("#markerInfoContents").val(result.m_contents);
+
+				$("#markerInfo").fadeIn(500);
+				
+			} else {
+				alertPopup("Connection error.");
+
+			}
+
+		},
+		error : function(request, status, error){
+			alertPopup("Connection error.");
+
+			console.log("code : " + request.status);
+			console.log("message : " + request.responseText);
+			console.log("error : " + error);
+
+		}
+	});
+}
+
 function addMarker() {
 	$(".listElement").mouseover(function() {
+		confirmSession();
+		
 		let latlng = {
 			lat: $(this).data("lat"),
 			lng: $(this).data("lng")
@@ -38,43 +114,12 @@ function addMarker() {
 	});
 
 	$(".listElement").click(function() {
+		confirmSession();
+		
 		map.setZoom(15);
 
 		let m_no = $(this).data("m_no")
-
-		$.ajax({
-			url : "/getMarkerInfo",
-			type : "POST",
-			data : JSON.stringify({
-				"m_no": m_no
-				
-			}),
-			contentType : "application/json",
-			success : function(result) {
-				if (result != "") {
-					$("#markerInfoMno").val(result.m_no);
-					$("#markerInfoLocation").val(result.m_location);
-					$("#markerInfoPeriod").val(result.m_period);
-					$("#markerInfoCost").val(result.m_cost);
-					$("#markerInfoContents").val(result.m_contents);
-
-					$("#markerInfo").fadeIn(500);
-					
-				} else {
-					alertPopup("Connection error.");
-					
-				}
-				
-			},
-			error : function(request, status, error){
-				alertPopup("Connection error.");
-				
-				console.log("code : " + request.status);
-				console.log("message : " + request.responseText);
-				console.log("error : " + error);
-
-			}
-		});
+		getMarkerInfo(m_no);
 
 	});
 
@@ -111,44 +156,13 @@ function getMarkerList() {
 				});
 
 				marker.addListener("click", () => {
+					confirmSession();
+					
 					map.panTo(marker.getPosition());
 					map.setZoom(15);
 
 					let m_no = result[i].m_no;
-
-					$.ajax({
-						url : "/getMarkerInfo",
-						type : "POST",
-						data : JSON.stringify({
-							"m_no": m_no
-							
-						}),
-						contentType : "application/json",
-						success : function(result) {
-							if (result != "") {
-								$("#markerInfoMno").val(result.m_no);
-								$("#markerInfoLocation").val(result.m_location);
-								$("#markerInfoPeriod").val(result.m_period);
-								$("#markerInfoCost").val(result.m_cost);
-								$("#markerInfoContents").val(result.m_contents);
-
-								$("#markerInfo").fadeIn(500);
-								
-							} else {
-								alertPopup("Connection error.");
-								
-							}
-							
-						},
-						error : function(request, status, error){
-							alertPopup("Connection error.");
-							
-							console.log("code : " + request.status);
-							console.log("message : " + request.responseText);
-							console.log("error : " + error);
-
-						}
-					});
+					getMarkerInfo(m_no);
 
 				});
 
@@ -159,6 +173,11 @@ function getMarkerList() {
 				htmlStr += "</button>";
 				htmlStr += "</td>"
 				htmlStr += "</tr>"
+				
+				if (i == result.length - 1) {
+					map.panTo(latlng);
+					
+				}
 				
 			}
 
@@ -189,8 +208,12 @@ function loadMap() {
 	);
 	
 	map.addListener("center_changed", () => {
-		$("#markerInfo").fadeOut(500);
+		confirmSession();
+		
+		$("#markerInfo").hide();
+		$("#markerInfoImgs").empty();
 		$(".input").val("");
+		clearInterval(slide);
 		
 	});
 
@@ -205,7 +228,7 @@ function loadMap() {
 		
 		if (map.getZoom() >= 15) {
 			map.panTo(latlng);
-			$("nav").fadeOut(500);
+			$("nav").hide();
 			$("#backMarker").fadeIn(500);
 			$("#addMarkerForm").fadeIn(500);
 			$("body").css("overflow", "hidden");
@@ -248,8 +271,9 @@ function addHeader() {
 				success : function(result) {
 					if (result == 1) {
 						alertPopup("Sign in succeed.");
-
-						$(location).attr("href", "");
+						
+						sleep(2000)
+							.then(() => $(location).attr("href", ""));
 						
 					} else {
 						alertPopup("Please check your ID and password.");
@@ -270,7 +294,7 @@ function addHeader() {
 	});
 	
 	$("#signUpBtn").click(function() {
-		$("#signIn").fadeOut(500);
+		$("#signIn").hide();
 		$(".input").val("");
 		$("#signUp").fadeIn(500);
 		
@@ -324,7 +348,7 @@ function addHeader() {
 					if (result == 1) {
 						alertPopup("Sign up succeed.");
 
-						$("#signUp").fadeOut(500);
+						$("#signUp").hide();
 						$("#signIn").fadeIn(500);
 						
 					} else if (result == 0) {
@@ -349,7 +373,7 @@ function addHeader() {
 	});
 	
 	$("#signUpCancelBtn").click(function() {
-		$("#signUp").fadeOut(500);
+		$("#signUp").hide();
 		$(".input").val("");
 		$("#signIn").fadeIn(500);
 		
@@ -362,7 +386,7 @@ function addNav() {
 		confirmSession();
 		
 		$("nav").css({"transition": ".5s", "transform": "translateX(-35vw)"});
-		$("#openNav").fadeOut(500);
+		$("#openNav").hide();
 		$("#foldNav").fadeIn(500);
 		
 	});
@@ -371,7 +395,7 @@ function addNav() {
 		confirmSession();
 		
 		$("nav").css({"transition": ".5s", "transform": "translateX(0)"});
-		$("#foldNav").fadeOut(500);
+		$("#foldNav").hide();
 		$("#openNav").fadeIn(500);
 		
 	});
@@ -381,7 +405,7 @@ function addNav() {
 
 		let tripistVo = [[${session.tripistVo}]];
 
-		$("#tripList").fadeOut(500);
+		$("#tripList").hide();
 		$("#myPageId").val(tripistVo.u_id);
 		$("#myPageEmail").val(tripistVo.u_email);
 		
@@ -435,12 +459,14 @@ function addNav() {
 					if (result == 1) {
 						alertPopup("Modify succeed.");
 
-						$(location).attr("href", "");
+						sleep(2000)
+							.then(() => $(location).attr("href", ""));
 
 					} else if (result == 0) {
 						alertPopup("Modify failed.");
 						
-						$(location).attr("href", "");
+						sleep(2000)
+							.then(() => $(location).attr("href", ""));
 
 					} else {
 						alertPopup("Please enter the correct password.");
@@ -490,12 +516,14 @@ function addNav() {
 						if (result == 1) {
 							alertPopup("Withdrawal succeed.");
 
-							$(location).attr("href", "");
+							sleep(2000)
+								.then(() => $(location).attr("href", ""));
 
 						} else if (result == 0) {
 							alertPopup("Withdrawal failed.");
 							
-							$(location).attr("href", "");
+							sleep(2000)
+								.then(() => $(location).attr("href", ""));
 
 						} else {
 							alertPopup("Please enter the correct password.");
@@ -519,7 +547,7 @@ function addNav() {
 	$("#myPageCancelBtn").click(function() {
 		confirmSession();
 
-		$("#myPage").fadeOut(500);
+		$("#myPage").hide();
 		$(".input").val("")
 		$("#tripList").fadeIn(500);
 		
@@ -539,7 +567,7 @@ function addNav() {
 function addArticle() {
 	$("#addMarkerSubmitBtn").click(function() {
 		confirmSession();
-
+		
 		let tripistVo = [[${session.tripistVo}]]
 		let u_no = tripistVo.u_no;
 		let m_lat = map.getCenter().lat();
@@ -548,52 +576,93 @@ function addArticle() {
 		let m_period = $("#addMarkerPeriod").val();
 		let m_cost = $("#addMarkerCost").val();
 		let m_contents = $("#addMarkerContents").val();
-		let m_img_name = "temp.jpg";
 
-		$.ajax({
-			url : "/insertMarkerInfo",
-			type : "POST",
-			data : JSON.stringify({
-				"u_no": u_no,
-				"m_lat": m_lat,
-				"m_lng": m_lng,
-				"m_location": m_location,
-				"m_period": m_period,
-				"m_cost": m_cost,
-				"m_contents": m_contents,
-				"m_img_name": m_img_name
-				
-			}),
-			contentType : "application/json",
-			success : function(result) {
-				if (result == 1) {
-					alertPopup("Add succeed.");
+		if (m_location == "") {
+			alertPopup("Please enter your trip location.");
+			
+			$("#addMarkerLocation").focus();
 
-					$(location).attr("href", "");
+		} else if (m_period == "") {
+			alertPopup("Please enter your trip period.");
+			
+			$("#addMarkerPeriod").focus();
+
+		} else {
+			let formData = new FormData();
+
+			let data = {
+					"u_no": u_no,
+					"m_lat": m_lat,
+					"m_lng": m_lng,
+					"m_location": m_location,
+					"m_period": m_period,
+					"m_cost": m_cost,
+					"m_contents": m_contents
 					
-				} else {
-					alertPopup("Add failed.");
+			};
+			formData.append("tripistVo", new Blob([JSON.stringify(data)], {type: "application/json"}));
+			
+			let addMarkerImg = $("#addMarkerImg");
+
+			let cntImgs = 0;
+			for (let i = 0; i < addMarkerImg.length; i++) {
+				for (let j = 0; j < addMarkerImg[i].files.length; j++) {
+					if (addMarkerImg[i].files[j]["type"].split("/")[0] != "image") {
+						alertPopup("Only image files can be uploaded.");
+						
+						return;
+						
+					}
+					cntImgs++;
+					if (cntImgs > 10) {
+						alertPopup("Up to 10 images can be uploaded.");
+						
+						return;
+						
+					}
+					
+					formData.append("file", addMarkerImg[i].files[j]);
 					
 				}
-				
-			},
-			error : function(request, status, error){
-				alertPopup("Connection error.");
-				
-				console.log("code : " + request.status);
-				console.log("message : " + request.responseText);
-				console.log("error : " + error);
-
 			}
-		});
 
+			$.ajax({
+				url : "/insertMarkerInfo",
+				type : "POST",
+				data : formData,
+				contentType : false,
+				processData : false,
+				enctype : "multipart/form-data",
+				success : function(result) {
+					if (result == 1) {
+						alertPopup("Add succeed.");
+
+						sleep(2000)
+							.then(() => $(location).attr("href", ""));
+						
+					} else {
+						alertPopup("Add failed.");
+						
+					}
+					
+				},
+				error : function(request, status, error){
+					alertPopup("Connection error.");
+					
+					console.log("code : " + request.status);
+					console.log("message : " + request.responseText);
+					console.log("error : " + error);
+
+				}
+			});
+		}
 	});
 
 	$("#addMarkerCancelBtn").click(function() {
 		confirmSession();
 		
-		$("#addMarkerForm").fadeOut(500);
-		$("#backMarker").fadeOut(500);
+		$("#addMarkerForm").hide();
+		$("#backMarker").hide();
 		$(".input").val("");
 		$("body").css("overflow", "auto");
 		$("nav").fadeIn(500);
@@ -609,45 +678,54 @@ function addArticle() {
 			let m_period = $("#markerInfoPeriod").val();
 			let m_cost = $("#markerInfoCost").val();
 			let m_contents = $("#markerInfoContents").val();
-			let m_img_name = $("#markerInfoImg").val();
 
-			$.ajax({
-				url : "/modifyMarkerInfo",
-				type : "POST",
-				data : JSON.stringify({
-					"m_no": m_no,
-					"m_location": m_location,
-					"m_period": m_period,
-					"m_cost": m_cost,
-					"m_contents": m_contents,
-					"m_img_name": m_img_name
-					
-				}),
-				contentType : "application/json",
-				success : function(result) {
-					if (result == 1) {
-						alertPopup("Modify succeed.");
+			if (m_location == "") {
+				alertPopup("Please enter your trip location.");
+				
+				$("#markerInfoLocation").focus();
 
-						$(location).attr("href", "");
+			} else if (m_period == "") {
+				alertPopup("Please enter your trip period.");
+				
+				$("#markerInfoPeriod").focus();
+
+			} else {
+				$.ajax({
+					url : "/modifyMarkerInfo",
+					type : "POST",
+					data : JSON.stringify({
+						"m_no": m_no,
+						"m_location": m_location,
+						"m_period": m_period,
+						"m_cost": m_cost,
+						"m_contents": m_contents
 						
-					} else {
-						alertPopup("Modify failed.");
+					}),
+					contentType : "application/json",
+					success : function(result) {
+						if (result == 1) {
+							alertPopup("Modify succeed.");
+
+							sleep(2000)
+								.then(() => $(location).attr("href", ""));
+							
+						} else {
+							alertPopup("Modify failed.");
+							
+						}
 						
+					},
+					error : function(request, status, error){
+						alertPopup("Connection error.");
+						
+						console.log("code : " + request.status);
+						console.log("message : " + request.responseText);
+						console.log("error : " + error);
+
 					}
-					
-				},
-				error : function(request, status, error){
-					alertPopup("Connection error.");
-					
-					console.log("code : " + request.status);
-					console.log("message : " + request.responseText);
-					console.log("error : " + error);
-
-				}
-			});
-
+				});
+			}
 		}
-
 	});
 
 	$("#markerInfoDeleteBtn").click(function() {
@@ -668,7 +746,8 @@ function addArticle() {
 					if (result == 1) {
 						alertPopup("Delete succeed.");
 
-						$(location).attr("href", "");
+						sleep(2000)
+							.then(() => $(location).attr("href", ""));
 						
 					} else {
 						alertPopup("Delete failed.");
@@ -693,8 +772,10 @@ function addArticle() {
 	$("#markerInfoCancelBtn").click(function() {
 		confirmSession();
 		
-		$("#markerInfo").fadeOut(500);
+		$("#markerInfo").hide();
+		$("#markerInfoImgs").empty();
 		$(".input").val("");
+		clearInterval(slide);
 		
 	});
 
@@ -713,13 +794,13 @@ $(function() {
 		addHeader();
 		
 	} else {
+		$("nav").fadeIn(500);
+		
 		loadMap();
 		addHeader();
 		addNav();
 		addArticle();
 		getMarkerList();
-		
-		$("nav").fadeIn(500);
 		
 	}
 
