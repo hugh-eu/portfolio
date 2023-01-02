@@ -1,0 +1,3 @@
+/home/pi/carplate/CMakeFiles/rebuild_cache.dir
+/home/pi/carplate/CMakeFiles/edit_cache.dir
+/home/pi/carplate/CMakeFiles/carplate.dir

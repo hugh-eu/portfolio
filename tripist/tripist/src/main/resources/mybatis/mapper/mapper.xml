@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hugh.tripist.dao.ITripistDao">
+
+	<select id="confirmSignUp" parameterType="String" resultType="com.hugh.tripist.vo.TripistVo">
+		SELECT * FROM tbl_user WHERE u_id = #{tripistVo.u_id}
+	</select>
+
+	<insert id="addUser" parameterType="String">
+		INSERT INTO tbl_user(u_id, u_pw, u_email, u_reg_date, u_mod_date) VALUE (#{tripistVo.u_id}, #{tripistVo.u_pw}, #{tripistVo.u_email}, now(), now())
+	</insert>
+
+	<select id="confirmSignIn" parameterType="String" resultType="com.hugh.tripist.vo.TripistVo">
+		SELECT * FROM tbl_user WHERE u_id = #{tripistVo.u_id} AND u_pw = #{tripistVo.u_pw}
+	</select>
+	
+	<select id="getMarkerList" parameterType="int" resultType="com.hugh.tripist.vo.TripistVo">
+		SELECT * FROM tbl_marker WHERE u_no = #{tripistVo.u_no}
+	</select>
+
+	<select id="confirmPwToModify" parameterType="String" resultType="com.hugh.tripist.vo.TripistVo">
+		SELECT * FROM tbl_user WHERE u_id = #{tripistVo.u_id} AND u_pw = #{tripistVo.u_pw}
+	</select>
+
+	<update id="modifyMyInfo" parameterType="Map">
+		UPDATE tbl_user SET u_pw = #{map.u_pw}, u_email = #{map.u_email}, u_mod_date = now() WHERE u_no = #{map.u_no}
+	</update>
+
+	<select id="getTripistVoForSession" parameterType="int" resultType="com.hugh.tripist.vo.TripistVo">
+		SELECT * FROM tbl_user WHERE u_no = #{u_no}
+	</select>
+
+	<select id="confirmPwToDelete" parameterType="String" resultType="com.hugh.tripist.vo.TripistVo">
+		SELECT * FROM tbl_user WHERE u_id = #{tripistVo.u_id} AND u_pw = #{tripistVo.u_pw}
+	</select>
+
+	<delete id="deleteAccount" parameterType="int">
+		DELETE FROM tbl_user WHERE u_no = #{u_no}
+	</delete>
+
+	<insert id="insertMarkerInfo" parameterType="Map">
+		INSERT INTO tbl_marker(
+				u_no, 
+				m_lat, 
+				m_lng, 
+				m_location, 
+				m_period, 
+				m_cost, 
+				m_contents, 
+				m_img_name, 
+				m_reg_date, 
+				m_mod_date
+			) VALUE (
+					#{map.u_no}, 
+					#{map.m_lat}, 
+					#{map.m_lng}, 
+					#{map.m_location}, 
+					#{map.m_period}, 
+					#{map.m_cost}, 
+					#{map.m_contents}, 
+					#{map.m_img_name}, 
+					now(), 
+					now()
+				)
+	</insert>
+
+	<select id="getMarkerInfo" parameterType="int" resultType="com.hugh.tripist.vo.TripistVo">
+		SELECT * FROM tbl_marker WHERE m_no = #{tripistVo.m_no}
+	</select>
+
+	<update id="modifyMarkerInfo" parameterType="Map">
+		UPDATE tbl_marker SET m_location = #{map.m_location}, m_period = #{map.m_period}, m_cost = #{map.m_cost}, m_contents = #{map.m_contents}, m_mod_date = now() WHERE m_no = #{map.m_no}
+	</update>
+
+	<delete id="deleteMarkerInfo" parameterType="int">
+		DELETE FROM tbl_marker WHERE m_no = #{tripistVo.m_no}
+	</delete>
+
+</mapper>
