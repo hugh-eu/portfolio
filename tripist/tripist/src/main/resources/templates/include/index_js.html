@@ -48,6 +48,7 @@ function getMarkerInfo(m_no) {
 
 				$("#markerInfoImgs").empty();
 				
+<<<<<<< HEAD
 				if (imgNames != "") {
 					for (let i = 0; i < imgNames.split("\t").length; i++) {
 						$("#markerInfoImgs").append(
@@ -58,6 +59,11 @@ function getMarkerInfo(m_no) {
 				} else {
 					$("#markerInfoImgs").append(
 						"<li id='noImg'>No Image.</li>"
+=======
+				for (let i = 0; i < imgNames.split("\t").length; i++) {
+					$("#markerInfoImgs").append(
+						"<li id='markerInfoImg'><img src='http://192.168.0.132/img/" + imgNames.split("\t")[i] + "'></li>"
+>>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 
 					);
 				}
@@ -65,8 +71,11 @@ function getMarkerInfo(m_no) {
 				$("#markerInfoImgs").css("width", "calc(25vw * ".concat(imgNames.split("\t").length).concat(")"));
 				$("#markerInfoImgs").css("transform", "translateX(0)");
 
+<<<<<<< HEAD
 				clearInterval(slide);
 
+=======
+>>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 				let i = 0;
 				slide = setInterval(function() {
 					$("#markerInfoImgs").css("transition", "0.5s");
@@ -125,6 +134,7 @@ function addMarker() {
 	$(".listElement").click(function() {
 		confirmSession();
 		
+<<<<<<< HEAD
 		let latlng = {
 			lat: $(this).data("lat"),
 			lng: $(this).data("lng")
@@ -132,6 +142,8 @@ function addMarker() {
 		}
 
 		map.panTo(latlng);
+=======
+>>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 		map.setZoom(15);
 
 		let m_no = $(this).data("m_no")
@@ -229,6 +241,10 @@ function loadMap() {
 		$("#markerInfo").hide();
 		$("#markerInfoImgs").empty();
 		$(".input").val("");
+<<<<<<< HEAD
+=======
+		clearInterval(slide);
+>>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 		
 	});
 
@@ -259,6 +275,7 @@ function loadMap() {
 }
 
 function addHeader() {
+<<<<<<< HEAD
 	$("#signInId").keydown(function(key) {
 		if (key.keyCode == 13) {
 			$("#signInPw").focus();
@@ -273,6 +290,8 @@ function addHeader() {
 		}
 	});
 
+=======
+>>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 	$("#signInBtn").click(function() {
 		let u_id = $("#signInId").val();
 		let u_pw = $("#signInPw").val();
@@ -329,6 +348,7 @@ function addHeader() {
 		
 	});
 	
+<<<<<<< HEAD
 	$("#signUpId").keydown(function(key) {
 		if (key.keyCode == 13) {
 			$("#signUpPw").focus();
@@ -353,6 +373,8 @@ function addHeader() {
 		}
 	});
 
+=======
+>>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 	$("#signUpSubmitBtn").click(function() {
 		let u_id = $("#signUpId").val();
 		let u_pw = $("#signUpPw").val();
@@ -713,7 +735,11 @@ function addArticle() {
 
 	$("#addMarkerCancelBtn").click(function() {
 		confirmSession();
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 		$("#addMarkerForm").hide();
 		$("#backMarker").hide();
 		$(".input").val("");
@@ -824,10 +850,18 @@ function addArticle() {
 
 	$("#markerInfoCancelBtn").click(function() {
 		confirmSession();
+<<<<<<< HEAD
 
 		$("#markerInfo").hide();
 		$("#markerInfoImgs").empty();
 		$(".input").val("");
+=======
+		
+		$("#markerInfo").hide();
+		$("#markerInfoImgs").empty();
+		$(".input").val("");
+		clearInterval(slide);
+>>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 		
 	});
 

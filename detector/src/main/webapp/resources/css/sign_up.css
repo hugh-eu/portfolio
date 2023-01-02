@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .signUpText {
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -10,4 +11,18 @@
 
 .signUpForm input{
 	margin-bottom: 10px;
+=======
+.signUpText {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: .9em;
+}
+
+.signUpText input {
+	margin-bottom: 10px;
+}
+
+.signUpForm input{
+	margin-bottom: 10px;
+>>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 }
