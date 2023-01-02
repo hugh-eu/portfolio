@@ -7,7 +7,6 @@
 <mapper namespace="com.hugh.tripist.dao.ITripistDao">
 
 	<select id="confirmSignUp" parameterType="String" resultType="com.hugh.tripist.vo.TripistVo">
-<<<<<<< HEAD
 		SELECT * FROM tbl_user WHERE u_id = #{tripistVo.u_id}
 	</select>
 
@@ -45,98 +44,31 @@
 
 	<insert id="insertMarkerInfo" parameterType="Map">
 		INSERT INTO tbl_marker(
-=======
-		select * from tbl_user where u_id = #{tripistVo.u_id}
-	</select>
-
-	<insert id="addUser" parameterType="String">
-		insert into tbl_user(u_id, u_pw, u_email, u_reg_date, u_mod_date) value (#{tripistVo.u_id}, #{tripistVo.u_pw}, #{tripistVo.u_email}, now(), now())
-	</insert>
-
-	<select id="confirmSignIn" parameterType="String" resultType="com.hugh.tripist.vo.TripistVo">
-		select * from tbl_user where u_id = #{tripistVo.u_id} and u_pw = #{tripistVo.u_pw}
-	</select>
-	
-	<select id="getMarkerList" parameterType="int" resultType="com.hugh.tripist.vo.TripistVo">
-		select * from tbl_marker where u_no = #{tripistVo.u_no}
-	</select>
-
-	<select id="confirmPwToModify" parameterType="String" resultType="com.hugh.tripist.vo.TripistVo">
-		select * from tbl_user where u_id = #{tripistVo.u_id} and u_pw = #{tripistVo.u_pw}
-	</select>
-
-	<update id="modifyMyInfo" parameterType="Map">
-		update tbl_user set u_pw = #{map.u_pw}, u_email = #{map.u_email}, u_mod_date = now() where u_no = #{map.u_no}
-	</update>
-
-	<select id="getTripistVoForSession" parameterType="int" resultType="com.hugh.tripist.vo.TripistVo">
-		select * from tbl_user where u_no = #{u_no}
-	</select>
-
-	<select id="confirmPwToDelete" parameterType="String" resultType="com.hugh.tripist.vo.TripistVo">
-		select * from tbl_user where u_id = #{tripistVo.u_id} and u_pw = #{tripistVo.u_pw}
-	</select>
-
-	<delete id="deleteAccount" parameterType="int">
-		delete from tbl_user where u_no = #{u_no}
-	</delete>
-
-	<insert id="insertMarkerInfo" parameterType="Map">
-		insert into tbl_marker(
->>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 				u_no, 
 				m_lat, 
 				m_lng, 
 				m_location, 
 				m_period, 
-<<<<<<< HEAD
 				m_cost, 
 				m_contents, 
 				m_img_name, 
 				m_reg_date, 
 				m_mod_date
 			) VALUE (
-=======
-				<if test="map.m_cost != ''">
-				m_cost, 
-				</if>
-				<if test="map.m_contents != ''">
-				m_contents, 
-				</if>
-				<if test="map.m_img_name != ''">
-				m_img_name, 
-				</if>
-				m_reg_date, 
-				m_mod_date
-			) value (
->>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 					#{map.u_no}, 
 					#{map.m_lat}, 
 					#{map.m_lng}, 
 					#{map.m_location}, 
 					#{map.m_period}, 
-<<<<<<< HEAD
 					#{map.m_cost}, 
 					#{map.m_contents}, 
 					#{map.m_img_name}, 
-=======
-					<if test="map.m_cost != ''">
-					#{map.m_cost}, 
-					</if>
-					<if test="map.m_contents != ''">
-					#{map.m_contents}, 
-					</if>
-					<if test="map.m_img_name != ''">
-					#{map.m_img_name}, 
-					</if>
->>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 					now(), 
 					now()
 				)
 	</insert>
 
 	<select id="getMarkerInfo" parameterType="int" resultType="com.hugh.tripist.vo.TripistVo">
-<<<<<<< HEAD
 		SELECT * FROM tbl_marker WHERE m_no = #{tripistVo.m_no}
 	</select>
 
@@ -146,17 +78,6 @@
 
 	<delete id="deleteMarkerInfo" parameterType="int">
 		DELETE FROM tbl_marker WHERE m_no = #{tripistVo.m_no}
-=======
-		select * from tbl_marker where m_no = #{tripistVo.m_no}
-	</select>
-
-	<update id="modifyMarkerInfo" parameterType="Map">
-		update tbl_marker set m_location = #{map.m_location}, m_period = #{map.m_period}, m_cost = #{map.m_cost}, m_contents = #{map.m_contents}, m_mod_date = now() where m_no = #{map.m_no}
-	</update>
-
-	<delete id="deleteMarkerInfo" parameterType="int">
-		delete from tbl_marker where m_no = #{tripistVo.m_no}
->>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 	</delete>
 
 </mapper>

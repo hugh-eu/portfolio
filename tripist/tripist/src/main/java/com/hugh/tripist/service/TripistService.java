@@ -17,16 +17,12 @@ import com.hugh.tripist.vo.TripistVo;
 
 @Service
 public class TripistService {
-<<<<<<< HEAD
 	public static final String LOCAL_IMG_PATH = "E:/img/";
 	public static final String REMOTE_IMG_PATH = "/img/";
 	public static final String REMOTE_IMG_HOST = "192.168.0.102";
 	public static final String REMOTE_IMG_USER = "hugh";
 	public static final String REMOTE_IMG_PW = "1234";
 	
-	
-=======
->>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 	public static final int DUPLICATE_ID = -1;
 
 	public static final int SIGNIN_SUCCESS = 1;
@@ -132,11 +128,6 @@ public class TripistService {
 	public int insertMarkerInfo(TripistVo tripistVo, List<MultipartFile> fileList) throws IllegalStateException, IOException {
 		System.out.println("[TripistService] insertMarkerInfo() called.");
 		
-<<<<<<< HEAD
-=======
-		String localImgPath = "E:/img/";
-		String remoteImgPath = "/img/";
->>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 		String imgName, m_img_name = "";
 
 		if (fileList != null) {
@@ -145,21 +136,12 @@ public class TripistService {
 			for (int i = 0; i < fileList.size(); i++) {
 				imgName = UUID.randomUUID().toString() + fileList.get(i).getOriginalFilename();
 				
-<<<<<<< HEAD
 				File dest = new File(LOCAL_IMG_PATH + imgName);
 				fileList.get(i).transferTo(dest);
 				
 				scpUtil = new SCPUtil();
 				scpUtil.init(REMOTE_IMG_HOST, REMOTE_IMG_USER, REMOTE_IMG_PW);
 				scpUtil.upload(REMOTE_IMG_PATH, dest);
-=======
-				File dest = new File(localImgPath + imgName);
-				fileList.get(i).transferTo(dest);
-				
-				scpUtil = new SCPUtil();
-				scpUtil.init("192.168.0.132", "hugh", "1234");
-				scpUtil.upload(remoteImgPath, dest);
->>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 				scpUtil.disconnection();
 				scpUtil = null;
 				

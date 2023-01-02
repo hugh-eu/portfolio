@@ -226,7 +226,6 @@ nav {
 	top: 10%;
 	left: 50%;
 	transform: translate(-50%, 0);
-<<<<<<< HEAD
 
 	overflow: auto;
 
@@ -240,8 +239,6 @@ nav {
 #myPage::-webkit-scrollbar-thumb, #tripList::-webkit-scrollbar-thumb {
 	background-color: rgba(150, 150, 150, 1);
 	
-=======
->>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 }
 
 #myPage {
@@ -249,14 +246,6 @@ nav {
 	
 }
 
-<<<<<<< HEAD
-=======
-#tripList {
-	width: 100%;
-
-}
-
->>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 #listTable {
 	width: 100%;
 
@@ -402,7 +391,6 @@ article {
 
 }
 
-<<<<<<< HEAD
 #noImg {
 	position: absolute;
 	top: 50%;
@@ -412,8 +400,6 @@ article {
 
 }
 
-=======
->>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
 #addMarkerContents, #markerInfoContents {
 	height: 25vh;
 
