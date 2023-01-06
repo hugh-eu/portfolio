@@ -48,4 +48,8 @@ def getMonthly():
     cur.execute(sql)
     rows = cur.fetchall()
     conn.close()
+<<<<<<< HEAD
     return rows
+=======
+    return rows
+>>>>>>> dfafe29c0482dd92cdc454a767f9bed240e80ae9

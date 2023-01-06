@@ -14,6 +14,7 @@ nav {
 	font-weight: bolder;
 }
 =======
+<<<<<<< HEAD
 nav {
 	width: 100%;
 }
@@ -28,4 +29,20 @@ nav {
 .menu_nav a {
 	font-weight: bolder;
 }
+=======
+nav {
+	width: 100%;
+}
+
+#wrap_nav {
+	width: 640px;
+	height: 30px;
+	border-bottom: 1px solid #969696;
+	margin-bottom: 10px;
+}
+
+.menu_nav a {
+	font-weight: bolder;
+}
+>>>>>>> dfafe29c0482dd92cdc454a767f9bed240e80ae9
 >>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2

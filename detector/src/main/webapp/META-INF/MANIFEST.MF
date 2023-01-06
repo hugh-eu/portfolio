@@ -5,9 +5,17 @@ Build-Jdk: 11.0.16.1
 Created-By: Maven Integration for Eclipse
 
 =======
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Built-By: 22
 Build-Jdk: 11.0.16.1
 Created-By: Maven Integration for Eclipse
 
+=======
+Manifest-Version: 1.0
+Built-By: 22
+Build-Jdk: 11.0.16.1
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> dfafe29c0482dd92cdc454a767f9bed240e80ae9
 >>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
