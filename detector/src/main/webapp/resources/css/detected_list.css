@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 table tr td a {
 	margin: 1px;
 	padding: 0;
@@ -27,65 +26,4 @@ table tr td a {
 
 #searchMonthly, #searchDaily {
 	font-size: .9em;
-=======
-<<<<<<< HEAD
-table tr td a {
-	margin: 1px;
-	padding: 0;
-}
-
-.clickable {
-    cursor: pointer;
-}
-
-.hover {
-    text-decoration: underline;
-}
-
-.active{
-    width: 10px;
-    height: 10px;
-    background: #D6EEFF;
-    color: white;
-}
-
-.classify {
-	text-align: right;
-	font-size: .9em;
-	margin-bottom: 10px;
-}
-
-#searchMonthly, #searchDaily {
-	font-size: .9em;
-=======
-table tr td a {
-	margin: 1px;
-	padding: 0;
-}
-
-.clickable {
-    cursor: pointer;
-}
-
-.hover {
-    text-decoration: underline;
-}
-
-.active{
-    width: 10px;
-    height: 10px;
-    background: #D6EEFF;
-    color: white;
-}
-
-.classify {
-	text-align: right;
-	font-size: .9em;
-	margin-bottom: 10px;
-}
-
-#searchMonthly, #searchDaily {
-	font-size: .9em;
->>>>>>> 5aa76ea3a0591d427a636e8d726911934985e0b2
->>>>>>> dfafe29c0482dd92cdc454a767f9bed240e80ae9
 }
