@@ -1,0 +1,444 @@
+* {
+	margin: 0 0 10px;
+	padding: 0;
+	
+	text-align: center;
+	
+	color: white;
+	
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	
+}
+
+ul, li {
+	list-style: none;
+
+}
+
+input, textarea {
+	padding: 3px 6px;
+	
+	border: none;
+	border-radius: 3px;
+	
+	background-color: rgba(150, 150, 150, 1);
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, .2);
+	
+}
+
+input[type=text], input[type=password], textarea {
+	width: 25vw;
+	padding: 3px 0;
+
+}
+
+button, input[type=button] {
+	cursor: pointer;
+
+}
+
+input[type=button]:hover {
+	opacity: .7;
+	
+}
+
+.title {
+	font-size: 3rem;
+	font-weight: bolder;
+
+	display: block;
+
+}
+
+.subTitle {
+	font-size: 1.2rem;
+	font-weight: bolder;
+	
+	display: block;
+
+}
+
+.cancel {
+	margin: 0;
+
+	font-size: 1.5rem;
+	font-weight: bolder;
+	
+	text-align: right;
+	
+	cursor: pointer;
+
+	display: block;
+
+}
+
+.cancel:hover {
+	opacity: .7;
+
+}
+
+header {
+	width: 100%;
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	
+}
+
+#backSign {
+	width: 100%;
+	height: 100vh;
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	
+	background-color: rgba(150, 150, 150, .7);
+	
+	display: none;	
+	
+}
+
+#signIn, #signUp {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	
+	display: none;
+	
+}
+
+#signInPw, #signUpEmail, #myPageEmail, #addMarkerImg, #markerInfoImgs {
+	margin-bottom: 20px;
+
+}
+
+nav {
+	width: 40vw;
+	height: 100vh;
+	
+	position: fixed;
+	top: 0;
+	left: 95vw;
+	
+	display: none;
+	
+}
+
+#navBtn {
+	width: 5vw;
+	height: 100vh;
+	
+	background-color: rgba(150, 150, 150, .3);
+	
+}
+
+#navBtn span {
+	width: 5vw;
+	height: 100vh;
+	line-height: 100vh;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	
+	font-size: 2rem;
+	font-weight: bolder;
+	
+}
+
+#openNav {
+	cursor: pointer;
+
+	display: block;
+
+}
+
+#foldNav {
+	cursor: pointer;
+
+	display: none;
+
+}
+
+#openNav:hover {
+	transform: translateX(-3px);
+
+	opacity: .7;
+	
+}
+
+#foldNav:hover {
+	transform: translateX(3px);
+
+	opacity: .7;
+	
+}
+
+#navPage {
+	width: 35vw;
+	height: 100vh;
+	
+	position: absolute;
+	top: 0;
+	left: 5vw;
+	
+	background-color: rgba(150, 150, 150, .7);
+
+}
+
+#navCtl {
+	height: 10%;
+
+}
+
+#navCtlContents {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+}
+
+#showId {
+	font-weight: bolder;
+	
+	cursor: pointer;
+	
+}
+
+#showId:hover {
+	opacity: .7;
+
+}
+
+#myPage, #tripList {
+	width: 100%;
+	height: 80%;
+
+	position: absolute;
+	top: 10%;
+	left: 50%;
+	transform: translate(-50%, 0);
+
+	overflow: auto;
+
+}
+
+#myPage::-webkit-scrollbar, #tripList::-webkit-scrollbar {
+	width: 1vw;
+
+}
+
+#myPage::-webkit-scrollbar-thumb, #tripList::-webkit-scrollbar-thumb {
+	background-color: rgba(150, 150, 150, 1);
+	
+}
+
+#myPage {
+	display: none;
+	
+}
+
+#listTable {
+	width: 100%;
+
+}
+
+.listElement {
+	width: 80%;
+
+	padding: 5px 0;
+	
+	border: none;
+	border-radius: 3px;
+	
+	background-color: rgba(150, 150, 150, 1);
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, .2);
+	
+}
+
+.listElement:hover {
+	opacity: .7;
+	
+}
+
+article {
+	width: 100%;
+	height: 100vh;
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	
+}
+
+#map {
+	width: 100%;
+	height: 100vh;
+	
+}
+
+#backMarker {
+	width: 100%;
+	height: 100vh;
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	
+	background-color: rgba(150, 150, 150, .7);
+	
+	display: none;
+	
+}
+
+#addMarkerForm {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	
+	display: none;
+	
+}
+
+#addMarkerImg {
+	display: none;
+	
+}
+
+#addMarkerImgBtn {
+	padding: 3px 6px;
+	
+	border: none;
+	border-radius: 3px;
+	
+	background-color: rgba(150, 150, 150, 1);
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, .2);
+	
+	cursor: pointer;
+	
+	display: inline-block;
+	
+}
+
+#addMarkerImgBtn:hover {
+	opacity: .7;
+	
+}
+
+#markerInfo {
+	padding: 2vh;
+
+	position: fixed;
+	top: 50%;
+	left: 25vw;
+	transform: translate(-50%, -50%);
+	
+	background-color: rgba(150, 150, 150, .7);
+
+	display: none;
+	
+}
+
+#imgSlide {
+	margin: 0 auto 10px;
+	padding: 0;
+	border: 0;
+
+	width: 25vw;
+	height: 20vw;
+
+	overflow: hidden;
+
+}
+
+#markerInfoImgs {
+	margin: 0;
+	padding: 0;
+	border: 0;
+
+	height: 20vw;
+
+}
+
+#markerInfoImg {
+	margin: 0;
+	padding: 0;
+	border: 0;
+
+	width: 25vw;
+	height: 20vw;
+
+	display: inline;
+
+}
+
+#markerInfoImg img {
+	margin: 0;
+	padding: 0;
+	border: 0;
+
+	width: 25vw;
+	height: 20vw;
+
+}
+
+#noImg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	transform: translate(-50%, -50%);
+
+}
+
+#addMarkerContents, #markerInfoContents {
+	height: 25vh;
+
+}
+
+footer {
+	width: 100%;
+	
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	
+}
+
+#alert {
+	padding: 10px 20px;
+	
+	border-radius: 3px;
+	
+	position: fixed;
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	
+	background-color: rgba(150, 150, 150, 1);
+	
+	display: none;
+	
+}
+
+#alertText {
+	font-size: 1.2rem;
+	font-weight: bolder;
+	
+}
+
+#copyRight {
+	margin: 0 auto;
+	
+	font-size: .9rem;
+	
+}

@@ -1,0 +1,7 @@
+table {
+	width: 640px;
+	margin-bottom: 10px;
+}
+table tr td {
+	font-size: .9em;
+}

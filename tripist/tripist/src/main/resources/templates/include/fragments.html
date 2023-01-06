@@ -1,0 +1,78 @@
+<header th:fragment="header">
+	<div class="headerWrap">
+		
+		<div id="backSign">
+		
+			<div id="signIn">
+				<span class="title" id="signInText">Tripist</span><br>
+				<input type="text" class="input" id="signInId" placeholder="ID"><br>
+				<input type="password" class="input" id="signInPw" placeholder="Password"><br>
+				<input type="button" id="signInBtn" value="SIGN IN">
+				<input type="button" id="signUpBtn" value="SIGN UP">
+			</div>
+			
+			<div id="signUp">
+				<span class="cancel" id="signUpCancelBtn">&#215;&nbsp;</span>
+				<span class="subTitle" id="signUpText">Signup Form</span><br>
+				<input type="text" class="input" id="signUpId" placeholder="ID"><br>
+				<input type="password" class="input" id="signUpPw" placeholder="Password"><br>
+				<input type="password" class="input" id="signUpConfirmPw" placeholder="Confirm Password"><br>
+				<input type="text" class="input" id="signUpEmail" placeholder="Email"><br>
+				<input type="button" id="signUpSubmitBtn" value="SUBMIT">
+			</div>
+			
+		</div>
+		
+	</div>
+</header>
+
+<nav th:fragment="nav">
+	<div class="navWrap">
+	
+		<div id="navBtn">
+			<span id="openNav">&#171;</span>
+			<span id="foldNav">&#187;</span>
+		</div>
+		
+		<div id="navPage">
+			
+			<div id="navCtl">
+				<div id="navCtlContents">
+					<span id="showId" th:if="${session.tripistVo != null}">&#64;[[${session.tripistVo.u_id}]]</span>&nbsp;&nbsp;
+					<input type="button" id="signOutBtn" value="SIGN OUT">
+				</div>
+			</div>
+			
+			<div id="myPage">
+				<span class="cancel" id="myPageCancelBtn">&#215;&nbsp;</span>
+				<span class="subTitle" id="myPageText">My Page</span>
+				<input type="text" class="input" id="myPageId" readonly><br>
+				<input type="password" class="input" id="myPagePw" placeholder="Password"><br>
+				<input type="password" class="input" id="myPageNewPw" placeholder="New Password"><br>
+				<input type="password" class="input" id="myPageNewConfirmPw" placeholder="Confirm New Password"><br>
+				<input type="text" class="input" id="myPageEmail"><br>
+				<input type="button" id="myPageModifyBtn" value="MODIFY">
+				<input type="button" id="myPageWithdrawalBtn" value="WITHDRAWAL">
+			</div>
+			
+			<div id="tripList">
+				<span class="subTitle" id="tripListText">Trip List</span>
+				<table id="listTable">
+				</table>
+			</div>
+			
+		</div>
+		
+	</div>
+</nav>
+
+<footer th:fragment="footer">
+	<div class="footerWrap">
+		<div id="alert">
+			<span id="alertText"></span>
+		</div>
+		<div id="copyRight">
+			Copyright 2022. Hugh. all rights reserved.
+		</div>
+	</div>
+</footer>

@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <title></title>
+        <link href="static/css/dht11.css" rel="stylesheet" type="text/css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <script>
+            setTimeout(function(){
+                location.reload();
+            }, 10000);
+        </script>
+    </head>
+    <body>
+        <header>
+            <div class="wrap_header">
+                디지털 온/습도 계측기
+            </div>
+        </header>
+        <nav>
+            <div class="wrap_nav">
+                <a href="/">실시간</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/hourly">시간별 평균</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/daily">일별 평균</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/monthly">월별 평균</a>
+            </div>
+        </nav>
+        <article>
+            <div class="wrap_article">
+                <div class="graph">
+                    <canvas id="chart"></canvas>
+                    <script>
+                        var context = document.getElementById("chart").getContext("2d");
+                        var myChart = new Chart(context, {
+                            type: "line",
+                            data: {
+                                labels: {{dates|tojson}},
+                                datasets: [
+                                    {
+                                        label: "평균온도",
+                                        fill: false,
+                                        data: {{temps|tojson}},
+                                        borderColor: "rgb(222, 124, 124)",
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: "평균습도",
+                                        fill: false,
+                                        data: {{humis|tojson}},
+                                        borderColor: "rgb(123, 192, 238)",
+                                        borderWidth: 1
+                                    }
+                                ]
+                            },
+                            options: {
+                                scales: {yAxes: [{ticks: {beginAtZero: true}}]}
+                            }
+                        });
+                    </script>
+                </div>
+                <div class="log">
+                    <table>
+                        <tr>
+                            <td>평균온도</td>
+                            <td>평균습도</td>
+                            <td>측정일</td>
+                        </tr>
+                        {% for row in rows %}
+                        <tr>
+                            <td>{{row["d_temp"]}}</td>
+                            <td>{{row["d_humi"]}}</td>
+                            <td>{{row["d_reg_date"]}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </article>
+        <footer>
+            <div class="wrap_footer">
+                Copyright(c) Hugh All rights reserved.
+            </div>
+        </footer>
+    </body>
+</html>
