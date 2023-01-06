@@ -1,2 +1,0 @@
-C:\Hugh\Drive\_dev\Aiot\_cpp_ex\_project\_todolist\x64\Debug\_todolist.exe
-E:\Drive\_dev\_project\_private\_todolist\x64\Debug\_todolist.exe
