@@ -45,10 +45,9 @@ int main() {
     time_t curTime;
     struct tm *t;
 
-    VideoCapture cap(0, cv::CAP_V4L);
-    if (!cap.isOpened()) {
-        cerr << "VideoCapture Failed." << endl;
-        return -1;
+    VideoCapture cap;
+    while (!cap.isOpened()) {
+        cap = VideoCapture("http://127.0.0.1:9090/?action=stream");
 
     }
 
@@ -209,7 +208,6 @@ int main() {
                         angleDegree = (atan(deltaY / deltaX)) * (double)(180 / 3.141592);
                         imgRotation = getRotationMatrix2D(Point(xPlateCenter, yPlateCenter), angleDegree, 1.0);
                         warpAffine(imgFinal, imgFinal, imgRotation, Size(widthOg, heightOg));
-                        // imshow("Rotated", imgFinal);
 
                         // 원본 번호판 부분, 최종 이미지 전처리
                         getRectSubPix(imgFinal, Size(widthPlate, heightPlate), Point(xPlateCenter, yPlateCenter), imgFinal, -1);
@@ -219,13 +217,13 @@ int main() {
                         // 적응형이진화, 블럭사이즈 조절하기, 19
                         adaptiveThreshold(imgFinal, imgFinal, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY_INV, 19, 0);
                         copyMakeBorder(imgFinal, imgFinal, 10, 10, 10, 10, BORDER_CONSTANT, Scalar(0, 0, 0));
-                        imwrite("./img/temp/temp.jpg", imgFinal);
+                        imwrite("/home/pi/carplate/img/temp/temp.jpg", imgFinal);
 
                         // Tesseract
                         tesseract::TessBaseAPI *api = new tesseract:: TessBaseAPI();
                         api->Init(NULL, "kor3", tesseract::OEM_TESSERACT_ONLY);  //kor, kor3 확인
                         api->SetPageSegMode(tesseract::PSM_SINGLE_LINE);
-                        Pix* carNumber = pixRead("./img/temp/temp.jpg");
+                        Pix* carNumber = pixRead("/home/pi/carplate/img/temp/temp.jpg");
                         api->SetImage(carNumber);
                         outText = api->GetUTF8Text();
 
@@ -262,7 +260,6 @@ int main() {
                         api->End();
                         delete api;
                         pixDestroy(&carNumber);
-                        // cout << "Car Num : " << text << endl;
 
                         // DB
                         MYSQL conn;
@@ -278,7 +275,7 @@ int main() {
                         res = mysql_store_result(connPtr);
 
                         while ((row = mysql_fetch_row(res)) != NULL) {
-                            if (text == row[1]) {
+                            if (text == row[2]) {
                                 // 이미지 이름
                                 curTime = time(NULL);
                                 t = localtime(&curTime);
@@ -299,10 +296,10 @@ int main() {
                                 delete sqlIns;
 
                                 // 이미지 파일 전송 및 삭제
-                                imwrite("./img/detected/" + nameImg, imgOg);
-                                cmd = "sudo sshpass -p " + IMG_PW + " scp -P 23 ./img/detected/" + nameImg + " " + IMG_USER + "@" + IMG_HOST + ":" + IMG_PATH;  // sshpass 설치
+                                imwrite("/home/pi/carplate/img/detected/" + nameImg, imgOg);
+                                cmd = "sudo sshpass -p " + IMG_PW + " scp -P 23 /home/pi/carplate/img/detected/" + nameImg + " " + IMG_USER + "@" + IMG_HOST + ":" + IMG_PATH;  // sshpass 설치
                                 system(const_cast<char*>(cmd.c_str()));
-                                cmd = "sudo rm ./img/detected/" + nameImg;  // 파일 삭제
+                                cmd = "sudo rm /home/pi/carplate/img/detected/" + nameImg;  // 파일 삭제
                                 system(const_cast<char*>(cmd.c_str()));
 
                                 break;
@@ -315,14 +312,6 @@ int main() {
                     }
                 }
             }
-        }
-
-        // imshow("Plate", cp2_imgOg);
-        // imshow("Cropped Image", imgFinal);
-
-        if (waitKey(10) == 27) {
-            break;
-
         }
     }
 
