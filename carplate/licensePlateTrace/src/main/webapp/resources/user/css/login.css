@@ -1,0 +1,181 @@
+section > div#section_wrap > div.login {
+    position: absolute;
+    width : 350px;
+    height : 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+}
+
+section > div#section_wrap > div.login > div.logo {
+	margin-top: 30px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+}
+
+section > div#section_wrap > div.login > div.logo > a {
+	font-size: 25px;
+	font-weight: bolder;
+}
+
+section > div#section_wrap > div.login > div.logo > a:hover {
+	color: #0080ff;
+}
+
+section > div#section_wrap > div.login > div.logo > a > img {
+	width: 25px;
+}
+
+section > div#section_wrap > div.login > div.word {
+	font-weight: bolder;
+    font-size: 1.2em;
+    color: #0080ff;
+    margin-top: 30px;
+}
+
+section > div#section_wrap > div.login > div.login_form_wrap {
+    margin-top: 20px;
+}
+
+section > div#section_wrap > div.login > div.login_form_wrap > form > div.regist_form_text > input {
+    width: 250px;
+	height: 40px;
+    margin: 4px 0;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	outline: none;
+	padding-left: 10px;
+	background-color: #fafafa;
+}
+
+section > div#section_wrap > div.login > div.login_form_wrap > form > div.regist_form_btn {
+	margin-top: 50px;
+}
+
+section > div#section_wrap > div.login > div.login_form_wrap > form > div.regist_form_btn > input[type="button"] {
+    width: 265px;
+    height: 40px;
+    margin: 4px 0;
+    font-size: 15px;
+    font-weight: bolder;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    color: #0080ff;
+    background-color: white;
+    cursor: pointer;
+}
+
+section > div#section_wrap > div.login > div.login_form_wrap > form > div.regist_form_btn > input[type="button"]:hover {
+    color: white;
+    background-color: #0080ff;
+}
+
+#regist_form_wrap {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	display: none;
+}
+
+#regist_form_wrap > div.div_regist_form_wrap {
+	width: 350px; height: 450px;
+	margin: 100px auto;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 1);
+	border: 3px solid #ccc;
+	border-radius: 15px;
+	box-shadow: 8px 8px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+#regist_form_wrap > div.div_regist_form_wrap > div.logo {
+	margin-top: 30px;
+	font-size: 1.2em;
+	font-weight: bolder;
+	color: #0080ff;
+}
+
+#regist_form_wrap > div.div_regist_form_wrap > div.div_regist_form {
+	padding-top: 10px;
+}
+
+#regist_form_wrap > div.div_regist_form_wrap > div.div_regist_form > form.regist_form {
+	
+}
+
+#regist_form_wrap > div.div_regist_form_wrap > div.div_regist_form > form.regist_form > div.regist_form_text {
+	
+}
+
+#regist_form_wrap > div.div_regist_form_wrap > div.div_regist_form > form.regist_form > div.regist_form_text input[type="text"],
+#regist_form_wrap > div.div_regist_form_wrap > div.div_regist_form > form.regist_form > div.regist_form_text input[type="password"],
+#regist_form_wrap > div.div_regist_form_wrap > div.div_regist_form > form.regist_form > div.regist_form_text input[type="email"] {
+    width: 250px;
+	height: 40px;
+    margin: 4px 0;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	outline: none;
+	padding-left: 10px;
+	background-color: #fafafa;
+}
+
+#regist_form_wrap > div.div_regist_form_wrap > div.div_regist_form > form.regist_form > div.regist_form_btn input[type="button"],
+#regist_form_wrap > div.div_regist_form_wrap > div.div_regist_form > form.regist_form > div.regist_form_btn input[type="reset"] {
+	width: 112px; height: 30px;
+	padding: 5px;
+	margin: 2px 1px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-weight: bolder;
+	cursor: pointer;
+	color: #0080ff;
+	background-color: #fff;
+}
+
+#regist_form_wrap > div.div_regist_form_wrap > div.div_regist_form > form.regist_form > div.regist_form_btn input[type="button"]:hover,
+#regist_form_wrap > div.div_regist_form_wrap > div.div_regist_form > form.regist_form > div.regist_form_btn input[type="reset"]:hover {
+	color: #fff;
+	background-color: #0080ff;
+}
+
+#regist_form_wrap > div.div_regist_form_wrap > div.div_regist_form > form.regist_form > div.regist_form_btn {
+	margin-top: 10px;
+	width: 100%;
+	text-align: center;
+	color: #0080ff;
+	background-color: #fff;
+}
+
+#regist_form_wrap > div.div_regist_form_wrap > div.div_close {
+	width: 100%;
+	margin-top: 35px;
+	text-align: center;
+}
+
+#regist_form_wrap > div.div_regist_form_wrap > div.div_close > button.close {
+	width: 100px; height: 30px;
+	padding: 5px;
+	margin: 2px 2px 2px 2px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	vertical-align: middle;
+	cursor: pointer;
+	color: #0080ff;
+	background-color: #fff;
+}
+
+#regist_form_wrap > div.div_regist_form_wrap > div.div_close > button.close:hover {
+	color: #fff;
+	background-color: #0080ff;
+}

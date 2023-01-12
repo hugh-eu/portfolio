@@ -1,0 +1,82 @@
+#modify_form_wrap {
+	position: fixed;
+	top: 0; left: 0;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.1);
+	display: none;
+}
+
+#modify_form_wrap .modify_form {
+	width: 300px; height: 400px;
+	margin: 100px auto;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 1);
+	border: 3px solid #ccc;
+	border-radius: 15px;
+	box-shadow: 8px 8px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+#modify_form_wrap .modify_form .logo {
+	margin-top: 20px;
+	font-size: 1.2em;
+	font-weight: bolder;
+}
+
+#modify_form {
+	padding-top: 30px;
+}
+
+#modify_form_wrap .modify_form_text {
+	color: #adadad;
+}
+
+#modify_form_wrap .modify_form_btn {
+	margin-top: 10px;
+}
+
+#modify_form_wrap .modify_form form input[type="password"] {
+	width: 220px; height: 30px;
+	padding: 5px;
+	margin: 2px 2px 2px 2px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+#modify_form_wrap .modify_form form input[type="button"],
+#modify_form_wrap .modify_form form input[type="reset"] {
+	width: 100px; height: 30px;
+	padding: 5px;
+	margin: 2px 2px 2px 2px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+#modify_form_wrap .modify_form form input[type="button"]:hover,
+#modify_form_wrap .modify_form form input[type="reset"]:hover {
+	background-color: #ccc;
+}
+
+#modify_form_wrap .close {
+	
+}
+
+#modify_form_wrap .modify_form .close_div {
+	width: 100%;
+	margin-top: 100px;
+	text-align: center;
+}
+
+#modify_form_wrap .modify_form .close_div .close {
+	width: 100px; height: 30px;
+	padding: 5px;
+	margin: 2px 2px 2px 2px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#modify_form_wrap .modify_form .close_div .close:hover {
+	background-color: #ccc;
+}

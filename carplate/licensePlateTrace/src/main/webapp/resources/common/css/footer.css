@@ -1,0 +1,14 @@
+footer {
+	height: auto;
+	min-height: 100%;
+   }
+   
+footer #footer_wrap {
+	position : relative;
+	left: 300px;
+	color: #363636;
+	background-color: #f2f2f2; 
+	padding: 5px 0;
+	text-align: center;
+	font-size: .9em;
+   }

@@ -1,0 +1,66 @@
+header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 300px;
+	height: 100%;
+	border-right: 1px solid #ccc;
+}
+
+header > div#header_wrap {
+	padding: 20px;
+}
+
+header > div#header_wrap > div.logo {
+	height: 100px;
+	line-height: 80px;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+}
+
+header > div#header_wrap > div.logo > a {
+	font-size: 25px;
+	font-weight: bolder;
+}
+
+header > div#header_wrap > div.logo > a:hover {
+	color: #0080ff;
+}
+
+header > div#header_wrap > div.logo > a > img {
+	width: 25px;
+}
+
+header > div#header_wrap > div.login {
+	padding: 8px 16px;
+}
+
+header > div#header_wrap > div.login > a:hover {
+	color: #0080ff;
+}
+
+header > div#header_wrap > div.list > ul {
+	padding: 8px 16px;
+	border-radius: 7px;
+}
+
+header > div#header_wrap > div.list > ul.selected {
+	background-color: #0080ff;
+}
+
+header > div#header_wrap > div.list > ul.selected > a {
+	color: #fff;
+}
+
+header > div#header_wrap > div.list > ul.selected > a:hover {
+	color: #fff;
+}
+
+header > div#header_wrap > div.list > ul > a {
+	font-weight: bolder;
+	color: #3c3c3c;
+}
+
+header > div#header_wrap > div.list > ul > a:hover {
+	color: #0080ff;
+}
