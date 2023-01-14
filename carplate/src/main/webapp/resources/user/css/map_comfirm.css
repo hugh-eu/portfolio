@@ -1,0 +1,199 @@
+#map_wrap {
+	margin: 0 20px;
+	padding-bottom: 20px;
+	background-color: #fff;
+	border-radius: 7px;
+}
+
+#map_wrap > div.map_date_write {
+	margin: 0 20px;
+    padding: 20px 0;
+	border-bottom: 1px solid #ccc;
+}
+
+#map_wrap > div.map_date_write > select {
+	width: 100px; /* 원하는 너비설정 */
+    padding: .3em .6em; /* 여백으로 높이 설정 */
+    font-family: inherit;  /* 폰트 상속 */
+    background: url('http://localhost:8090/licensePlateTrace/resources/common/img/select.jpg') no-repeat 95% 50%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+    border: 1px solid #999;
+    border-radius: 3px; /* iOS 둥근모서리 제거 */
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#map_wrap > div.plat_info {
+	margin: 0 20px;
+    padding: 20px 0;
+}
+
+#map_wrap > div.plat_info > input[type="text"] {
+	width: 300px;
+	height: 30px;
+    margin: 4px 0;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	outline: none;
+	padding-left: 10px;
+	background-color: #fafafa;
+}
+
+#map_wrap > div.plat_info > input[type="button"],
+#map_wrap > div.plat_info > input[type="reset"] {
+	width: 60px;
+    height: 32px;
+    margin: 4px 0;
+    font-size: 15px;
+    font-weight: bolder;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    color: #0080ff;
+    background-color: white;
+    cursor: pointer;
+}
+
+#map_wrap > div.plat_info > input[type="button"]:hover,
+#map_wrap > div.plat_info > input[type="reset"]:hover {
+	color: white;
+    background-color: #0080ff;
+}
+
+#map_wrap select.plate_select {
+	width: 120px; /* 원하는 너비설정 */
+    padding: .4em .6em; /* 여백으로 높이 설정 */
+    font-family: inherit;  /* 폰트 상속 */
+    background: url('http://localhost:8090/licensePlateTrace/resources/common/img/select.jpg') no-repeat 95% 50%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+    border: 1px solid #999;
+    border-radius: 3px; /* iOS 둥근모서리 제거 */
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#map_wrap div.plate_select_wrap select {
+	width: 100px; /* 원하는 너비설정 */
+    padding: .3em .6em; /* 여백으로 높이 설정 */
+    font-family: inherit;  /* 폰트 상속 */
+    background: url('http://localhost:8090/licensePlateTrace/resources/common/img/select.jpg') no-repeat 95% 50%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+    border: 1px solid #999;
+    border-radius: 3px; /* iOS 둥근모서리 제거 */
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#map_wrap > div#map {
+	height: 50vh;
+	margin: 20px;
+	padding: 20px 0;
+}
+
+#map_wrap > div.plate_list {
+	margin: 20px;
+}
+
+#map_wrap > div.plate_list > table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 3px;
+}
+
+#map_wrap > div.plate_list > table > tbody tr td {
+	border: 1px solid #ccc;
+	padding: 7px;
+}
+
+#map_wrap > div.plate_list > table > tbody tr td a {
+	font-weight: bolder;
+}
+
+#map_wrap > div.plate_list > table > tbody tr td a:hover {
+	color: #0080ff;
+}
+
+#map_wrap > div.plate_list > table > tbody tr td a div.info_word {
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#map_wrap > div.plate_list > table > tbody tr td:nth-child(1) {
+	width: 100px;
+}
+
+#map_wrap > div.plate_list > table > tbody tr td:nth-child(3) {
+	width: 100px;
+}
+
+#map_wrap > div.plate_list > table > tbody tr td img {
+	max-width: 100px;
+}
+
+#plate_detail_wrap {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: none;
+}
+
+#plate_detail_wrap > div.plate_detail {
+	position: absolute;
+	top: 0;
+    left: 50%;
+	transform: translate(-50%, 0);
+	width: 800px; height: 600px;
+	padding: 20px;
+	margin: 100px auto;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 1);
+	border: 3px solid #ccc;
+	border-radius: 15px;
+}
+
+#plate_detail_wrap > div.plate_detail ul {
+	list-style: none;
+}
+
+#plate_detail_wrap > div.plate_detail .plat_img {
+	max-width: 100%;
+	padding: 20px;
+	border: 1px solid #ccc;
+}
+
+#plate_detail_wrap > div.plate_detail div.plat_img img {
+	max-width: 80%;
+}
+
+#plate_detail_wrap > div.plate_detail div.plat_infos table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 3px;
+}
+
+#plate_detail_wrap > div.plate_detail div.plat_infos table tr td {
+	border: 1px solid #ccc;
+	padding: 7px;
+}
+
+#plate_detail_wrap > div.plate_detail div.close_wrap {
+	position: absolute;
+	bottom: 10px;
+    left: 50%;
+	transform: translate(-50%, 0);
+}
+
+#plate_detail_wrap > div.plate_detail div.close_wrap a {
+	font-weight: bolder;
+}
+
+#plate_detail_wrap > div.plate_detail div.close_wrap a:hover {
+	color: #0080ff;
+}

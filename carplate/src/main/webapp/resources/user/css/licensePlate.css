@@ -1,0 +1,207 @@
+section > #section_wrap > div.div_license_plate_regist_wrap {
+	margin: 0 20px;
+	background-color: #fff;
+	border-radius: 7px;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_regist {
+	padding : 20px 0;
+	border-bottom: 1px solid #ccc;
+	margin: 0 20px;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_regist > form > input {
+	vertical-align: middle;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_regist > form > input[type="text"] {
+	width: 250px;
+	height: 30px;
+    margin: 4px 0;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	outline: none;
+	padding-left: 10px;
+	background-color: #fafafa;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_regist > form > input[type="button"],
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_regist > form > input[type="reset"] {
+	width: 50px;
+    height: 32px;
+    margin: 4px 0;
+    font-size: 15px;
+    font-weight: bolder;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    color: #0080ff;
+    background-color: white;
+    cursor: pointer;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_regist > form > input[type="button"]:hover,
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_regist > form > input[type="reset"]:hover {
+	color: white;
+    background-color: #0080ff;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.search {
+	margin: 20px;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.search > input {
+	vertical-align: middle;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.search > input[name="search_bar"] {
+	width: 250px;
+	height: 30px;
+    margin: 4px 0;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	outline: none;
+	padding-left: 10px;
+	background-color: #fafafa;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.search > input[type="button"] {
+	width: 50px;
+    height: 32px;
+    margin: 4px 0;
+    font-size: 15px;
+    font-weight: bolder;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    color: #0080ff;
+    background-color: white;
+    cursor: pointer;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.search > input[type="button"]:hover {
+	color: white;
+    background-color: #0080ff;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.set_amount {
+	margin: 0 20px;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.set_amount > select {
+    width: 100px; /* 원하는 너비설정 */
+    padding: .3em .6em; /* 여백으로 높이 설정 */
+    font-family: inherit;  /* 폰트 상속 */
+    background: url('http://localhost:8090/licensePlateTrace/resources/common/img/select.jpg') no-repeat 95% 50%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+    border: 1px solid #999;
+    border-radius: 3px; /* iOS 둥근모서리 제거 */
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.set_amount > select::-ms-expand {
+	display: none;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.table_wrap {
+	margin: 20px;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.table_wrap > table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 3px;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.table_wrap > table tr {
+
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.table_wrap > table > tbody:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.table_wrap > table tr td {
+	border: 1px solid #ccc;
+	padding: 7px;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.table_wrap > table tr td > a:hover {
+	color: #0080ff;
+}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.page_wrap {
+
+}
+
+/* page UI START */
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.page_wrap {
+	width: 98%;
+	padding: 5px;
+	text-align: center;
+	}
+	
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.page_wrap > div.page_number {
+	display: inline-block;
+	}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.page_wrap > div.page_number a {
+	width: 46px;
+	height: 46px;
+	line-height: 46px;
+	text-decoration: none;
+	display: inline-block;
+	margin: 0 3px;
+	color: #3c3c3c;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.page_wrap > div.page_number a:hover {
+	background-color: #e3e6e8;
+	}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.page_wrap > div.page_number a.selectedPageNum {
+	color: #fff;
+	font-weight: bolder;
+	border: 1px solid #232f3d;
+	background-color: #232f3d;
+	}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.page_wrap > div.page_goto {
+	display: inline-block;
+	margin: 0 0 0 2px;
+	padding: 9px 6px 5px 15px;
+	border-radius: 7px;
+	background-color: rgba(200, 216, 235, .3);
+	}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.page_wrap > div.page_goto > input[name='page_target_num'] {
+	width: 60px; height: 25px;
+	margin: 3px 0 4px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	text-align: center;
+	font-weight: bolder;
+	}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.page_wrap > div.page_goto > a {
+	padding: 3px 10px 8px;
+	margin: 0 11px 0 5px;
+	border: 1px solid #424f60;
+	background-color: #424f60;
+	border-radius: 5px;
+	text-decoration: none;
+	color: #fff;
+	font-weight: bolder;
+	}
+
+section > #section_wrap > div.div_license_plate_regist_wrap > div.div_license_plate_list > div.page_wrap > div.page_goto > a:hover {
+	border: 1px solid #232f3d;
+	background-color: #232f3d;
+	}
+/* page UI END */

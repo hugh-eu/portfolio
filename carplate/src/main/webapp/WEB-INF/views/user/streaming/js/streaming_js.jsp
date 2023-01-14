@@ -2,6 +2,12 @@
 
 <script>
 
+$(function() {
+
+	$('#header_wrap a.streaming').parent().addClass('selected');
+	addCameraList();
+})
+
 function addCameraList() {
 	
 	$(".cameraEach").click(function(){
@@ -126,10 +132,5 @@ function addCameraList() {
 	});
 	
 }
-
-$(function() {
-	addCameraList();
-	
-})
 
 </script>
