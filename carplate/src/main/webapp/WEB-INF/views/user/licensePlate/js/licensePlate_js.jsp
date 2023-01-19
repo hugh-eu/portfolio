@@ -15,7 +15,7 @@ $(function() {
 function sendForm() {
 	console.log('sendForm()');
 	
-	let s_name = $('input[name="s_name"]').val();
+	let s_name = $('input[name="s_name"]').val().replace(/\s/gi, '');
 	let s_info = $('input[name="s_info"]').val();
 	
 	if (s_name == '') {
@@ -42,16 +42,25 @@ function ajax_license_plate_regist(s_name, s_info) {
 		dataType: 'json',
 		success: function(data) {
 			console.log('ajax_license_plate_regist() success');
-			
+
 			if (data.result == 'success') {
 				
 				alert('정상적으로 등록되었습니다.');
-				$("input[type=text], input[type=password], input[type=email]").val("");
+				setPageNum(1);
+				$(".div_license_plate_regist input[name=s_name]").val("");
+				$(".div_license_plate_regist input[name=s_info]").val("");
 				ajax_getlicensePlateList();
 				
 			} else if (data.result == 'not_logined') {
 				
 				alert('로그인 후에 이용 가능합니다.');
+				
+			} else if (data.result == 'already_exists') {
+				
+				alert('이미 등록된 번호판 입니다.');
+				$(".div_license_plate_regist input[name=s_name]").val("");
+				$(".div_license_plate_regist input[name=s_info]").val("");
+				$(".div_license_plate_regist input[name=s_name]").focus();
 				
 			} else {
 				
@@ -250,7 +259,7 @@ function add_licensePlate_events() {
 		console.log('change_info_btn click');
 		
 		let s_no = $(this).data('s_no');
-		let cur_s_info = $(this).data('cur_s_name');
+		let cur_s_info = $(this).data('cur_s_info');
 		let mod_s_info = $(this).siblings('input[name="s_info"]').val();
 		
 		if (mod_s_info != '') {
@@ -259,13 +268,16 @@ function add_licensePlate_events() {
 
 				ajax_modify_s_info(s_no, cur_s_info, mod_s_info);
 				ajax_getlicensePlateList();
+
+			} else {
+
+				$('#' + s_no + ' input[name="s_info"]').val(cur_s_info);
 			}
-		}
-			
-		else {
+
+		} else {
 			
 			alert('번호판 내용을 입력해주세요');
-			$('#' + u_no + ' input[name="s_info"]').val(cur_s_info);
+			$('#' + s_no + ' input[name="s_info"]').val(cur_s_info);
 		}
 	})
 }

@@ -8,6 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.group1.licensePlateTrace.paging.Criteria;
+import com.group1.licensePlateTrace.paging.PageMakerVo;
 import com.group1.licensePlateTrace.userDao.MapDao;
 import com.group1.licensePlateTrace.userUtil.MapUtil;
 import com.group1.licensePlateTrace.vo.MapDateVo;
@@ -236,7 +238,7 @@ public class MapService {
 	}
 
 	public Map<String, Object> getPlates(Map<String, String> msgMap) {
-		log.debug("");
+//		log.debug("");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -244,55 +246,62 @@ public class MapService {
 		
 		MapUtil mapUtil = new MapUtil();
 		
+		Criteria criteria = new Criteria(
+										 Integer.parseInt(msgMap.get("pageNum")),
+										 Integer.parseInt(msgMap.get("amount"))
+										);
+		
 		int result = mapUtil.quarter(msgMap);
-		/* 1월10여기까지 함 내일 할것 번호판 정보 있을때 없을때 나눠서 그에 따른 마커 찍기 */
+		int totalCnt = -1;
+		
 		switch (result) {
 		case MapUtil.SELECT_PLATE:
-			mapVos = mapDao.getPlatesAll(msgMap);		// 날짜 정보가 없을때(번호판 있을때)
+			mapVos = mapDao.getPlatesAll(msgMap, criteria);		// 날짜 정보가 없을때(번호판 있을때)
+			totalCnt = mapDao.getTotalCnt(msgMap);
 			break;
 			
 		case MapUtil.SELECT_PLATE_YEAR:
-			mapVos = mapDao.getPlatesYear(msgMap);		// 년도 정보는 있을때(번호판 있을때)
+			mapVos = mapDao.getPlatesYear(msgMap, criteria);		// 년도 정보는 있을때(번호판 있을때)
+			totalCnt = mapDao.getPlateCountYear(msgMap);
 			break;
 			
 		case MapUtil.SELECT_PLATE_YEAR_MONTH:
-			mapVos = mapDao.getPlatesYMonth(msgMap);	// 월 정보는 있을때(번호판 있을때)
+			mapVos = mapDao.getPlatesYMonth(msgMap, criteria);	// 월 정보는 있을때(번호판 있을때)
+			totalCnt = mapDao.getPlateCountYMonth(msgMap);
 			break;
 			
 		case MapUtil.SELECT_PLATE_YEAR_MONTH_DAY:
-			mapVos = mapDao.getPlatesYMDay(msgMap);		// 날짜 정보 있을때(번호판 있을때)
+			mapVos = mapDao.getPlatesYMDay(msgMap, criteria);		// 날짜 정보 있을때(번호판 있을때)
+			totalCnt = mapDao.getPlateCountYMDay(msgMap);
 			break;
 			
 		case MapUtil.SELECT_ALL:
-			mapVos = mapDao.getPlatesAll(msgMap);		// 날짜 정보가 없을때(번호판 없을때)
+			mapVos = mapDao.getPlatesAll(msgMap, criteria);		// 날짜 정보가 없을때(번호판 없을때)
+			totalCnt = mapDao.getTotalCnt(msgMap);
 			break;
 			
 		case MapUtil.SELECT_YEAR:
-			mapVos = mapDao.getPlatesYear(msgMap);		// 년도 정보는 있을때(번호판 없을때)
+			mapVos = mapDao.getPlatesYear(msgMap, criteria);		// 년도 정보는 있을때(번호판 없을때)
+			totalCnt = mapDao.getPlateCountYear(msgMap);
 			break;
 			
 		case MapUtil.SELECT_YEAR_MONTH:
-			mapVos = mapDao.getPlatesYMonth(msgMap);	// 월 클릭시(번호판 없을때)
+			mapVos = mapDao.getPlatesYMonth(msgMap, criteria);	// 월 클릭시(번호판 없을때)
+			totalCnt = mapDao.getPlateCountYMonth(msgMap);
 			break;
 			
 		case MapUtil.SELECT_YEAR_MONTH_DAY:
-			mapVos = mapDao.getPlatesYMDay(msgMap);		// 일 클릭시(번호판 없을때)
+			mapVos = mapDao.getPlatesYMDay(msgMap, criteria);		// 일 클릭시(번호판 없을때)
+			totalCnt = mapDao.getPlateCountYMDay(msgMap);
 			break;
 		}
-//		
-//		if (msgMap.get("year") == null && msgMap.get("month") == null && msgMap.get("day") == null)
-//			mapVos = mapDao.getPlatesAll(msgMap);		// 날짜 정보가 없을때
-//		
-//		else if (msgMap.get("year") != null && msgMap.get("month") == null && msgMap.get("day") == null)
-//			mapVos = mapDao.getPlatesYear(msgMap);		// 년도 정보는 있을때
-//			
-//		else if (msgMap.get("year") != null && msgMap.get("month") != null && msgMap.get("day") == null)
-//			mapVos = mapDao.getPlatesYMonth(msgMap);	// 월 정보는 있을때
-//			
-//		else if (msgMap.get("year") != null && msgMap.get("month") != null && msgMap.get("day") != null)
-//			mapVos = mapDao.getPlatesYMDay(msgMap);		// 날짜 정보 있을때
-//		
+		
+		PageMakerVo pageMakerVo = new PageMakerVo(criteria, totalCnt);
+		
+		
+		
 		map.put("MapVo", mapVos);
+		map.put("pageMakerVo", pageMakerVo);
 		
 		return map;
 		
@@ -302,6 +311,9 @@ public class MapService {
 		log.debug("");
 		
 		Map<String, MapVo> map = mapDao.getDetailItems(mapVo);
+		
+		mapVo = map.get("mapVo");
+		System.out.println(mapVo.getS_reg_date());
 		
 		return map;
 	}

@@ -88,6 +88,7 @@ function regist_form_off() {
 	console.log('regist_form_off()');
 	
 	$('#regist_form_wrap').css('display', 'none');
+	$("input[type=text], input[type=password], input[type=email]").val("");
 }
 
 function regist_confirm() {

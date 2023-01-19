@@ -27,7 +27,7 @@
 				
 				<div class="search_bar">
 					<input type="text" name="user_search_by_name" placeholder="찾고자 하는 이름을 입력해주세요.">
-					<input type="button" name="search_bar_btn" value="찾기">
+					<input type="button" name="search_bar_btn" onclick="setPageNum(1);" value="찾기">
 				</div>
 				
 				<div class="set_amount">
@@ -51,9 +51,6 @@
 								<td>등록날짜</td>
 								<td>수정날짜</td>
 								<td>권한</td>
-								<td>권한내용</td>
-								<td>권한등록날짜</td>
-								<td>권한수정날짜</td>
 							</tr>
 						</thead>
 					</table>
@@ -73,11 +70,14 @@
 
 			</div>
 			
+			<jsp:include page="./modify_form.jsp" />
+			
 		</div>
+		
+	<jsp:include page="../../common/footer.jsp" />
+	
 	</section>
 
-	<jsp:include page="../../common/footer.jsp" />
-	<jsp:include page="./modify_form.jsp" />
 
 </body>
 </html>
@@ -116,9 +116,6 @@
 					<option value="3">승인대기</option>
 				</select>
 			</td>
-			<td class="a_auth_info"></td>
-			<td class="a_reg_date"></td>
-			<td class="a_mod_date"></td>
 		</tr>
 	</tbody>
 </template>

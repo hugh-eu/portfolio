@@ -31,12 +31,11 @@ public interface LicensePlateMapper {
 						   @Param("s_info") String s_info,
 						   @Param("u_no") int u_no);
 
-	@Select("SELECT COUNT(*) FROM tbl_license_plate_search WHERE u_no = #{u_no}")
-	int selectAllLicensePlateCnt(@Param("u_no") int u_no);
+	@Select("SELECT COUNT(*) FROM tbl_license_plate_search")
+	int selectAllLicensePlateCnt();
 
-	@Select("SELECT COUNT(*) FROM tbl_license_plate_search WHERE u_no = #{u_no} AND s_name = #{licensePlateName}")
-	int selectAllLicensePlateCntByName(@Param("u_no") int u_no, 
-									   @Param("licensePlateName") String licensePlateName);
+	@Select("SELECT COUNT(*) FROM tbl_license_plate_search WHERE s_name = #{licensePlateName}")
+	int selectAllLicensePlateCntByName(@Param("licensePlateName") String licensePlateName);
 	
 	@Select("SELECT * FROM tbl_license_plate_search ORDER BY s_reg_date DESC LIMIT #{skip}, #{amount}")
 	List<LicensePlateVo> selectAllLicensePlateDESC(@Param("skip") int skip, 
@@ -62,6 +61,9 @@ public interface LicensePlateMapper {
 	@Update("UPDATE tbl_license_plate_search SET s_info = #{s_info}, s_mod_date = NOW() WHERE s_no = #{s_no}")
 	int updateLicensePlateInfo(@Param("s_no") int s_no, 
 							   @Param("s_info") String s_info);
+
+	@Select("SELECT COUNT(*) FROM tbl_license_plate_search WHERE s_name = #{s_name}")
+	int selectLicensePlateCnt(@Param("s_name") String s_name);
 
 
 

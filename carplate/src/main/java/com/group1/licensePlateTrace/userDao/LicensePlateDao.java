@@ -52,9 +52,9 @@ public class LicensePlateDao {
 			while (tryMaxCnt > 0) {
 				
 				if (licensePlateName == "")
-					result = licensePlateMapper.selectAllLicensePlateCnt(u_no);
+					result = licensePlateMapper.selectAllLicensePlateCnt();
 				else
-					result = licensePlateMapper.selectAllLicensePlateCntByName(u_no, licensePlateName);
+					result = licensePlateMapper.selectAllLicensePlateCntByName(licensePlateName);
 					
 				if (result > 0) return result;
 				
@@ -147,6 +147,23 @@ public class LicensePlateDao {
 		}
 		
 		return result;
+	}
+
+	public boolean isLicensePlate(LicensePlateVo licensePlateVo) {
+		log.debug("");
+		
+		int result = -1;
+		int tryMaxCnt = 3;
+		
+		while (tryMaxCnt > 0) {
+			
+			result = licensePlateMapper.selectLicensePlateCnt(licensePlateVo.getS_name());
+			
+			if (result > 0) return true;
+			tryMaxCnt--;
+		}
+		
+		return false;
 	}
 
 }

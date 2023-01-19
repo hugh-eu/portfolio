@@ -11,9 +11,8 @@ $(function() {
 })
 
 function set_section_footer_width() {
-
-    $('#section_wrap').css('width', $(window).width() - 300);
-    $('#footer_wrap').css('width', $(window).width() - 300);
+    $('section').css('width', "calc(100vw - 300px)");
+    $('#footer_wrap').css('width', "calc(100vw - 300px)");
 }
 
 function header_events() {

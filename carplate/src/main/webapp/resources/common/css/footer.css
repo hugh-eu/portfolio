@@ -1,11 +1,7 @@
-footer {
-	height: auto;
-	min-height: 100%;
-   }
-   
-footer #footer_wrap {
-	position : relative;
-	left: 300px;
+#footer_wrap {
+	position: absolute;
+	height: 30px;
+	bottom: 0;
 	color: #363636;
 	background-color: #f2f2f2; 
 	padding: 5px 0;

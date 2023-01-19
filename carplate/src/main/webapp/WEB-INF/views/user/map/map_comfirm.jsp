@@ -12,6 +12,7 @@
 	<link href="<c:url value='/resources/user/css/map_comfirm.css' />" rel="stylesheet" type="text/css" />
 
 	<jsp:include page="../../common/jquery_url.jsp" />
+	<jsp:include page="./Vo/map_page_vo_js.jsp" />
 	<jsp:include page="./Vo/map_comfirm_Vo_js.jsp" />
 	<jsp:include page="./js/map_comfirm_js.jsp" />
 
@@ -34,21 +35,30 @@
 					일&nbsp;&nbsp;&nbsp;
 				</div>
 				
-				<div class="plate_select_wrap">
-				</div>
-				
 				<div class="plat_info">
 					<select class="plate_select" onchange="plate_selected();"></select>
-					<input type="text" name="l_info" id="l_info" placeholder="자동차 번호판을 입력하세요(123가4568)">
-					<input type="button" value="찾기" onclick="plate_info();">
+					<input type="text" name="l_info" id="l_info" placeholder="차량 번호를 입력하세요 예)123가4568">
+					<input type="button" value="검색" onclick="plate_info();">
 					<input type="reset" onclick="resetItems();">
 				</div>
-				
 
 				<div id="map">
 				</div>
 
 				<div class="plate_list">
+				</div>
+				
+				<div class="page_wrap">
+				
+					<div class="page_number">
+					
+					</div>
+					
+					<div class="page_goto" style="display: none;">
+						<input type="number" name="page_target_num">&nbsp; &#47; <span class="page_total_num"></span>
+						<a class="goto_page_btn" href="#none">페이지 이동</a>
+					</div>
+				
 				</div>
 				
 			</div>
@@ -66,11 +76,11 @@
 							<div class="plat_infos">
 								<table>
 									<tr>
-										<td>범죄자 정보</td>
-										<td>카메라 고유 번호</td>
-										<td>번호판</td>
-										<td>번호판정보 등록일</td>
-										<td>번호판 검출일</td>
+										<td>등록사유</td>
+										<td>카메라 고유번호</td>
+										<td>차량번호</td>
+										<td>차량번호 등록일</td>
+										<td>차량번호 검출일</td>
 									</tr>
 									<tr>
 										<td class="s_info"></td>
@@ -78,7 +88,6 @@
 										<td class="s_name"></td>
 										<td class="s_reg_date"></td>
 										<td class="l_info_reg_date"></td>
-										</td>
 									</tr>
 								</table>
 							</div>
@@ -96,9 +105,9 @@
 
 		</div>
 
-		<jsp:include page="../../common/footer.jsp" />
-
+	<jsp:include page="../../common/footer.jsp" />
 	</section>
+
 
 </body>
 
@@ -109,24 +118,20 @@
 		<tr>
 			<td class="date">
 				<div>
-					<span class="year"></span>
 				</div>
 				<div>
-					<span class="month"></span>/<span class="date"></span>
+					<span class="date"></span>
+					<span class="time"></span>
 				</div>
 				<div>
-					<span class="c_no">카메라 번호</span>
+					<span class="c_name"></span>
 				</div>
 			</td>
 			<td class="plate_info">
-				번호판: 
-				<a class="name"></a>
-				<br>
-				번호판 내용:
-				<a class="info"></a>
+				<a><span class="s_name"></span><br><span class="s_info"></span></a>
 			</td>
 			<td class="thumnail">
-				<a><img src="http://192.168.0.102/img/52%ea%b0%b83108_20221221093246_1.jpg/>"></a>
+				<a><img></a>
 			</td>
 		</tr>
 	</table>

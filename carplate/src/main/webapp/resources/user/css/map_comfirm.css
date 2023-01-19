@@ -122,7 +122,8 @@
 }
 
 #map_wrap > div.plate_list > table > tbody tr td:nth-child(1) {
-	width: 100px;
+	width: 130px;
+	font-weight: bolder;
 }
 
 #map_wrap > div.plate_list > table > tbody tr td:nth-child(3) {
@@ -132,6 +133,75 @@
 #map_wrap > div.plate_list > table > tbody tr td img {
 	max-width: 100px;
 }
+
+/* page UI START */
+section #section_wrap #map_wrap div.page_wrap {
+	width: 98%;
+	padding: 5px;
+	text-align: center;
+	}
+	
+section #section_wrap #map_wrap div.page_wrap div.page_number {
+	display: inline-block;
+	}
+
+section #section_wrap #map_wrap div.page_wrap div.page_number a {
+	width: 46px;
+	height: 46px;
+	line-height: 46px;
+	text-decoration: none;
+	display: inline-block;
+	margin: 0 3px;
+	color: #3c3c3c;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	}
+
+section #section_wrap #map_wrap div.page_wrap div.page_number a:hover {
+	background-color: #e3e6e8;
+	}
+
+section #section_wrap #map_wrap div.page_wrap div.page_number a.selectedPageNum {
+	color: #fff;
+	font-weight: bolder;
+	border: 1px solid #232f3d;
+	background-color: #232f3d;
+	}
+
+section #section_wrap #map_wrap div.page_wrap div.page_goto {
+	display: inline-block;
+	margin: 0 0 0 2px;
+	padding: 9px 6px 5px 15px;
+	border-radius: 7px;
+	background-color: rgba(200, 216, 235, .3);
+	}
+
+section #section_wrap #map_wrap div.page_wrap div.page_goto input[name='page_target_num'] {
+	width: 60px; height: 25px;
+	margin: 3px 0 4px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	text-align: center;
+	font-weight: bolder;
+	}
+
+section #section_wrap #map_wrap div.page_wrap div.page_goto a {
+	padding: 3px 10px 8px;
+	margin: 0 11px 0 5px;
+	border: 1px solid #424f60;
+	background-color: #424f60;
+	border-radius: 5px;
+	text-decoration: none;
+	color: #fff;
+	font-weight: bolder;
+	}
+
+section #section_wrap #map_wrap div.page_wrap div.page_goto a:hover {
+	border: 1px solid #232f3d;
+	background-color: #232f3d;
+	}
+/* page UI END */
 
 #plate_detail_wrap {
 	position: absolute;
@@ -181,6 +251,12 @@
 #plate_detail_wrap > div.plate_detail div.plat_infos table tr td {
 	border: 1px solid #ccc;
 	padding: 7px;
+}
+
+#plate_detail_wrap > div.plate_detail div.plat_infos table tr:first-child td {
+	color: white;
+	background-color: rgba(0, 0, 0, .6);
+	font-weight: bolder;
 }
 
 #plate_detail_wrap > div.plate_detail div.close_wrap {

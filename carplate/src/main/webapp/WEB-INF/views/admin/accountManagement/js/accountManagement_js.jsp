@@ -48,9 +48,6 @@ function ajax_getUserList() {
 				let u_reg_date = userVo.u_reg_date;
 				let u_mod_date = userVo.u_mod_date;
 				let a_no = userVo.a_no;
-				let a_auth_info = userVo.a_auth_info;
-				let a_reg_date = userVo.a_reg_date;
-				let a_mod_date = userVo.a_mod_date;
 				
 				let t = document.querySelector('#user_list_item');
 				let clone = document.importNode(t.content, true);
@@ -68,9 +65,6 @@ function ajax_getUserList() {
 				$('#' + u_no + ' td.u_reg_date').text(u_reg_date);
 				$('#' + u_no + ' td.u_mod_date').text(u_mod_date);
 				$('#' + u_no + ' select[name="a_no"]').val(a_no).prop('selected', true);
-				$('#' + u_no + ' td.a_auth_info').text(a_auth_info);
-				$('#' + u_no + ' td.a_reg_date').text(a_reg_date);
-				$('#' + u_no + ' td.a_mod_date').text(a_mod_date);
 				
 				/* DATA */
 				$('#' + u_no + ' a.delete_account_btn').data('u_no', u_no);
@@ -143,86 +137,95 @@ function ajax_getUserList_by_name(u_name) {
 			let userVos = data.userVos;
 			let pageMakerVo = data.pageMakerVo;
 			
-			$('#section_wrap .user_list table tbody').remove();
+			if (userVos != null) {
 			
-			for (let i = 0; i < userVos.length; i++) {
+				$('#section_wrap .user_list table tbody').remove();
 				
-				let userVo = userVos[i];
+				for (let i = 0; i < userVos.length; i++) {
+					
+					let userVo = userVos[i];
+					
+					let u_no = userVo.u_no;
+					let u_id = userVo.u_id;
+					let u_pw = userVo.u_pw;
+					let u_name = userVo.u_name;
+					let u_mail = userVo.u_mail;
+					let u_phone = userVo.u_phone;
+					let u_reg_date = userVo.u_reg_date;
+					let u_mod_date = userVo.u_mod_date;
+					let a_no = userVo.a_no;
+					let a_auth_info = userVo.a_auth_info;
+					let a_reg_date = userVo.a_reg_date;
+					let a_mod_date = userVo.a_mod_date;
+					
+					let t = document.querySelector('#user_list_item');
+					let clone = document.importNode(t.content, true);
+					let clone_tbody = clone.querySelector('tbody');
+					$(clone_tbody).attr('id', u_no);
+					$('div.user_list table').append(clone);
+					
+					/* UI */
+					$('#' + u_no + ' td.u_no').text(u_no);
+					$('#' + u_no + ' td.u_id').text(u_id);
+					$('#' + u_no + ' td.u_id').append('<br><a class="delete_account_btn">삭제</a>');
+					$('#' + u_no + ' input[name="u_name"]').val(u_name);
+					$('#' + u_no + ' input[name="u_mail"]').val(u_mail);
+					$('#' + u_no + ' input[name="u_phone"]').val(u_phone);
+					$('#' + u_no + ' td.u_reg_date').text(u_reg_date);
+					$('#' + u_no + ' td.u_mod_date').text(u_mod_date);
+					$('#' + u_no + ' select[name="a_no"]').val(a_no).prop('selected', true);
+					$('#' + u_no + ' td.a_auth_info').text(a_auth_info);
+					$('#' + u_no + ' td.a_reg_date').text(a_reg_date);
+					$('#' + u_no + ' td.a_mod_date').text(a_mod_date);
+					
+					/* DATA */
+					$('#' + u_no + ' a.delete_account_btn').data('u_no', u_no);
+					$('#' + u_no + ' a.delete_account_btn').data('u_id', u_id);
+					$('#' + u_no + ' a.change_pw_btn').data('u_no', u_no);
+					$('#' + u_no + ' a.change_name_btn').data('u_no', u_no);
+					$('#' + u_no + ' a.change_name_btn').data('cur_u_name', u_name);
+					$('#' + u_no + ' a.change_email_btn').data('u_no', u_no);
+					$('#' + u_no + ' a.change_email_btn').data('cur_u_mail', u_mail);
+					$('#' + u_no + ' a.change_phone_btn').data('u_no', u_no);
+					$('#' + u_no + ' a.change_phone_btn').data('cur_u_phone', u_phone);
+					$('#' + u_no + ' select[name="a_no"]').data('u_no', u_no);
+					$('#' + u_no + ' select[name="a_no"]').data('cur_a_no', a_no);
+				}
 				
-				let u_no = userVo.u_no;
-				let u_id = userVo.u_id;
-				let u_pw = userVo.u_pw;
-				let u_name = userVo.u_name;
-				let u_mail = userVo.u_mail;
-				let u_phone = userVo.u_phone;
-				let u_reg_date = userVo.u_reg_date;
-				let u_mod_date = userVo.u_mod_date;
-				let a_no = userVo.a_no;
-				let a_auth_info = userVo.a_auth_info;
-				let a_reg_date = userVo.a_reg_date;
-				let a_mod_date = userVo.a_mod_date;
+				/* page UI */
+				$('#section_wrap div.page_wrap > div.page_number').children().remove();
 				
-				let t = document.querySelector('#user_list_item');
-				let clone = document.importNode(t.content, true);
-				let clone_tbody = clone.querySelector('tbody');
-				$(clone_tbody).attr('id', u_no);
-				$('div.user_list table').append(clone);
+				/* 이전 페이지 */
+				if (pageMakerVo.prev) {
+					$('#section_wrap div.page_wrap > div.page_number').append('<a data-pagenum="' + (pageMakerVo.startPage - 1) + '">PREV</a>');
+				}
 				
-				/* UI */
-				$('#' + u_no + ' td.u_no').text(u_no);
-				$('#' + u_no + ' td.u_id').text(u_id);
-				$('#' + u_no + ' td.u_id').append('<br><a class="delete_account_btn">삭제</a>');
-				$('#' + u_no + ' input[name="u_name"]').val(u_name);
-				$('#' + u_no + ' input[name="u_mail"]').val(u_mail);
-				$('#' + u_no + ' input[name="u_phone"]').val(u_phone);
-				$('#' + u_no + ' td.u_reg_date').text(u_reg_date);
-				$('#' + u_no + ' td.u_mod_date').text(u_mod_date);
-				$('#' + u_no + ' select[name="a_no"]').val(a_no).prop('selected', true);
-				$('#' + u_no + ' td.a_auth_info').text(a_auth_info);
-				$('#' + u_no + ' td.a_reg_date').text(a_reg_date);
-				$('#' + u_no + ' td.a_mod_date').text(a_mod_date);
+				/* 처음 페이지 */
+				if (getPageNum() > 10) {
+					$('#section_wrap div.page_wrap > div.page_number').append('<a data-pagenum="1">1</a><span> ...... </span>');
+				}
 				
-				/* DATA */
-				$('#' + u_no + ' a.delete_account_btn').data('u_no', u_no);
-				$('#' + u_no + ' a.delete_account_btn').data('u_id', u_id);
-				$('#' + u_no + ' a.change_pw_btn').data('u_no', u_no);
-				$('#' + u_no + ' a.change_name_btn').data('u_no', u_no);
-				$('#' + u_no + ' a.change_name_btn').data('cur_u_name', u_name);
-				$('#' + u_no + ' a.change_email_btn').data('u_no', u_no);
-				$('#' + u_no + ' a.change_email_btn').data('cur_u_mail', u_mail);
-				$('#' + u_no + ' a.change_phone_btn').data('u_no', u_no);
-				$('#' + u_no + ' a.change_phone_btn').data('cur_u_phone', u_phone);
-				$('#' + u_no + ' select[name="a_no"]').data('u_no', u_no);
-				$('#' + u_no + ' select[name="a_no"]').data('cur_a_no', a_no);
+				/* 페이징 넘버링 */
+				for (var p = parseInt(pageMakerVo.startPage); p <= parseInt(pageMakerVo.endPage); p++) {
+					$('#section_wrap div.page_wrap > div.page_number').append('<a data-pagenum="' + p + '">' + p + '</a>');
+				}
+	
+				$('#section_wrap div.page_wrap > div.page_number a[data-pagenum=' + getPageNum() + ']').addClass('selectedPageNum');
+				
+				/* 다음 페이지 */
+				if (pageMakerVo.next) {
+					$('#section_wrap div.page_wrap > div.page_number').append('<a data-pagenum="' + (pageMakerVo.endPage + 1) + '">NEXT</a>');
+				}
+				
+				/* 전체 페이지 */
+				$('#section_wrap div.page_wrap > div.page_goto > span.page_total_num').html(addComma(pageMakerVo.totalPage.toString()));
+			} else {
+				alert("입력한 이름과 일치하는 정보가 없습니다.")
+				
+				$("#section_wrap .accountManagement_wrap input[name=user_search_by_name]").val("");
+				$("#section_wrap .accountManagement_wrap input[name=user_search_by_name]").focus();
+				
 			}
-			
-			/* page UI */
-			$('#section_wrap div.page_wrap > div.page_number').children().remove();
-			
-			/* 이전 페이지 */
-			if (pageMakerVo.prev) {
-				$('#section_wrap div.page_wrap > div.page_number').append('<a data-pagenum="' + (pageMakerVo.startPage - 1) + '">PREV</a>');
-			}
-			
-			/* 처음 페이지 */
-			if (getPageNum() > 10) {
-				$('#section_wrap div.page_wrap > div.page_number').append('<a data-pagenum="1">1</a><span> ...... </span>');
-			}
-			
-			/* 페이징 넘버링 */
-			for (var p = parseInt(pageMakerVo.startPage); p <= parseInt(pageMakerVo.endPage); p++) {
-				$('#section_wrap div.page_wrap > div.page_number').append('<a data-pagenum="' + p + '">' + p + '</a>');
-			}
-
-			$('#section_wrap div.page_wrap > div.page_number a[data-pagenum=' + getPageNum() + ']').addClass('selectedPageNum');
-			
-			/* 다음 페이지 */
-			if (pageMakerVo.next) {
-				$('#section_wrap div.page_wrap > div.page_number').append('<a data-pagenum="' + (pageMakerVo.endPage + 1) + '">NEXT</a>');
-			}
-			
-			/* 전체 페이지 */
-			$('#section_wrap div.page_wrap > div.page_goto > span.page_total_num').html(addComma(pageMakerVo.totalPage.toString()));
 		},
 		error: function(data) {
 			console.log('ajax_getUserList() fail');
@@ -327,8 +330,15 @@ function add_manage_events() {
 		
 		if (mod_u_name != '') {
 			
-			ajax_modify_u_name(u_no, cur_u_name, mod_u_name);
-			getUserList();
+			if (confirm(mod_u_name + '으로 변경하시겠습니까?')) {
+
+				ajax_modify_u_name(u_no, cur_u_name, mod_u_name);
+				getUserList();
+
+			} else {
+
+				$('#' + u_no + ' input[name="u_name"]').val(cur_u_name);
+			}
 		}
 			
 		else {
@@ -349,8 +359,15 @@ function add_manage_events() {
 		
 		if (mod_u_mail != '') {
 			
-			ajax_modify_u_mail(u_no, cur_u_mail, mod_u_mail);
-			getUserList();
+			if (confirm(mod_u_mail + '으로 변경하시겠습니까?')) {
+
+				ajax_modify_u_mail(u_no, cur_u_mail, mod_u_mail);
+				getUserList();
+
+			} else {
+
+				$('#' + u_no + ' input[name="u_mail"]').val(cur_u_mail);
+			}
 		}
 			
 		else {
@@ -371,8 +388,15 @@ function add_manage_events() {
 		
 		if (mod_u_phone != '') {
 			
-			ajax_modify_u_phone(u_no, cur_u_phone, mod_u_phone);
-			getUserList();
+			if (confirm(mod_u_phone + '으로 변경하시겠습니까?')) {
+
+				ajax_modify_u_phone(u_no, cur_u_phone, mod_u_phone);
+				getUserList();
+
+			} else {
+
+				$('#' + u_no + ' input[name="u_phone"]').val(cur_u_phone);
+			}
 		}
 			
 		else {

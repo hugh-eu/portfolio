@@ -85,7 +85,9 @@ function modify_confirm(u_no, pw) {
 function setModifyFormtHeight() {
 	console.log('setModifyFormtHeight()')
 	
-	let doc_height = $(document).height();
-	$('#modify_form_wrap').css('height', doc_height);
+	$(window).scroll(function() {
+
+		$('#modify_form_wrap div.modify_form').css('margin-top', $(window).scrollTop() + 100);
+	});
 }
 </script>

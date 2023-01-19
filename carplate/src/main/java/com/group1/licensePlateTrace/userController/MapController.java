@@ -94,8 +94,6 @@ public class MapController {
 	public Object getDetailItems(@RequestBody MapVo mapVo) {
 		log.debug("");
 		
-		System.out.println(mapVo.getL_no());
-		
 		Map<String, MapVo> map = mapService.getDetailItems(mapVo);
 		
 		return map;

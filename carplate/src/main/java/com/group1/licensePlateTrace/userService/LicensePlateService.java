@@ -38,6 +38,11 @@ public class LicensePlateService {
 			return map;
 		}
 		
+		if (licensePlateDao.isLicensePlate(licensePlateVo)) {
+			
+			map.put("result", "already_exists");
+			return map;
+		}
 		
 		int result = licensePlateDao.licensePlateRegistConfirm(licensePlateVo, 
 															   ((UserVo)session.getAttribute("userVo")).getU_no());

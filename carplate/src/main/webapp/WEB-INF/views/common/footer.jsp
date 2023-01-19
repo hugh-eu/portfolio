@@ -4,7 +4,7 @@
 
 <link href="<c:url value='/resources/common/css/footer.css' />" rel="stylesheet" type="text/css">
 
-<footer>
+
 	<div id="footer_wrap">
 		
 		<div class="office_info">
@@ -12,4 +12,3 @@
         </div>
 	
 	</div>
-</footer>

@@ -29,11 +29,11 @@
 				<div class="div_license_plate_regist">
 					<form name="form_div_license_plate_regist">
 						<input type="hidden" name="u_no" value="<%=((UserVo)session.getAttribute("userVo")).getU_no()%>">
-						번호판 입력
+						차량번호 입력
 						<br>
 						<input type="text" name="s_name" placeholder="등록할 번호판을 입력해주세요.">
 						<br>
-						내용 입력
+						사유 입력
 						<br>
 						<input type="text" name="s_info" placeholder="내용을 입력해주세요.">
 						<input type="button" onclick="sendForm();" value="등록">
@@ -65,10 +65,10 @@
 							<thead>
 								<tr>
 									<td>식별번호</td>
-									<td>번호판이름</td>
-									<td>번호판내용</td>
-									<td>번호판등록날짜</td>
-									<td>번호판수정날짜</td>
+									<td>차량번호</td>
+									<td>등록사유</td>
+									<td>등록날짜</td>
+									<td>수정날짜</td>
 								</tr>
 							</thead>
 						</table>
@@ -91,9 +91,10 @@
 			</div>
 			
 		</div>
-	</section>
-
+		
 	<jsp:include page="../../common/footer.jsp" />
+	</section>
+	
 	
 </body>
 </html>

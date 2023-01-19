@@ -1,12 +1,14 @@
 package com.group1.licensePlateTrace.userDao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.group1.licensePlateTrace.paging.Criteria;
 import com.group1.licensePlateTrace.userMapper.MapMapper;
 import com.group1.licensePlateTrace.vo.MapDateVo;
 import com.group1.licensePlateTrace.vo.MapVo;
@@ -177,8 +179,11 @@ public class MapDao {
 
 	public Map<String, MapVo> getDetailItems(MapVo mapVo) {
 		
-		Map<String, MapVo> map = 
-				mapMapper.getDetailItems(mapVo.getL_no(), mapVo.getC_no());
+		Map<String, MapVo> map = new HashMap<String, MapVo>(); 
+		
+		mapVo = mapMapper.getDetailItems(mapVo.getL_no(), mapVo.getC_no());
+		
+		map.put("mapVo", mapVo);
 		
 		return map;
 	}
@@ -206,58 +211,58 @@ public class MapDao {
 	}
 	
 	/* 전체 정보 리스트 출력 */
-	public List<MapVo> getPlatesAll(Map<String, String> msgMap) {
+	public List<MapVo> getPlatesAll(Map<String, String> msgMap, Criteria criteria) {
 		
 		List<MapVo> mapVo = new ArrayList<MapVo>();
 		
 		mapVo = null;
 		if (msgMap.get("plate") == null) 
-			mapVo = mapMapper.getListAll(msgMap.get("c_no"));
+			mapVo = mapMapper.getListAll(msgMap.get("c_no"), criteria.getSkip(), criteria.getAmount());
 		
 		else if (msgMap.get("plate") != null)
-			mapVo = mapMapper.getListPlate(msgMap.get("c_no"), msgMap.get("plate"));
+			mapVo = mapMapper.getListPlate(msgMap.get("c_no"), msgMap.get("plate"), criteria.getSkip(), criteria.getAmount());
 		
 		return mapVo;
 	}
 	
 	/* 년도 정보 있을때 리스트 출력 */
-	public List<MapVo> getPlatesYear(Map<String, String> msgMap) {
+	public List<MapVo> getPlatesYear(Map<String, String> msgMap, Criteria criteria) {
 		List<MapVo> mapVo = new ArrayList<MapVo>();
 
 		mapVo = null;
 		if (msgMap.get("plate") == null) 
-			mapVo = mapMapper.getListYear(msgMap.get("year"), msgMap.get("c_no"));
+			mapVo = mapMapper.getListYear(msgMap.get("year"), msgMap.get("c_no"), criteria.getSkip(), criteria.getAmount());
 		
 		else if (msgMap.get("plate") != null)
-			mapVo = mapMapper.getListPYear(msgMap.get("year"), msgMap.get("c_no"), msgMap.get("plate"));
+			mapVo = mapMapper.getListPYear(msgMap.get("year"), msgMap.get("c_no"), msgMap.get("plate"), criteria.getSkip(), criteria.getAmount());
 		
 		return mapVo;
 	}
 	
 	/* 년월 정보 있을때 리스트 출력 */
-	public List<MapVo> getPlatesYMonth(Map<String, String> msgMap) {
+	public List<MapVo> getPlatesYMonth(Map<String, String> msgMap, Criteria criteria) {
 		List<MapVo> mapVo = new ArrayList<MapVo>();
 
 		mapVo = null;
 		if (msgMap.get("plate") == null) 
-			mapVo = mapMapper.getListYMonth(msgMap.get("year"), msgMap.get("month"), msgMap.get("c_no"));
+			mapVo = mapMapper.getListYMonth(msgMap.get("year"), msgMap.get("month"), msgMap.get("c_no"), criteria.getSkip(), criteria.getAmount());
 		
 		else if (msgMap.get("plate") != null)
-			mapVo = mapMapper.getListPYMonth(msgMap.get("year"), msgMap.get("month"), msgMap.get("c_no"), msgMap.get("plate"));
+			mapVo = mapMapper.getListPYMonth(msgMap.get("year"), msgMap.get("month"), msgMap.get("c_no"), msgMap.get("plate"), criteria.getSkip(), criteria.getAmount());
 		
 		return mapVo;
 	}
 
 	/* 날짜 정보 있을때 리스트 출력 */
-	public List<MapVo> getPlatesYMDay(Map<String, String> msgMap) {
+	public List<MapVo> getPlatesYMDay(Map<String, String> msgMap, Criteria criteria) {
 		List<MapVo> mapVo = new ArrayList<MapVo>();
 
 		mapVo = null;
 		if (msgMap.get("plate") == null) 
-			mapVo = mapMapper.getListYMDay(msgMap.get("year"), msgMap.get("month"), msgMap.get("day"), msgMap.get("c_no"));
+			mapVo = mapMapper.getListYMDay(msgMap.get("year"), msgMap.get("month"), msgMap.get("day"), msgMap.get("c_no"), criteria.getSkip(), criteria.getAmount());
 		
 		else if (msgMap.get("plate") != null)
-			mapVo = mapMapper.getListPYMDay(msgMap.get("year"), msgMap.get("month"), msgMap.get("day"), msgMap.get("c_no"), msgMap.get("plate"));
+			mapVo = mapMapper.getListPYMDay(msgMap.get("year"), msgMap.get("month"), msgMap.get("day"), msgMap.get("c_no"), msgMap.get("plate"), criteria.getSkip(), criteria.getAmount());
 		
 		return mapVo;
 	}
@@ -311,6 +316,98 @@ public class MapDao {
 		}
 		
 		return result <= 0 ? -1 : result;
+	}
+
+	public int getTotalCnt(Map<String, String> msgMap) {
+		log.debug("");
+		
+		int totalCnt = -1;
+		try {
+			
+			if (msgMap.get("plate") == null) {
+				totalCnt = mapMapper.getListAlls(msgMap.get("c_no"));
+				System.out.println("totalCnt======> " + totalCnt);
+			
+			}else if (msgMap.get("plate") != null) {
+				totalCnt = mapMapper.getPlateCount(msgMap.get("c_no"), msgMap.get("plate"));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return totalCnt;
+	}
+
+	public int getPlateCountYear(Map<String, String> msgMap) {
+		log.debug("");
+		
+		int totalCnt = -1;
+		try {
+			
+			if (msgMap.get("plate") == null) {
+				totalCnt = mapMapper.getCountYear(msgMap.get("year"), msgMap.get("c_no"));
+				System.out.println("totalCnt======> " + totalCnt);
+			
+			}else if (msgMap.get("plate") != null) {
+				totalCnt = mapMapper.getPlateCountYear(msgMap.get("year"), msgMap.get("c_no"), msgMap.get("plate"));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return totalCnt;
+	}
+
+	public int getPlateCountYMonth(Map<String, String> msgMap) {
+		log.debug("");
+		
+		int totalCnt = -1;
+		try {
+			
+			if (msgMap.get("plate") == null) {
+				totalCnt = mapMapper.getCountYMonth(msgMap.get("year"), msgMap.get("month"), msgMap.get("c_no"));
+				System.out.println("totalCnt======> " + totalCnt);
+			
+			}else if (msgMap.get("plate") != null) {
+				totalCnt = mapMapper.getPlateCountYMonth(msgMap.get("year"), msgMap.get("month"), msgMap.get("c_no"), msgMap.get("plate"));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return totalCnt;
+	}
+
+	public int getPlateCountYMDay(Map<String, String> msgMap) {
+		log.debug("");
+		
+		int totalCnt = -1;
+		try {
+			
+			if (msgMap.get("plate") == null) {
+				totalCnt = mapMapper.getCountYMDay(msgMap.get("year"), msgMap.get("month"), msgMap.get("day"), msgMap.get("c_no"));
+				System.out.println("totalCnt======> " + totalCnt);
+			
+			}else if (msgMap.get("plate") != null) {
+				totalCnt = mapMapper.getPlateCountYMDay(msgMap.get("year"), msgMap.get("month"), msgMap.get("day"), msgMap.get("c_no"), msgMap.get("plate"));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return totalCnt;
 	}
 	
 }

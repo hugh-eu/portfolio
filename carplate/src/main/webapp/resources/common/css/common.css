@@ -12,14 +12,25 @@ a {
    cursor: pointer;
 }
 
+body {
+	height: 100vh;
+    overflow-x: hidden;
+    
+}
+
 section {
-    width: 100%;
+    position: relative;
+    left: 300px;
+    min-height: 100%;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+
 }
 
 section > div#section_wrap {
-    position: relative;
-    left: 300px;
-    min-height: 910px;
-    background-color: #f2f2f2; 
+	height: 100%;
     padding-top: 30px;
+    padding-bottom: 30px;
+
 }
