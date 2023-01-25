@@ -51,7 +51,7 @@ function getMarkerInfo(m_no) {
 				if (imgNames != "") {
 					for (let i = 0; i < imgNames.split("\t").length; i++) {
 						$("#markerInfoImgs").append(
-							"<li id='markerInfoImg'><img src='http://192.168.0.102/img/" + imgNames.split("\t")[i] + "'></li>"
+							"<li id='markerInfoImg'><img src='http://43.200.17.191/imgTripist/" + imgNames.split("\t")[i] + "'></li>"
 
 						);
 					}
@@ -520,9 +520,6 @@ function addNav() {
 
 					} else if (result == 0) {
 						alertPopup("Modify failed.");
-						
-						sleep(2000)
-							.then(() => $(location).attr("href", ""));
 
 					} else {
 						alertPopup("Please enter the correct password.");
@@ -577,9 +574,6 @@ function addNav() {
 
 						} else if (result == 0) {
 							alertPopup("Withdrawal failed.");
-							
-							sleep(2000)
-								.then(() => $(location).attr("href", ""));
 
 						} else {
 							alertPopup("Please enter the correct password.");
@@ -841,21 +835,23 @@ $(function() {
 	let tripistVo = [[${session.tripistVo}]];
 	
 	if (tripistVo == null) {
-		$("body").css("overflow", "hidden");
-		$("#backSign").fadeIn(500);
-		$("#signIn").fadeIn(500);
-		
 		loadMap();
 		addHeader();
 		
-	} else {
-		$("nav").fadeIn(500);
+		sleep(500)
+		.then(() => $("body").css("overflow", "hidden"))
+		.then(() => $("#backSign").fadeIn(500))
+		.then(() => $("#signIn").fadeIn(500));
 		
+	} else {
 		loadMap();
 		addHeader();
 		addNav();
 		addArticle();
 		getMarkerList();
+		
+		sleep(500)
+		.then(() => $("nav").fadeIn(500));
 		
 	}
 

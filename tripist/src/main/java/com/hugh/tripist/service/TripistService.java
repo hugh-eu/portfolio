@@ -12,16 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hugh.tripist.dao.ITripistDao;
-import com.hugh.tripist.util.SCPUtil;
 import com.hugh.tripist.vo.TripistVo;
 
 @Service
 public class TripistService {
-	public static final String LOCAL_IMG_PATH = "E:/img/";
-	public static final String REMOTE_IMG_PATH = "/img/";
-	public static final String REMOTE_IMG_HOST = "192.168.0.102";
-	public static final String REMOTE_IMG_USER = "hugh";
-	public static final String REMOTE_IMG_PW = "1234";
+	public static final String LOCAL_IMG_PATH = "/home/ubuntu/tripist/img/";
 	
 	public static final int DUPLICATE_ID = -1;
 
@@ -131,21 +126,11 @@ public class TripistService {
 		String imgName, m_img_name = "";
 
 		if (fileList != null) {
-			SCPUtil scpUtil = null;
-			
 			for (int i = 0; i < fileList.size(); i++) {
 				imgName = UUID.randomUUID().toString() + fileList.get(i).getOriginalFilename();
 				
 				File dest = new File(LOCAL_IMG_PATH + imgName);
 				fileList.get(i).transferTo(dest);
-				
-				scpUtil = new SCPUtil();
-				scpUtil.init(REMOTE_IMG_HOST, REMOTE_IMG_USER, REMOTE_IMG_PW);
-				scpUtil.upload(REMOTE_IMG_PATH, dest);
-				scpUtil.disconnection();
-				scpUtil = null;
-				
-				dest.delete();
 				
 				m_img_name += imgName;
 				if (i < fileList.size() - 1) {
@@ -154,7 +139,6 @@ public class TripistService {
 				}
 			}
 		}
-
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("u_no", tripistVo.getU_no());

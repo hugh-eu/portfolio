@@ -1,8 +1,6 @@
 package com.hugh.tripist.controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +31,7 @@ public class TripistController {
 		
 		String nextPage = "index";
 
-		String mapApiKey = Files.readString(Paths.get("E:\\Drive\\_dev\\_project\\_private\\tripist\\mapApiKey.txt"));
-
-		model.addAttribute("mapAddress", "https://maps.googleapis.com/maps/api/js?key=" + mapApiKey);
+		model.addAttribute("mapAddress", "https://maps.googleapis.com/maps/api/js?key=#none&callback=Function.prototype");
 		
 		return nextPage;
 		
