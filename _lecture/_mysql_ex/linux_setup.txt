@@ -1,0 +1,30 @@
+리눅스에
+계정생성
+권한부여
+db생성
+외부에서 접근가능하도록설정
+
+ apt install mysql-server
+ mysql_secure_installation
+ mysql -u root -p
+ show variables like "validate_password.%";
+ show databases;
+ use mysql;
+ show tables;
+ select user, host from user;
+ create user "user0001"@"%" identified by "user0001";
+ select user, host from user;
+ create database testdb;
+ grant all privileges on *.* to user0001@"%";
+ flush privileges;
+ show grants for user0001@"%";
+ /quit
+ systemctl restart mysql
+ find / -name "my.cnf"
+ nano /etc/mysql/my.cnf
+ nano /etc/mysql/mysql.conf.d/mysqld.cnf
+ bind-address = 0.0.0.0
+ systemctl restart mysql
+ ufw allow 3306/tcp
+ mysql -u user0001 -p
+

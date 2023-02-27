@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:insert="~{include/header::header}"></div>
+	
+	<span th:text="${data.a}"></span>
+	
+	<div th:object="${data}">
+		
+		<span th:text="*{b}"></span>
+		
+	</div>
+	<a th:href="@{https://www.google.com}">google</a>
+	
+	<div th:replace="~{include/header::footer}"></div>
+	
+</body>
+</html>

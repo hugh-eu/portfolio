@@ -1,0 +1,2 @@
+npp > 플러그인 > 플러그인관리 > nppexec 설치 / 플러그인 > nppexec > execute nppexec script > 아래 경로 및 설정 추가
+C:\Users\22\AppData\Local\Programs\Python\Python310\python.exe $(FULL_CURRENT_PATH)

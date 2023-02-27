@@ -1,0 +1,12 @@
+RPi 카메라 이용
+
+침입 감지(Detect) CCTV 응용프로그램 개발
+1. camera detect
+2. 실기간 스트리밍
+3. DB log(db 모델링: 시간, 이미지) - MySQL(in VM)
+4. 뷰(detect list, thumnail, detail view)
+    - detect sort list(날짜, 월)
+    - 페이지
+5. 관리자 멤버(가입, 로그인(세션), 로그아웃)
+    - DB: member 테이블
+    - member 로그인 시간

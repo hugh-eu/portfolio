@@ -1,0 +1,33 @@
+### web
+xxx.html(5.0) + xxx.css(css3) + xxx.js(최신버전)
+표준브라우저 크롬
+
+html은 태그로 이루어짐, 버전, html, head, body
+
+
+##
+f5: 새로고침
+ctrl + f5 : 쿠키삭제하며 새로고침, 주로 사용함
+
+
+## css
+<head>
+<style>
+div{background-color:#000000;}
+선택자{속성:속성값;}
+</style>
+</head>
+
+
+## js
+<head>
+<script>
+	js 코딩
+</script>
+</head>
+
+
+## 크롤링, 웹에서 데이터 수집
+1. api 제공 : 필요한 데이터를 사전에 준비해 요청 발생시 제공, 친절 ex) 공공데이터
+2. 정적인 웹문서에서 가져오기, 정적 크롤링 - beautifulsoup(python), jsoup(java)
+3. 동적인 웹문서에서 가져오기, 페이지 이동, 동적 크롤링 - selenium

@@ -1,0 +1,111 @@
+<!DOCTYPE html>  <!-- html5 선언 -->
+<html lang='ko'>  <!-- 선언뒤 가장 먼저 나오는 태그, 시작과 끝을 알려줌, 태그는 <>로, lang(언어)이라는 속성 -->
+	<head>  <!-- 설정과 관련된 태그 -->
+		<meta charset='utf-8'>  <!-- 종료태그없음, 속성포함, 인코딩 -->
+		<title>my website</title>  <!-- 타이틀, 브라우저 탭 이름 -->
+		
+		<!-- 일반적으로 head 사이에 css 들어감 -->
+		<!-- 선택자 -->
+		<!-- 전체선택자 : * -->
+		<!-- 태그선택자 : 태그명 -->
+		<!-- 아이디선택자 : 아이디명 -->
+		<!-- 클래스선택자 : 클래스명 -->
+		<!-- 자손, 후손 선택자 : 계층 구조를 이용한 선택 -->
+		<style>
+			.hyper_link {
+				color:#000000;
+				text-decoration:none;
+			}
+			.wrap > p {
+				color:#0000ff;
+			}
+		</style>  <!-- 기준 자손 '>' --><!-- 기준 후손 ' ' -->
+		
+		<script language='javascript'>  <!-- language js -->
+			document.addEventListener('DOMContentLoaded', function() {
+				// <body>가 다 로딩될때까지 기다린 후 실행되는 구문
+				// 내장 클래스, 사용자클래스(웹개발자들이해라!!!!!)
+				// Window 브라우저 전체를 관리하는 클래스, 스크롤관리
+				// Document 웹문서를 관리하는 클래스
+				window.scrollTo(0, 200);  // 스크롤 위치 지정
+			});
+
+			var myName = 'Hong gil dong';  <!-- var 변수선언 -->
+			myName = 3.14;
+			console.log(myName);
+			
+			for(var i = 1; i < 10; i++){
+				console.log('i ----->', i);
+			}  <!-- 자동증감연산자, ++, -- -->
+			
+			var num = 10
+			if(num > 0) {
+				console.log('num은 0보다 크다');
+			} else {
+				console.log('num은 0보다 작거나');
+			}
+			
+			function addCalculator(n1, n2) {
+				console.log(n1+n2);
+			}
+			addCalculator(10, 5);
+			
+			//alert('Boo!');  <!-- 경고, 하부코딩 올스탑 -->
+			
+			// 논리연산자 (&&(and), ||(or), !(not))
+			console.log(true && false);
+			console.log(true || false);
+			console.log(!true);
+			
+			function myFunction(n1, n2) {
+				return n1 + n2;
+			}
+			
+			var result = myFunction(10, 5);
+			console.log('result : ' + result);
+			
+			// if, if ~ else, if ~ else if
+			// switch 조건문, 선택의 범위가 넓을때
+			var position = 4;
+			switch(position) {
+				case 1:
+					console.log('투수')
+				break;
+				
+				case 2:
+					console.log('포수')
+				break;
+				
+				case 3:
+					console.log('1루수')
+				break;
+				
+				default: // 이외, 선택사항
+					console.log('코치')
+				break;
+			}
+
+		</script>
+		
+	</head>
+	<body>
+		<div class='wrap'>  <!-- 기준 -->
+			<p>오늘의 뉴스 입니다.</p>  <!-- 자손 --><!-- 후손 -->
+			<div class='section'>
+				<h2>스포츠 뉴스</h2>  <!-- 후손 -->
+				<p>손흥민 선수가 골을 넣었습니다.</p>
+			</div>
+			<h2><a class='hyper_link' href='#none'>속보 : 코로나 주의</a></h2>  <!-- 링크 나중에 #none -->
+			<div class='section'>
+				<h2>날씨 정보</h2>
+				<p>대전시에 많은 비가 오고 있습니다.</p>
+			</div>
+			<p>이상 대전뉴스였습니다.</p>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+		</div>
+	</body>
+</html>

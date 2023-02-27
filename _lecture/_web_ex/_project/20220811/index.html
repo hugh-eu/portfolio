@@ -1,0 +1,161 @@
+<!DOCTYPE html>  <!-- html5 선언 -->
+<html lang='ko'>  <!-- 선언뒤 가장 먼저 나오는 태그, 시작과 끝을 알려줌, 태그는 <>로, lang(언어)이라는 속성 -->
+	<head>  <!-- 설정과 관련된 태그 -->
+		<meta charset='utf-8'>  <!-- 종료태그없음, 속성포함, 인코딩 -->
+		<title>my website</title>  <!-- 타이틀, 브라우저 탭 이름 -->
+		
+		<!-- 일반적으로 head 사이에 css 들어감 -->
+		<!-- 선택자 -->
+		<!-- 전체선택자 : * -->
+		<!-- 태그선택자 : 태그명 -->
+		<!-- 아이디선택자 : 아이디명 -->
+		<!-- 클래스선택자 : 클래스명 -->
+		<!-- 자손, 후손 선택자 : 계층 구조를 이용한 선택, index2 -->
+		<style>
+			* {
+				background-color:#ff0000;
+			}
+			
+			h1 {
+				color:#ffffff;
+				font-weight:bolder;
+			}
+			
+			#weather {  
+				font-size:2.0em;
+			}
+			
+			.google_link {
+				font-size:2.0em;
+				color:#fff1ff;
+				text-decoration:none;
+			}
+		</style>  <!-- css -->  <!-- id는 앞에 # -->  <!-- class는 앞에 ., text-decoration 언더바 삭제 -->
+		
+		
+	</head>
+	
+	<body>  <!-- 브라우저에 보여지는 부분 -->
+		<h1>처음 만들어 보는 웹페이지!!!!!!!!!!!!!!!!!!!!!</h1>  <!-- head copy 제목, h1, h2,,,종류가 많음, 잘안씀 -->
+		<h2>처음 만들어 보는 웹페이지!!!!!!!!!!!!!!!!!!!!!</h2>
+		<h3>처음 만들어 보는 웹페이지!!!!!!!!!!!!!!!!!!!!!</h3>
+		<h4>처음 만들어 보는 웹페이지!!!!!!!!!!!!!!!!!!!!!</h4>
+		<h5>처음 만들어 보는 웹페이지!!!!!!!!!!!!!!!!!!!!!</h5>
+		<h6>처음 만들어 보는 웹페이지!!!!!!!!!!!!!!!!!!!!!</h6>
+		<p id='weather'>오늘의 날씨는 그지같습니다. 내일도 그지같을 것 같습니다.</p> <!-- paragraph 본문, id명, id는 동일한 id 불가, 자동개행 -->
+		<p>자동개행 자동개행 자동개행 자동개행 자동개행 자동개행 자동개행 자동개행 자동개행 자동개행 자동개행 자동개행 자동개행 자동개행</p> <!-- 자동개행 -->
+		<p>자동개행자동개행자동개행자동개행자동개행자동개행자동개행자동개행자동개행자동개행자동개행자동개행자동개행자동개행</p> <!-- 자동개행 -->
+		<img src='https://s.pstatic.net/static/www/mobile/edit/20220802/cropImg_196x196_101344233438556350.jpeg'><br>  <!-- 종료태그없음, 속성포함, img(태그) src(source, 속성)으로 경로지정속성, ''(속성값)으로 주소 넣기, 원격지, <br>개행 -->
+		<img src="./imgs/car1.jpg"><br>  <!-- 로컬 -->
+		<a class='google_link' href='https://www.google.com'>go google</a><br>  <!-- 하이퍼링크 원격지, anchor, 클래스명 공백없이 _사용, hypertext reference, http, https(보안) 통신규약 -->
+		<a class='google_link' href='https://www.google.com' target='_self'>go google target _self</a><br>  <!-- target, _self, 기본값, 현재페이지 -->
+		<a class='google_link' href='https://www.google.com' target='_blank'>go google target _blank</a><br>  <!-- target, _blank, 새탭 -->
+		<a href='./test.html'>go local test</a><br>  <!-- 하이퍼링크 로컬 -->
+		<a class='google_link' href='https://www.google.com'><img src='./imgs/google.png'></a><br>
+		
+		<!-- list -->
+		<ol>  <!-- order list, 리스트의 시작과 끝을 알려줌, 아이템에 자동 번호 생성 -->
+			<li>홍길동</li>  <!-- list item -->
+			<li>나이 30</li>
+			<li>전공 컴공</li>
+			<li>주소 대전시</li>
+		</ol>
+		<ul>  <!-- unorder list, 리스트의 시작과 끝을 알려줌, 아이템에 자동 번호 생성 안함 -->
+			<li>홍길동</li>  <!-- list item -->
+			<li>나이 30</li>
+			<li>전공 컴공</li>
+			<li>주소 대전시</li>
+		</ul>
+		
+		<!-- table -->
+		<table>
+			<tr>  <!-- 1행, table row -->
+				<td>삼성전자</td>  <!-- 1열, table data -->
+				<td>60000</td>
+				<td>1%</td>
+				<td>66000</td>
+			</tr>
+			<tr>  <!-- 1행 -->
+				<td>LG전자</td>  <!-- 1열 -->
+				<td>100000</td>
+				<td>0.5%</td>
+				<td>105000</td>
+			</tr>
+		</table>
+		<br>
+		<table border='1'>
+			<tr>
+				<td>이름</td>
+				<td colspan='3'>점수</td>  <!-- colspan='3' 속성값 수대로 열 합치기 -->
+			</tr>
+			<tr>
+				<td rowspan='2'>홍길동</td>  <!-- rowspan='2' 속성값 수대로 행 합치기 -->
+				<td>국어</td>
+				<td>영어</td>
+				<td>수학</td>
+			</tr>
+			<tr>
+				<td>100</td>
+				<td>80</td>
+				<td>90</td>
+			</tr>
+		</table>
+		<br>
+		
+		<!-- 입력양식 -->
+		<form action='서버경로' method='get' name='loginConfirm'>  <!-- action 데이터 전송 위치 지정, method 전송 방식, get 도메인 뒤에 붙어서 전송, query, 데이터 노출로 인해 보안에 취약, name 이름지정하여 전송방식 구분 등에 사용 -->
+			ID : <input type='text'><br>  <!-- 입력창, 문자 -->
+			PW : <input type='password'><br>  <!-- 입력창, 비밀번호 -->
+			전화번호 : <input type='tel'><br>  <!-- 입력창, 전화번호 -->
+			나이 : <input type='number'><br>  <!-- 입력창, 번호 -->
+			Email : <input type='email'><br>  <!-- 입력창, 이메일 -->
+			<input type='button' value='로그인'><br>  <!-- 입력창, 로그인버튼 -->
+			<input type='submit' value='로그인'><br>  <!-- 입력창, 로그인버튼 등등 -->
+			내용 :<br><textarea rows=5 cols=50></textarea><br>  <!-- 입력창, 많은 글 -->
+			취미<br>
+			<input type='checkbox' name='hobby' value='sports'>운동  <!-- 입력창, 체크박스, name, value로 구분 -->
+			<input type='checkbox' name='hobby' value='music'>음악
+			<input type='checkbox' name='hobby' value='cook'>요리
+			<input type='checkbox' name='hobby' value='study'>공부<br>
+			좋아하는 음식<br>
+			<input type='checkbox' name='favoriteFood' value='kcjg'>김치찌개
+			<input type='checkbox' name='favoriteFood' value='jjm'>짜장면
+			<input type='checkbox' name='favoriteFood' value='tsy'>탕수육<br>
+			성별<br>
+			<input type='radio' name='gender' value='man'>남  <!-- 입력창, 라디오버튼, name, value로 구분 -->
+			<input type='radio' name='gender' value='woman'>여<br>
+			거주지<br>
+			<input type='radio' name='local' value='seoul'>서울
+			<input type='radio' name='local' value='gyeon'>경기
+			<input type='radio' name='local' value='ch'>충청
+			<input type='radio' name='local' value='jeju'>제주<br>
+			
+			<select name='major'>  <!-- 선택창, option지정, name으로 구분 -->
+				<option value='art'>미술</option>  <!-- 선택창, option지정, value로 구분 -->
+				<option value='music'>음악</option>
+				<option value='kor' selected>국어</option>  <!-- selected 기본값 -->
+				<option value='eng'>영어</option>
+				<option value='math'>수학</option>
+			</select>
+		</form>
+		<form action='서버경로' method='post'>  <!-- action 데이터 전송 위치 지정, method 전송 방식, post 헤더파일에 암호화 하여 전송, 보안 강화 -->
+		</form>
+		
+		<!-- 면 분할 -->
+		<div>  <!-- division, 반응형 웹, 화면크기에 따라 유동적으로 면 위치 이동 -->
+			<p>1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 </p>
+			<p>1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 1면 </p>
+		</div>
+		<div>
+			<p>2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면2면</p>
+		</div>
+		<div style='width:100px; height:100px; background-color:#ff0000;'>red</div>  <!-- style, 코드상 css, rgb #000000, 구글 color picker -->
+		<div style='width:100px; height:100px; background-color:#00ff00;'>green</div>
+		<div style='width:100px; height:100px; background-color:#0000ff;'>blue</div>
+		
+		<!-- 시멘틱 태그, 웹사이트 구조를 구성하는 표준을 정하는 태그, 면분할 방식중 하나, <header>, <nav>, <main>, <article>, <section>, <aside>, <footer> -->
+		
+		
+		<br><br><br><br><br><br><br><br><br><br><br><br><br>
+	</body>
+</html>  <!-- html 닫음 -->
