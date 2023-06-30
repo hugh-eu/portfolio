@@ -3,7 +3,7 @@
   ![header](https://capsule-render.vercel.app/api?type=slice&color=0:ffffff,100:A9E2F3&height=150&section=header&text=Hugh's&fontSize=30&animation=fadeIn&fontAlign=90&fontColor=ffffff)
 
   <br><br>
-  <div align="left">
+  <div style="text-align: left">
   ### **│ Portfolio**
   </div>
   [PDF 열기](https://github.com/hugh-eu/portfolio/blob/main/PORTFOLIO_HSPARK.pdf)
