@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    width: 100%;
+}
+
+.wrap_header {
+    width: 60%;
+    height: 100px;
+    line-height: 100px;
+    margin: 10px auto;
+    background-color: #4dd3ff;
+    color: #fff;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bolder;
+}
+
+nav {
+    width: 100%;
+}
+
+.wrap_nav {
+    width: 60%;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.wrap_nav a {
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bolder;
+    color: #000;
+}
+
+.wrap_nav a:hover {
+    color: rgb(132, 132, 132);
+}
+
+article {
+    width: 100%;
+}
+
+.wrap_article {
+    width: 60%;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.graph{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.log {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.log table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.log table tr td {
+    border: 1px solid black;
+    text-align: center;
+    font-size: .9em;
+}
+
+.log table tr:first-child td {
+    font-size: 1em;
+    font-weight: bolder;
+}
+
+.log table tr td:first-child {
+    width: 20%;
+}
+
+.log table tr td:last-child {
+    width: 60%;
+}
+
+footer {
+    width: 100%;
+}
+
+.wrap_footer {
+    width: 60%;
+    line-height: 50px;
+    margin: 20px auto;
+    text-align: center;
+    font-size: .8em;
+}

@@ -1,0 +1,860 @@
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script th:src="${mapAddress}"></script>
+
+<script th:inline="javascript">
+
+var map;
+var slide
+
+function sleep(ms) {
+	
+	return new Promise((r) => setTimeout(r, ms));
+	
+}
+
+function alertPopup(str) {
+	$("#alertText").text(str);
+	$("#alert").show();
+	$("#alert").fadeOut(2000);
+
+}
+
+function confirmSession(){
+	let tripistVo = [[${session.tripistVo}]];
+	
+	if (tripistVo == null) {
+		alertPopup("Please log in.");
+		
+		sleep(2000)
+			.then(() => $(location).attr("href", ""));
+		
+	}
+	
+}
+
+function getMarkerInfo(m_no) {
+	$.ajax({
+		url : "/getMarkerInfo",
+		type : "POST",
+		data : JSON.stringify({
+			"m_no": m_no
+
+		}),
+		contentType : "application/json",
+		success : function(result) {
+			if (result != "") {
+				let imgNames = result.m_img_name;
+
+				$("#markerInfoImgs").empty();
+				
+				if (imgNames != "") {
+					for (let i = 0; i < imgNames.split("\t").length; i++) {
+						$("#markerInfoImgs").append(
+							"<li id='markerInfoImg'><img src='http://43.200.17.191/imgTripist/" + imgNames.split("\t")[i] + "'></li>"
+
+						);
+					}
+				} else {
+					$("#markerInfoImgs").append(
+						"<li id='noImg'>No Image.</li>"
+
+					);
+				}
+
+				$("#markerInfoImgs").css("width", "calc(25vw * ".concat(imgNames.split("\t").length).concat(")"));
+				$("#markerInfoImgs").css("transform", "translateX(0)");
+
+				clearInterval(slide);
+
+				let i = 0;
+				slide = setInterval(function() {
+					$("#markerInfoImgs").css("transition", "0.5s");
+					$("#markerInfoImgs").css("transform", "translateX(-" + (25 * (i + 1)) + "vw)");
+
+					i++;
+
+					if (i == imgNames.split("\t").length) {
+						$("#markerInfoImgs").css("transition", "0s");
+						$("#markerInfoImgs").css("transform", "translateX(0)");
+
+						i = 0;
+
+					}
+				}, 3000);
+
+				$("#markerInfoMno").val(result.m_no);
+				$("#markerInfoLocation").val(result.m_location);
+				$("#markerInfoPeriod").val(result.m_period);
+				$("#markerInfoCost").val(result.m_cost);
+				$("#markerInfoContents").val(result.m_contents);
+
+				$("#markerInfo").fadeIn(500);
+				
+			} else {
+				alertPopup("Connection error.");
+
+			}
+
+		},
+		error : function(request, status, error){
+			alertPopup("Connection error.");
+
+			console.log("code : " + request.status);
+			console.log("message : " + request.responseText);
+			console.log("error : " + error);
+
+		}
+	});
+}
+
+function addMarker() {
+	$(".listElement").mouseover(function() {
+		confirmSession();
+		
+		let latlng = {
+			lat: $(this).data("lat"),
+			lng: $(this).data("lng")
+
+		}
+
+		map.panTo(latlng);
+
+	});
+
+	$(".listElement").click(function() {
+		confirmSession();
+		
+		let latlng = {
+			lat: $(this).data("lat"),
+			lng: $(this).data("lng")
+
+		}
+
+		map.panTo(latlng);
+		map.setZoom(15);
+
+		let m_no = $(this).data("m_no")
+		getMarkerInfo(m_no);
+
+	});
+
+}
+
+function getMarkerList() {
+	confirmSession();
+
+	let tripistVo = [[${session.tripistVo}]];
+
+	$.ajax({
+		url : "/getMarkerList",
+		type : "POST",
+		data : JSON.stringify({
+			"u_no": tripistVo.u_no
+
+		}),
+		contentType : "application/json",
+		success : function(result) {
+			let latlng;
+			let htmlStr = "";
+			for (let i = 0; i < result.length; i++) {
+				latlng = {
+					lat: parseFloat(result[i].m_lat),
+					lng: parseFloat(result[i].m_lng)
+					
+				}
+
+				let marker = new google.maps.Marker({
+					map: map,
+					position: new google.maps.LatLng(latlng),
+					title: result[i].m_location
+
+				});
+
+				marker.addListener("click", () => {
+					confirmSession();
+					
+					map.panTo(marker.getPosition());
+					map.setZoom(15);
+
+					let m_no = result[i].m_no;
+					getMarkerInfo(m_no);
+
+				});
+
+				htmlStr += "<tr>";
+				htmlStr += "<td>";
+				htmlStr += "<button class='listElement' data-m_no='" + result[i].m_no + "' data-lat='" + result[i].m_lat + "' data-lng='" + result[i].m_lng + "'>";
+				htmlStr +=	result[i].m_location + "&nbsp;&nbsp;" + result[i].m_period;
+				htmlStr += "</button>";
+				htmlStr += "</td>"
+				htmlStr += "</tr>"
+				
+				if (i == result.length - 1) {
+					map.panTo(latlng);
+					
+				}
+				
+			}
+
+			$("#listTable").html(htmlStr)
+			
+			addMarker();
+
+		},
+		error : function(request, status, error){
+			alertPopup("Connection error.");
+			
+			console.log("code : " + request.status);
+			console.log("message : " + request.responseText);
+			console.log("error : " + error);
+
+		}
+	});
+
+}
+
+function loadMap() {
+	map = new google.maps.Map(
+		document.getElementById("map"), {
+			center: new google.maps.LatLng(37.4601908, 126.4406957),
+			zoom: 12
+		}
+		
+	);
+	
+	map.addListener("center_changed", () => {
+		confirmSession();
+		
+		$("#markerInfo").hide();
+		$("#markerInfoImgs").empty();
+		$(".input").val("");
+		
+	});
+
+	map.addListener("click", (e) => {
+		confirmSession();
+
+		let latlng = {
+			lat: e.latLng.lat(),
+			lng: e.latLng.lng()
+
+		}
+		
+		if (map.getZoom() >= 15) {
+			map.panTo(latlng);
+			$("nav").hide();
+			$("#backMarker").fadeIn(500);
+			$("#addMarkerForm").fadeIn(500);
+			$("body").css("overflow", "hidden");
+
+		} else {
+			map.panTo(latlng);
+			map.setZoom(15);
+			
+		}
+		
+	});
+	
+}
+
+function addHeader() {
+	$("#signInId").keydown(function(key) {
+		if (key.keyCode == 13) {
+			$("#signInPw").focus();
+
+		}
+	});
+
+	$("#signInPw").keydown(function(key) {
+		if (key.keyCode == 13) {
+			$("#signInBtn").click();
+
+		}
+	});
+
+	$("#signInBtn").click(function() {
+		let u_id = $("#signInId").val();
+		let u_pw = $("#signInPw").val();
+
+		if (u_id == "") {
+			alertPopup("Please enter your ID.");
+			
+			$("#signInId").focus();
+			
+		} else if (u_pw == "") {
+			alertPopup("Please enter your Password.");
+			
+			$("#signInPw").focus();
+			
+		} else {
+			$.ajax({
+				url : "/confirmSignIn",
+				type : "POST",
+				data : JSON.stringify({
+					"u_id": u_id,
+					"u_pw": u_pw
+					
+				}),
+				contentType : "application/json",
+				success : function(result) {
+					if (result == 1) {
+						alertPopup("Sign in succeed.");
+						
+						sleep(2000)
+							.then(() => $(location).attr("href", ""));
+						
+					} else {
+						alertPopup("Please check your ID and password.");
+
+						$("#signInPw").val("");
+						$("#signInPw").focus();
+						
+					}
+					
+				},
+				error : function(request, status, error){
+					alertPopup("Connection error.");
+					
+					console.log("code : " + request.status);
+					console.log("message : " + request.responseText);
+					console.log("error : " + error);
+	
+				}
+			});
+		}
+	});
+	
+	$("#signUpBtn").click(function() {
+		$("#signIn").hide();
+		$(".input").val("");
+		$("#signUp").fadeIn(500);
+		
+	});
+	
+	$("#signUpId").keydown(function(key) {
+		if (key.keyCode == 13) {
+			$("#signUpPw").focus();
+		}
+	});
+
+	$("#signUpPw").keydown(function(key) {
+		if (key.keyCode == 13) {
+			$("#signUpConfirmPw").focus();
+		}
+	});
+
+	$("#signUpConfirmPw").keydown(function(key) {
+		if (key.keyCode == 13) {
+			$("#signUpEmail").focus();
+		}
+	});
+
+	$("#signUpEmail").keydown(function(key) {
+		if (key.keyCode == 13) {
+			$("#signUpSubmitBtn").click();
+		}
+	});
+
+	$("#signUpSubmitBtn").click(function() {
+		let u_id = $("#signUpId").val();
+		let u_pw = $("#signUpPw").val();
+		let u_confirm_pw = $("#signUpConfirmPw").val();
+		let u_email = $("#signUpEmail").val();
+
+		if (u_id == "") {
+			alertPopup("Please enter new ID.");
+			
+			$("#signUpId").focus();
+			
+		} else if (u_pw == "") {
+			alertPopup("Please enter new Password.");
+			
+			$("#signUpPw").focus();
+			
+		} else if (u_confirm_pw == "") {
+			alertPopup("Please enter Password again to confirm.");
+			
+			$("#signUpConfirmPw").focus();
+			
+		} else if (u_pw != u_confirm_pw) {
+			alertPopup("Please check password.");
+			
+			$("#signUpPw").val("");
+			$("#signUpConfirmPw").val("");
+			$("#signUpPw").focus();
+			
+		} else if (u_email == "") {
+			alertPopup("Please enter your Email");
+			
+			$("#signUpEmail").focus();
+
+		} else {
+			$.ajax({
+				url : "/confirmSignUp",
+				type : "POST",
+				data : JSON.stringify({
+					"u_id": u_id,
+					"u_pw": u_pw,
+					"u_email": u_email
+					
+				}),
+				contentType : "application/json",
+				success : function(result) {
+					if (result == 1) {
+						alertPopup("Sign up succeed.");
+
+						$("#signUp").hide();
+						$("#signIn").fadeIn(500);
+						
+					} else if (result == 0) {
+						alertPopup("Sign up failed.");
+						
+					} else {
+						alertPopup("This is a duplicate ID.");
+						
+					}
+					
+				},
+				error : function(request, status, error){
+					alertPopup("Connection error.");
+					
+					console.log("code : " + request.status);
+					console.log("message : " + request.responseText);
+					console.log("error : " + error);
+	
+				}
+			});
+		}
+	});
+	
+	$("#signUpCancelBtn").click(function() {
+		$("#signUp").hide();
+		$(".input").val("");
+		$("#signIn").fadeIn(500);
+		
+	});
+	
+}
+
+function addNav() {
+	$("#openNav").click(function() {
+		confirmSession();
+		
+		$("nav").css({"transition": ".5s", "transform": "translateX(-35vw)"});
+		$("#openNav").hide();
+		$("#foldNav").fadeIn(500);
+		
+	});
+	
+	$("#foldNav").click(function() {
+		confirmSession();
+		
+		$("nav").css({"transition": ".5s", "transform": "translateX(0)"});
+		$("#foldNav").hide();
+		$("#openNav").fadeIn(500);
+		
+	});
+	
+	$("#showId").click(function() {
+		confirmSession();
+
+		let tripistVo = [[${session.tripistVo}]];
+
+		$("#tripList").hide();
+		$("#myPageId").val(tripistVo.u_id);
+		$("#myPageEmail").val(tripistVo.u_email);
+		
+		
+		$("#myPage").fadeIn(500);
+		
+	});
+	
+	$("#myPageModifyBtn").click(function() {
+		confirmSession();
+
+		let tripistVo = [[${session.tripistVo}]]
+		let u_no = tripistVo.u_no;
+		let u_id = $("#myPageId").val();
+		let u_pw = $("#myPagePw").val();
+		let u_new_pw = $("#myPageNewPw").val();
+		let u_confirm_new_pw = $("#myPageNewConfirmPw").val();
+		let u_email = $("#myPageEmail").val();
+
+		if (u_pw == "") {
+			alertPopup("Please enter your Password.");
+			
+			$("#myPagePw").focus();
+			
+		} else if (u_new_pw != u_confirm_new_pw) {
+			alertPopup("Please check new password.");
+			
+			$("#myPageNewPw").val("");
+			$("#myPageNewConfirmPw").val("");
+			$("#myPageNewPw").focus();
+
+		} else if (u_email == "") {
+			alertPopup("Please enter your Email");
+			
+			$("#myPageEmail").focus();
+
+		} else {
+			$.ajax({
+				url : "/modifyMyInfo",
+				type : "POST",
+				data : JSON.stringify({
+					"u_no": u_no,
+					"u_id": u_id,
+					"u_pw": u_pw,
+					"u_new_pw": u_new_pw,
+					"u_email": u_email
+					
+				}),
+				contentType : "application/json",
+				success : function(result) {
+					if (result == 1) {
+						alertPopup("Modify succeed.");
+
+						sleep(2000)
+							.then(() => $(location).attr("href", ""));
+
+					} else if (result == 0) {
+						alertPopup("Modify failed.");
+
+					} else {
+						alertPopup("Please enter the correct password.");
+
+					}
+
+				},
+				error : function(request, status, error){
+					alertPopup("Connection error.");
+					
+					console.log("code : " + request.status);
+					console.log("message : " + request.responseText);
+					console.log("error : " + error);
+	
+				}
+			});
+		}
+
+	});
+
+	$("#myPageWithdrawalBtn").click(function() {
+		confirmSession();
+
+		let tripistVo = [[${session.tripistVo}]];
+		let u_no = tripistVo.u_no;
+		let u_id = $("#myPageId").val();
+		let u_pw = $("#myPagePw").val();
+
+		if (u_pw == "") {
+			alertPopup("Please enter your Password.");
+			
+			$("#myPagePw").focus();
+			
+		} else {
+			if (confirm("Are you sure you want to withdraw?")) {
+				$.ajax({
+					url : "/deleteAccount",
+					type : "POST",
+					data : JSON.stringify({
+						"u_no": u_no,
+						"u_id": u_id,
+						"u_pw": u_pw
+						
+					}),
+					contentType : "application/json",
+					success : function(result) {
+						if (result == 1) {
+							alertPopup("Withdrawal succeed.");
+
+							sleep(2000)
+								.then(() => $(location).attr("href", ""));
+
+						} else if (result == 0) {
+							alertPopup("Withdrawal failed.");
+
+						} else {
+							alertPopup("Please enter the correct password.");
+
+						}
+
+					},
+					error : function(request, status, error){
+						alertPopup("Connection error.");
+						
+						console.log("code : " + request.status);
+						console.log("message : " + request.responseText);
+						console.log("error : " + error);
+
+					}
+				});
+			}
+		}
+	});
+
+	$("#myPageCancelBtn").click(function() {
+		confirmSession();
+
+		$("#myPage").hide();
+		$(".input").val("")
+		$("#tripList").fadeIn(500);
+		
+	});
+	
+	$("#signOutBtn").click(function() {
+		confirmSession();
+		
+		if (confirm("Are you sure you want to signout?")) {
+			$(location).attr("href", "/signOut");
+			
+		}
+	});
+	
+}
+
+function addArticle() {
+	$("#addMarkerSubmitBtn").click(function() {
+		confirmSession();
+		
+		let tripistVo = [[${session.tripistVo}]]
+		let u_no = tripistVo.u_no;
+		let m_lat = map.getCenter().lat();
+		let m_lng = map.getCenter().lng();
+		let m_location = $("#addMarkerLocation").val();
+		let m_period = $("#addMarkerPeriod").val();
+		let m_cost = $("#addMarkerCost").val();
+		let m_contents = $("#addMarkerContents").val();
+
+		if (m_location == "") {
+			alertPopup("Please enter your trip location.");
+			
+			$("#addMarkerLocation").focus();
+
+		} else if (m_period == "") {
+			alertPopup("Please enter your trip period.");
+			
+			$("#addMarkerPeriod").focus();
+
+		} else {
+			let formData = new FormData();
+
+			let data = {
+					"u_no": u_no,
+					"m_lat": m_lat,
+					"m_lng": m_lng,
+					"m_location": m_location,
+					"m_period": m_period,
+					"m_cost": m_cost,
+					"m_contents": m_contents
+					
+			};
+			formData.append("tripistVo", new Blob([JSON.stringify(data)], {type: "application/json"}));
+			
+			let addMarkerImg = $("#addMarkerImg");
+
+			let cntImgs = 0;
+			for (let i = 0; i < addMarkerImg.length; i++) {
+				for (let j = 0; j < addMarkerImg[i].files.length; j++) {
+					if (addMarkerImg[i].files[j]["type"].split("/")[0] != "image") {
+						alertPopup("Only image files can be uploaded.");
+						
+						return;
+						
+					}
+					cntImgs++;
+					if (cntImgs > 10) {
+						alertPopup("Up to 10 images can be uploaded.");
+						
+						return;
+						
+					}
+					
+					formData.append("file", addMarkerImg[i].files[j]);
+					
+				}
+			}
+
+			$.ajax({
+				url : "/insertMarkerInfo",
+				type : "POST",
+				data : formData,
+				contentType : false,
+				processData : false,
+				enctype : "multipart/form-data",
+				success : function(result) {
+					if (result == 1) {
+						alertPopup("Add succeed.");
+
+						sleep(2000)
+							.then(() => $(location).attr("href", ""));
+						
+					} else {
+						alertPopup("Add failed.");
+						
+					}
+					
+				},
+				error : function(request, status, error){
+					alertPopup("Connection error.");
+					
+					console.log("code : " + request.status);
+					console.log("message : " + request.responseText);
+					console.log("error : " + error);
+
+				}
+			});
+		}
+	});
+
+	$("#addMarkerCancelBtn").click(function() {
+		confirmSession();
+
+		$("#addMarkerForm").hide();
+		$("#backMarker").hide();
+		$(".input").val("");
+		$("body").css("overflow", "auto");
+		$("nav").fadeIn(500);
+		
+	});
+
+	$("#markerInfoModifyBtn").click(function() {
+		confirmSession();
+
+		if (confirm("Are you sure you want to modify?")) {
+			let m_no = $("#markerInfoMno").val();
+			let m_location = $("#markerInfoLocation").val();
+			let m_period = $("#markerInfoPeriod").val();
+			let m_cost = $("#markerInfoCost").val();
+			let m_contents = $("#markerInfoContents").val();
+
+			if (m_location == "") {
+				alertPopup("Please enter your trip location.");
+				
+				$("#markerInfoLocation").focus();
+
+			} else if (m_period == "") {
+				alertPopup("Please enter your trip period.");
+				
+				$("#markerInfoPeriod").focus();
+
+			} else {
+				$.ajax({
+					url : "/modifyMarkerInfo",
+					type : "POST",
+					data : JSON.stringify({
+						"m_no": m_no,
+						"m_location": m_location,
+						"m_period": m_period,
+						"m_cost": m_cost,
+						"m_contents": m_contents
+						
+					}),
+					contentType : "application/json",
+					success : function(result) {
+						if (result == 1) {
+							alertPopup("Modify succeed.");
+
+							sleep(2000)
+								.then(() => $(location).attr("href", ""));
+							
+						} else {
+							alertPopup("Modify failed.");
+							
+						}
+						
+					},
+					error : function(request, status, error){
+						alertPopup("Connection error.");
+						
+						console.log("code : " + request.status);
+						console.log("message : " + request.responseText);
+						console.log("error : " + error);
+
+					}
+				});
+			}
+		}
+	});
+
+	$("#markerInfoDeleteBtn").click(function() {
+		confirmSession();
+
+		if (confirm("Are you sure you want to delete?")) {
+			let m_no = $("#markerInfoMno").val();
+
+			$.ajax({
+				url : "/deleteMarkerInfo",
+				type : "POST",
+				data : JSON.stringify({
+					"m_no": m_no
+					
+				}),
+				contentType : "application/json",
+				success : function(result) {
+					if (result == 1) {
+						alertPopup("Delete succeed.");
+
+						sleep(2000)
+							.then(() => $(location).attr("href", ""));
+						
+					} else {
+						alertPopup("Delete failed.");
+						
+					}
+					
+				},
+				error : function(request, status, error){
+					alertPopup("Connection error.");
+					
+					console.log("code : " + request.status);
+					console.log("message : " + request.responseText);
+					console.log("error : " + error);
+
+				}
+			});
+
+		}
+
+	});
+
+	$("#markerInfoCancelBtn").click(function() {
+		confirmSession();
+
+		$("#markerInfo").hide();
+		$("#markerInfoImgs").empty();
+		$(".input").val("");
+		
+	});
+
+}
+
+
+$(function() {
+	let tripistVo = [[${session.tripistVo}]];
+	
+	if (tripistVo == null) {
+		loadMap();
+		addHeader();
+		
+		sleep(500)
+		.then(() => $("body").css("overflow", "hidden"))
+		.then(() => $("#backSign").fadeIn(500))
+		.then(() => $("#signIn").fadeIn(500));
+		
+	} else {
+		loadMap();
+		addHeader();
+		addNav();
+		addArticle();
+		getMarkerList();
+		
+		sleep(500)
+		.then(() => $("nav").fadeIn(500));
+		
+	}
+
+})
+
+</script>
